@@ -1,15 +1,14 @@
 spring:
-#  profiles:
-#    active: native
   cloud:
     config:
       server:
         encrypt.enabled: false
         git:
           uri: https://lab.ssafy.com/gkswogml23/springconfig.git
+          search-paths : testservice
           timeout: 10
-          username: gkswogml23
-          password: ENC(qeanC1CyU62L1ppJWR16Ikdkjur7uNg6) # 추후 환경변수로 변환
+          username: ENC(uhAztr7N3t9QwLq63pJ2EPJt3naB+wpG)
+          password: ENC(qeanC1CyU62L1ppJWR16Ikdkjur7uNg6)
           skip-ssl-validation: true
 
 jasypt: # 실행 시 옵션으로 줘야함 -Djasypt.encryptor.password=wogml23
