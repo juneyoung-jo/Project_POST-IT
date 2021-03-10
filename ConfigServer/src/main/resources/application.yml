@@ -8,4 +8,11 @@ spring:
   cloud:
     config:
       server:
-        native:
+        encrypt.enabled: false
+        git:
+          uri: https://lab.ssafy.com/gkswogml23/springconfig.git
+            timeout: 10
+            username: gkswogml23
+            password: ENC(qeanC1CyU62L1ppJWR16Ikdkjur7uNg6) # 추후 환경변수로 변환
+            skip-ssl-validation: true
+
