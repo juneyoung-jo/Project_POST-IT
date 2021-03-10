@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-config-server'
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.64' // jasypt 관련
     implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.3' //jasypt 관련
+    compile("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
