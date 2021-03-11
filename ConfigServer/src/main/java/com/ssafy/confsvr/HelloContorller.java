@@ -20,8 +20,8 @@ public class HelloContorller {
     public String pwdEncrypt(@RequestBody Map<String, String> pwd){
 //        log.info("### encode : {}", pwd.get("pwd"));
         System.out.println("### encode : " + pwd.get("pwd"));
-        return jasyptStringEncryptor.encrypt(pwd.get("pwd"));
-
+//        return jasyptStringEncryptor.encrypt(pwd.get("pwd"));
+        return passwd;
     }
 
     @GetMapping("/decrypt/{pwd}")
