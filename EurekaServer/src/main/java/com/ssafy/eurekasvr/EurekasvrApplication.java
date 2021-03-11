@@ -11,5 +11,4 @@ public class EurekasvrApplication {
     public static void main(String[] args) {
         SpringApplication.run(EurekasvrApplication.class, args);
     }
-
 }
