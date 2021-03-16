@@ -1,46 +1,43 @@
-# Getting Started with Create React App
+# 리액트 TIL
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[toc]
 
-## Available Scripts
+> 오늘 배운 것들을 공유하기 위한 문서입니다.
 
-In the project directory, you can run:
+## styled-components
 
-### `yarn start`
+### 모달창에 `keyframe` 애니메이션 적용하기
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```react
+...
+// 1. styled-components에서 keyframes라는 속성을 불러와서 사용합니다.
+import styled, { keyframes } from 'styled-components';
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+// 2. styled-components 사용과 동일한 방식으로 생성합니다.
+const fadeIn = keyframes`
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+`;
 
-### `yarn test`
+// 3. 적용합니다. (위의 keyframes를 아래처럼 재사용할 수 있습니다.)
+const BackGround = styled.div`
+  ...
+  animation: ${fadeIn} 0.2s;
+`;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const ModalWrapper = styled.div`
+  ...
+  animation: ${fadeIn} 0.2s;
+`;
+```
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 테마 적용
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

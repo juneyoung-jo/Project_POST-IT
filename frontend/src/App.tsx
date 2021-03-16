@@ -17,11 +17,10 @@ import { ThemeProvider } from '@material-ui/core/styles';
 // components
 import Header from 'components/common/Header';
 import Footer from 'components/common/Footer';
-
-// pages
-const Home = lazy(() => import('pages/Home'));
-const Login = lazy(() => import('pages/Login'));
-const Signup = lazy(() => import('pages/Signup'));
+import Home from 'pages/Home';
+import Login from 'pages/Login';
+import Contents from 'pages/Contents';
+import MyFolder from 'pages/MyFolder';
 
 const IndexRouter: React.FC = (): ReactElement => {
   return (
@@ -33,8 +32,9 @@ const IndexRouter: React.FC = (): ReactElement => {
         <Suspense fallback={<CircularProgress />}>
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/myfolder" exact component={MyFolder} />
+            <Route path="/contents" component={Contents} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
           </Switch>
         </Suspense>
         <Footer />

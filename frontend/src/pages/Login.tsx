@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
 
-const Login = () => {
+function Login() {
   // style
   const Wrapper = styled.main`
     width: 100%;
@@ -39,6 +39,6 @@ const Login = () => {
       </form>
     </Wrapper>
   );
-};
+}
 
 export default Login;

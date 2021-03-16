@@ -94,8 +94,6 @@ const Home = () => {
   const sectionTwo = useRef<HTMLElement | null>(null);
   const sectionThree = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {});
-
   const handleClick = (e: SyntheticEvent) => {
     // console.log(e.currentTarget.parentElement?.clientHeight);
     let sectionHeight = sectionOne.current?.clientHeight;

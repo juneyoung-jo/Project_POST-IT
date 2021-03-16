@@ -3,20 +3,17 @@ import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
     ${reset};
-    *, *:after, *:before {
+    * {
         font-family: 'Noto Sans KR', 'Open Sans', sans-serif;
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
     
     html, body {
         width: 100%;
         height: 100vh;
     }
-
-    body{
-        padding: 0;
-        margin: 0;
-    };
 
     button{
         display: flex;
