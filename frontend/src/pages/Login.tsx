@@ -1,43 +1,53 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
-function Login() {
-  // style
-  const Wrapper = styled.main`
-    width: 100%;
-    height: 100vh;
-  `;
+import GitHub from '@material-ui/icons/GitHub';
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  useEffect(() => {
-    console.log(password);
-  });
+// styles
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log;
-  };
+function Copyright() {
   return (
-    <Wrapper>
-      <form onSubmit={handleSubmit} action="">
-        <label htmlFor="id">아이디</label>
-        <input value={email} onChange={handleChange} name="id" type="text" />
-        <label htmlFor="password">비밀번호</label>
-        <input
-          value={password}
-          onChange={handleChange}
-          name="password"
-          type="password"
-        />
-        <span></span>
-        <button type="submit">Login</button>
-      </form>
-    </Wrapper>
+    <Typography color="primary" align="center">
+      {'Copyright © '}
+      <a color="inherit" href="#">
+        Your Website
+      </a>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+function Login() {
+  return (
+    <Container>
+      <Typography variant="h5" color="primary">
+        로그인
+      </Typography>
+      <Typography color="primary" style={{ marginBottom: '3rem' }}>
+        로그인을 통해 딱 맞는 IT 트렌드 분석 결과를 확인하세요.
+      </Typography>
+      <Button
+        size="large"
+        startIcon={<GitHub />}
+        variant="contained"
+        color="primary"
+      >
+        깃헙 로그인
+      </Button>
+      <Button
+        size="large"
+        startIcon={<GitHub />}
+        variant="contained"
+        color="primary"
+      >
+        깃헙 로그인
+      </Button>
+      <Copyright />
+    </Container>
   );
 }
 

@@ -6,7 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
-
 // theme
 import theme from 'assets/theme/index';
 import { ThemeProvider } from '@material-ui/core/styles';

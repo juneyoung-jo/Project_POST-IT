@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TurnedIn from '@material-ui/icons/TurnedIn';
 import { Modal } from './Modal';
 
-const Wrapper = styled.div`
+import Login from 'pages/Login';
+import { isJsxElement } from 'typescript';
+
+const Wrapper = styled.header`
   top: 0;
   display: flex;
   position: sticky;
@@ -36,16 +39,17 @@ function Header() {
     <Wrapper>
       <div>
         <Link to="/">LOGO</Link>
-        <Link to="/">일일 컨텐츠</Link>
-        <Link to="/">
-          내 스크랩
-          <TurnedIn />
-        </Link>
+        <Link to="/contents">일일 컨텐츠</Link>
+        <Link to="/myfolder">내 스크랩</Link>
       </div>
       <div>
         <Button onClick={openModal}>로그인</Button>
       </div>
-      <Modal showModal={showModal} setShowModal={setShowModal}></Modal>
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        children={<Login />}
+      ></Modal>
     </Wrapper>
   );
 }

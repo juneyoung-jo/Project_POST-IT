@@ -1,21 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  Component,
+  ComponentProps,
+} from 'react';
 import { useSpring, animated } from 'react-spring';
 import styled, { keyframes } from 'styled-components';
 import Close from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-
-function Copyright() {
-  return (
-    <Typography variant="button" color="textPrimary" align="center">
-      {'Copyright © '}
-      <a color="inherit" href="#">
-        Your Website
-      </a>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 // styled-components에서 keyframe 애니메이션을 적용
 const fadeIn = keyframes`
@@ -43,6 +37,7 @@ const BackGround = styled.div`
 const ModalWrapper = styled.div`
   width: 700px;
   height: 500px;
+  padding: 3rem;
   background: #2e2e2e;
   position: relative;
   z-index: 10;
@@ -73,6 +68,7 @@ const CloseButtonWrapper = styled.button`
 interface ModalProps {
   showModal: boolean;
   setShowModal: any;
+  children?: any;
 }
 
 export const Modal: React.FC<ModalProps> = ({
