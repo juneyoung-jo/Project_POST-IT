@@ -19,7 +19,6 @@ const Wrapper = styled.div`
 const CardButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-  }
 `;
 
 function CardButtonGroup() {
