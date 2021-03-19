@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
+      "es6",
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    // https://material-ui.com/guides/typescript/ 를 보고 추가함
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    // -------------------------------------------------------
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -25,3 +31,5 @@
     "src"
   ]
 }
+
+

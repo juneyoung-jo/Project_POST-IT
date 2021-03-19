@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
+
 // theme
 import theme from 'assets/theme/index';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -24,6 +25,7 @@ import MyFolder from 'pages/MyFolder';
 const IndexRouter: React.FC = (): ReactElement => {
   return (
     <ThemeProvider theme={theme}>
+      {/* css 초기화 */}
       <GlobalStyle />
       <BrowserRouter>
         <Header />
