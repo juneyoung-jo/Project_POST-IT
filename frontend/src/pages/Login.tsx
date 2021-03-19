@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import GitHub from '@material-ui/icons/GitHub';
 
 // styles
-
 function Copyright() {
   return (
     <Typography color="primary" align="center">
@@ -24,9 +23,7 @@ function Copyright() {
 function Login() {
   return (
     <Container>
-      <Typography variant="h5" color="primary">
-        로그인
-      </Typography>
+      <Typography variant="h5">로그인</Typography>
       <Typography color="primary" style={{ marginBottom: '3rem' }}>
         로그인을 통해 딱 맞는 IT 트렌드 분석 결과를 확인하세요.
       </Typography>

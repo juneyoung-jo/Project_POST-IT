@@ -74,7 +74,7 @@ interface ModalProps {
 export const Modal: React.FC<ModalProps> = ({
   showModal,
   setShowModal,
-  children,
+  children, // 컴포넌트를 자식으로 넘겨받는다.
 }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 

@@ -38,6 +38,3 @@ const ModalWrapper = styled.div`
 
 
 ## 테마 적용
-
-
-

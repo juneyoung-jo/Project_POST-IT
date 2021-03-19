@@ -42,9 +42,11 @@ function CardButtonGroup() {
 function Contents() {
   return (
     <Wrapper>
+      <Button></Button>
       <Container>
         <Grid container spacing={3}>
           <Grid xs={12} sm={4}>
+            {/* 데이터를 순회하면서 생성 */}
             <Card>
               <img
                 src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
