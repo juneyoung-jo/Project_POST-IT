@@ -13,3 +13,6 @@
 
 ## 아키텍처 구성
 ![KakaoTalk_20210318_164313117](/uploads/91cbd61b6d866eb1af984cc324bb7849/KakaoTalk_20210318_164313117.png)
+
+## 빅데이터 처리 및 머신러닝 모델 흐름도
+![image](/uploads/a533718437f9b76643199b0a22748e0e/image.png)
