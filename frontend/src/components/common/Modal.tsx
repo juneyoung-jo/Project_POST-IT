@@ -1,15 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  Component,
-  ComponentProps,
-} from 'react';
-import { useSpring, animated } from 'react-spring';
+import React, { useEffect, useRef, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Close from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
 
 // styled-components에서 keyframe 애니메이션을 적용
 const fadeIn = keyframes`
@@ -37,18 +28,17 @@ const BackGround = styled.div`
 const ModalWrapper = styled.div`
   width: 700px;
   height: 500px;
-  padding: 3rem;
-  background: #2e2e2e;
+  padding: 2rem;
+  background: ${({ theme }) => theme.colors.first};
   position: relative;
   z-index: 10;
   border-radius: 8px;
   animation: ${fadeIn} 0.2s;
 
-  /* @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     margin: 1rem 1rem;
-    height: 80%;
     width: 100%;
-  } */
+  }
 `;
 
 const CloseButtonWrapper = styled.button`

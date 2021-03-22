@@ -2,13 +2,12 @@ import React, { Component, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import TurnedIn from '@material-ui/icons/TurnedIn';
 import { Modal } from './Modal';
 
 import Login from 'pages/Login';
-import { isJsxElement } from 'typescript';
 
 const Wrapper = styled.header`
+  font-family: 'Noto Sans KR', 'OpenSans', sans-serif;
   top: 0;
   display: flex;
   position: sticky;
@@ -16,7 +15,7 @@ const Wrapper = styled.header`
   height: 48px;
   justify-content: space-between;
   align-items: center;
-  background-color: #2c2c2c;
+  background-color: ${({ theme }) => theme.colors.second};
   z-index: 100;
   a {
     font-size: 16px;

@@ -3,13 +3,26 @@ import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import backgroundimg from 'assets/images/background.jpg';
 
-// components
-
 // styles
 const Wrapper = styled.main`
   height: 600vh;
   overflow-x: hidden;
-  background-color: #222222;
+`;
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: ${({ theme }) => theme.colors.green};
+  font-size: ${({ theme }) => theme.fontSizes.base};
+  border: none;
+  color: #f2f2f2;
+  &:hover {
+    filter: brightness(1.2);
+    transition: 0.2s all;
+  }
 `;
 
 const Main = styled.section`
@@ -116,6 +129,7 @@ const Home = () => {
       <Box></Box>
       <SectionOne ref={sectionOne}>
         <h1>section_1</h1>
+        <Button>+</Button>
       </SectionOne>
       <SectionTwo ref={sectionTwo}>
         <h1>section_2</h1>

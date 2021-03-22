@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": [
-      "es6",
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
     // https://material-ui.com/guides/typescript/ 를 보고 추가함
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -27,9 +22,5 @@
     "jsx": "react-jsx",
     "baseUrl": "src"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src", "fonts"]
 }
-
-
