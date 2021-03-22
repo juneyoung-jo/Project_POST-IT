@@ -1,7 +1,4 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
-
-// #804bd8, #544ad8 (그라디언트)
+import { DefaultTheme } from 'styled-components';
 
 const calcRem = (size: number) => `${size / 16}rem`;
 
@@ -19,6 +16,7 @@ const fontSizes = {
 const colors = {
   first: '#2d2839',
   second: '#312c40',
+  green: '#4dcb99',
   text: {
     first: '#e2e3e6',
     second: '#acabb4',
@@ -29,13 +27,12 @@ const colors = {
     content: '#b6b7b8',
     tag: '#6A59A3',
   },
-  green: '#4dcb99',
 };
 const gradient = {
   main: 'linear-gradient(45deg, #804bd8, #544ad8)',
 };
 
-const theme = {
+const theme: DefaultTheme = {
   fontSizes,
   colors,
   gradient,

@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
-import NotoSansKR from './NotoSansKR.otf';
-import NotoSansKR2 from './NotoSansKR.woff2';
+import NotoSansKR from './NotoSansKR-Bold.otf';
+import NotoSansKR2 from './NotoSansKR-Medium.otf';
 import OpenSans from './OpenSans.ttf';
 import OpenSans2 from './OpenSans.woff2';
 import CircularStd from './CircularStd-Medium.woff2';
@@ -11,9 +11,9 @@ import CircularStd3 from './CircularStd-Medium.ttf';
 export default createGlobalStyle`
     @font-face {
         font-family: 'Noto Sans KR';
-        src: local('Noto Sans KR'),
+        src: local('Noto Sans KR Medium'), local('Noto Sans KR Bold'),
         url(${NotoSansKR}) format('otf'),
-        url(${NotoSansKR2}) format('woff2');
+        url(${NotoSansKR2}) format('otf');
         font-weight: 400;
         font-style: normal;
     }
@@ -33,10 +33,9 @@ export default createGlobalStyle`
         url(${CircularStd3}) format('truetype');
     font-weight: 500;
     font-style: normal;
+
 }
-    *,
-    *::after,
-    *::before {
-        font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
+    * {
+        font-family: 'Circular Std', 'Noto Sans', 'Open Sans', sans-serif;
     }
 `;

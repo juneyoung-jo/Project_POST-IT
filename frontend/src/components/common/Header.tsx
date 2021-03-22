@@ -7,7 +7,7 @@ import { Modal } from './Modal';
 import Login from 'pages/Login';
 
 const Wrapper = styled.header`
-  font-family: 'Noto Sans KR', 'OpenSans', sans-serif;
+  font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
   top: 0;
   display: flex;
   position: sticky;
@@ -17,14 +17,31 @@ const Wrapper = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.second};
   z-index: 100;
-  a {
-    font-size: 16px;
+  .logo {
+    margin: auto 1rem;
+    font-size: 20px;
+    color: ${({ theme }) => theme.colors.text.first};
+  }
+  span {
+    font-size: 14px;
+    font-weight: 700;
     padding: 0 1rem;
-    color: #c2c2c2;
+    color: ${({ theme }) => theme.colors.text.third};
     &:hover {
       transition: all 0.1s ease-in-out;
-      color: #f2f2f2;
+      color: ${({ theme }) => theme.colors.text.first};
     }
+  }
+`;
+
+const LoginButton = styled.button`
+  background: none;
+  border: none;
+  margin: auto 1rem;
+  padding-top: 5px;
+  color: ${({ theme }) => theme.colors.text.second};
+  &:hover {
+    color: ${({ theme }) => theme.colors.text.first};
   }
 `;
 
@@ -37,12 +54,20 @@ function Header() {
   return (
     <Wrapper>
       <div>
-        <Link to="/">LOGO</Link>
-        <Link to="/contents">일일 컨텐츠</Link>
-        <Link to="/myfolder">내 스크랩</Link>
+        <Link className="logo" to="/">
+          POST-IT
+        </Link>
+        <Link to="/contents">
+          <span>일일 컨텐츠</span>
+        </Link>
+        <Link to="/myfolder">
+          <span>내 스크랩</span>
+        </Link>
       </div>
       <div>
-        <Button onClick={openModal}>로그인</Button>
+        <LoginButton onClick={openModal}>
+          <span>로그인</span>
+        </LoginButton>
       </div>
       <Modal
         showModal={showModal}

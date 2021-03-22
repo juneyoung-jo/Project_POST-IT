@@ -3,7 +3,7 @@ import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
     ${reset};
-    * {   
+    * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
         width: 4px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #222222        
+        background-color: #434343;        
     }
     ::-webkit-scrollbar-track {
         background-color: #e2e2e2;

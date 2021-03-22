@@ -9,22 +9,6 @@ const Wrapper = styled.main`
   overflow-x: hidden;
 `;
 
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background: ${({ theme }) => theme.colors.green};
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  border: none;
-  color: #f2f2f2;
-  &:hover {
-    filter: brightness(1.2);
-    transition: 0.2s all;
-  }
-`;
-
 const Main = styled.section`
   top: 0;
   width: 100%;
@@ -129,7 +113,6 @@ const Home = () => {
       <Box></Box>
       <SectionOne ref={sectionOne}>
         <h1>section_1</h1>
-        <Button>+</Button>
       </SectionOne>
       <SectionTwo ref={sectionTwo}>
         <h1>section_2</h1>
