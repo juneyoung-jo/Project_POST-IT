@@ -45,7 +45,7 @@ function Contents() {
       <Button></Button>
       <Container>
         <Grid container spacing={3}>
-          <Grid xs={12} sm={4}>
+          <Grid xs={12} sm={3}>
             {/* 데이터를 순회하면서 생성 */}
             <Card>
               <img
