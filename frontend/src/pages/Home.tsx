@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, SyntheticEvent } from 'react';
+import React, { useRef, SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import backgroundimg from 'assets/images/background.jpg';
 
 // styles
 const Wrapper = styled.main`
@@ -14,7 +13,6 @@ const Main = styled.section`
   width: 100%;
   height: 100vh;
   position: absolute;
-  background: url(${backgroundimg});
   background-repeat: no-repeat;
   background-size: cover;
 `;

@@ -17,7 +17,7 @@ declare module 'styled-components' {
     colors: {
       first: string;
       second: string;
-      green: string;
+      mint: string;
       text: {
         first: string;
         second: string;

@@ -1,7 +1,6 @@
-import React, { Component, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 import { Modal } from './Modal';
 
 import Login from 'pages/Login';
@@ -17,12 +16,12 @@ const Wrapper = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.second};
   z-index: 100;
-  .logo {
+  .header-logo {
     margin: auto 1rem;
     font-size: 20px;
     color: ${({ theme }) => theme.colors.text.first};
   }
-  span {
+  .header-menus {
     font-size: 14px;
     font-weight: 700;
     padding: 0 1rem;
@@ -54,14 +53,14 @@ function Header() {
   return (
     <Wrapper>
       <div>
-        <Link className="logo" to="/">
+        <Link className="header-logo" to="/">
           POST-IT
         </Link>
-        <Link to="/contents">
-          <span>일일 컨텐츠</span>
+        <Link className="header-menus" to="/contents">
+          일일 컨텐츠
         </Link>
-        <Link to="/myfolder">
-          <span>내 스크랩</span>
+        <Link className="header-menus" to="/myfolder">
+          내 스크랩
         </Link>
       </div>
       <div>

@@ -16,7 +16,7 @@ const fontSizes = {
 const colors = {
   first: '#2d2839',
   second: '#312c40',
-  green: '#4dcb99',
+  mint: '#4dcb99',
   text: {
     first: '#e2e3e6',
     second: '#acabb4',
