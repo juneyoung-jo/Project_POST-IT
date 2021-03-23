@@ -1,4 +1,4 @@
-# TIL
+# typescript RCA에 테마 적용하기
 
 [toc]
 
@@ -117,6 +117,3 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
     }
 ```
-
-
-
