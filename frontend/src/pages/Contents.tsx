@@ -42,7 +42,7 @@ function CardButtonGroup() {
 function Contents() {
   return (
     <Wrapper>
-      <Button></Button>
+      <Button />
       <Container>
         <Grid container spacing={3}>
           <Grid xs={12} sm={3}>
