@@ -26,9 +26,9 @@ const IndexRouter: React.FC = (): ReactElement => {
   return (
     <ThemeProvider theme={theme}>
       {/* css 초기화 */}
-      <GlobalStyle />
-      <GlobalFonts />
       <BrowserRouter>
+        <GlobalStyle />
+        <GlobalFonts />
         <Header />
         {/* Suspense는 페이지가 랜더링되기 전 event를 설정합니다. */}
         <Suspense fallback={<CircularProgress />}>
