@@ -28,24 +28,25 @@ public class BlogController {
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> listBlogContents() {
-        log.info("listBlogContents methods start : return List<blog>");
+        log.info("listBlogContents methods Start : return List<BlogDto>");
 
         ResponseEntity<Map<String, Object>> resEntity = null;
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
-            List<BlogDto> data = blogService.listBlogcontents();
+            List<BlogDto> data = blogService.listBlogContents();
             map.put("msg", "success");
             map.put("data", data);
             resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
         } catch (NullPointerException e) {
-            log.info("listBlogContents methods Error : NullPointerError");
+            log.debug("listBlogContents methods Error : NullPointerError");
             map.put("msg", "fail");
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.EXPECTATION_FAILED);
+            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
             e.printStackTrace();
         }
 
+        log.info("listBlogContents methods End");
         return resEntity;
 
     }
