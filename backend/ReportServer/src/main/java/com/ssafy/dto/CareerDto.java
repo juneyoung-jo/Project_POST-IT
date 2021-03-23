@@ -5,11 +5,12 @@ import lombok.Data;
 
 @Schema(description = "채용정보")
 @Data
-public class CareerDto {
+public class CareerDto extends Contents{
 
     private int jobid;
-    private String url;
-    private String title;
-    private int category;
-    private String date;
+//    private String title;
+//    private String url;
+//    private String date;
+//    private int category;
+
 }

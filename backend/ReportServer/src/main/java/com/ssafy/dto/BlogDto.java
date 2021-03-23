@@ -7,15 +7,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Schema(description = "블로그 글 정보")
 @Document(collection = "blog")
 @Data
-public class BlogDto {
+public class BlogDto extends Contents{
 
     private int blogId;
-    private String title;
-    private String url;
     private String contents;
-    private int category;
     private String img;
-    private String date;
+//    private String title;
+//    private String url;
+//    private String date;
+//    private int category;
 
 }
 

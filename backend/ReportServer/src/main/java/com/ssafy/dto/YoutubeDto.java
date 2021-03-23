@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Schema(description = "유튜브정보")
 @Data
-public class YoutubeDto {
+public class YoutubeDto extends Contents{
 
     private int youtubeId;
-    private String title;
-    private String url;
     private String contents;
-    private int category;
-    private String date;
+//    private String title;
+//    private String url;
+//    private String date;
+//    private int category;
 
 }
