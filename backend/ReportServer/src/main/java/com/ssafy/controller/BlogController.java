@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class BlogController {
 
     private final BlogService blogService;
 
-    public BlogController(BlogService blogService){
+    public BlogController(BlogService blogService) {
         this.blogService = blogService;
     }
 
@@ -34,10 +33,18 @@ public class BlogController {
         ResponseEntity<Map<String, Object>> resEntity = null;
         Map<String, Object> map = new HashMap<String, Object>();
 
-        List<BlogDto> data = blogService.listBlogcontents();
-        map.put("msg","success");
-        map.put("data",data);
-        resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        try {
+            List<BlogDto> data = blogService.listBlogcontents();
+            map.put("msg", "success");
+            map.put("data", data);
+            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        } catch (NullPointerException e) {
+            log.info("listBlogContents methods Error : NullPointerError");
+            map.put("msg", "fail");
+            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.EXPECTATION_FAILED);
+            e.printStackTrace();
+        }
 
         return resEntity;
 
