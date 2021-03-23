@@ -20,7 +20,7 @@ const config = {
 const responseGoogle = async (response: any) => {
   console.log(1, response);
   let jwtToken = await Axios.post(
-    'http://j4c102.p.ssafy.io:5555/oauth/jwt/google',
+    'http://i4c103.p.ssafy.io:5555/oauth/jwt/google',
     JSON.stringify(response),
     config,
   );
@@ -38,11 +38,8 @@ function Login() {
       </TitleWrapper>
       <ButtonWrapper>
         <GoogleLogin
-          render={(renderProps) => (
-            <Button
-              onClick={renderProps.onClick}
-              style={{ background: '#fff' }}
-            >
+          render={(props: any) => (
+            <Button onClick={props.onClick} style={{ background: '#fff' }}>
               <img src={google} alt="github image" />
               <span>Google</span>
             </Button>
