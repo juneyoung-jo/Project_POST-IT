@@ -1,6 +1,6 @@
 package com.ssafy.controller;
 
-import com.ssafy.dto.UserInfo;
+import com.ssafy.dto.UserInfoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class mainController {
 
     @GetMapping("/test")
-    public UserInfo test(){
+    public UserInfoDto test(){
         log.info("리포트 api");
-        UserInfo userInfo = new UserInfo();
-        userInfo.setName("young");
-        return userInfo;
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setNickName("young");
+        return userInfoDto;
     }
 }

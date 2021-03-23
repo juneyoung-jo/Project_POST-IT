@@ -19,3 +19,7 @@ springdoc:
   paths-to-match:
     - /api/v1/**
     - /main/**
+    - /blog/**
+    - /youtube/**
+    - /common/**
+    - /job/**
