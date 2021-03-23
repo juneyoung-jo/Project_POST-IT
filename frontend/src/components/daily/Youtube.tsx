@@ -32,7 +32,7 @@ function CardButtonGroup() {
   );
 }
 
-function Blog() {
+function Youtube() {
   return (
     <div>
       <br />
@@ -58,4 +58,4 @@ function Blog() {
   );
 }
 
-export default Blog;
+export default Youtube;

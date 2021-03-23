@@ -41,25 +41,49 @@ const Title = styled.p`
   color: ${({ theme }) => theme.colors.text.first};
 `;
 
-function Section() {
-  return (
-    <Tab>
-      <MyButton onClick={() => this.clickHandler(0)}>개발 블로그</MyButton> <Title> | </Title>
-      <MyButton onClick={() => this.clickHandler(1)}>유튜브 동영상</MyButton> <Title> | </Title>
-      <MyButton onClick={() => this.clickHandler(2)}>채용</MyButton>
-    </Tab>
-  );
-}
-
 function Contents() {
-  const { activate, setActivate } = 
+  const [active, setActivate] = useState(0);
+  const [isBlog, setBlog] = useState(true);
+  const [isYoutube, setYoutube] = useState(false);
+  const [isJob, setJob] = useState(false);
+
+  const clickHandler = (v: number) => {
+    if (v == 0) {
+      setBlog(true);
+      setYoutube(false);
+      setJob(false);
+    } else if (v == 1) {
+      setBlog(false);
+      setYoutube(true);
+      setJob(false);
+    } else {
+      setBlog(false);
+      setYoutube(false);
+      setJob(true);
+    }
+    setActivate(v);
+  };
   return (
     <Wrapper>
       <Container>
-        <Section></Section>
+        <Tab>
+          <MyButton
+            onClick={() => clickHandler(0)}
+            style={{ color: isBlog ? 'red' : 'blue' }}
+          >
+            개발 블로그
+          </MyButton>
+          <Title> | </Title>
+          <MyButton onClick={() => clickHandler(1)}>유튜브 동영상</MyButton>
+          <Title> | </Title>
+          <MyButton onClick={() => clickHandler(2)}>채용</MyButton>
+        </Tab>
         <Title>최신 블로그 게시물</Title>
-        <Blog></Blog>
-        <Youtube></Youtube>
+        {(function () {
+          if (active == 0) return <Blog></Blog>;
+          if (active == 1) return <Youtube></Youtube>;
+          if (active == 2) return <Youtube></Youtube>;
+        })()}
       </Container>
     </Wrapper>
   );

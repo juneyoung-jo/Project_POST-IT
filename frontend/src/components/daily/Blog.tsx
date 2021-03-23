@@ -51,6 +51,19 @@ function Blog() {
               </Grid>
             ))}
           </Grid>
+          <Grid container spacing={3}>
+            {[4, 4, 4].map((value) => (
+              <Grid item xs={12} md={4} sm={6}>
+                <Card>
+                  <img
+                    src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
+                    alt="random image"
+                  />
+                  <CardButtonGroup></CardButtonGroup>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
     </div>
