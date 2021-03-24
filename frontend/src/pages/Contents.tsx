@@ -69,18 +69,35 @@ function Contents() {
         <Tab>
           <MyButton
             onClick={() => clickHandler(0)}
-            style={{ color: isBlog ? 'red' : 'blue' }}
+            style={{ filter: isBlog ? 'brightness(1.25)' : 'brightness(0.75)' }}
           >
             개발 블로그
           </MyButton>
           <Title> | </Title>
-          <MyButton onClick={() => clickHandler(1)}>유튜브 동영상</MyButton>
+          <MyButton
+            onClick={() => clickHandler(1)}
+            style={{
+              filter: isYoutube ? 'brightness(1.25)' : 'brightness(0.75)',
+            }}
+          >
+            유튜브 동영상
+          </MyButton>
           <Title> | </Title>
-          <MyButton onClick={() => clickHandler(2)}>채용</MyButton>
+          <MyButton
+            onClick={() => clickHandler(2)}
+            style={{ filter: isJob ? 'brightness(1.25)' : 'brightness(0.75)' }}
+          >
+            채용
+          </MyButton>
         </Tab>
-        <Title>최신 블로그 게시물</Title>
         {(function () {
-          if (active == 0) return <Blog></Blog>;
+          if (active == 0)
+            return (
+              <div>
+                <Title>최신 블로그 게시물</Title>
+                <Blog></Blog>
+              </div>
+            );
           if (active == 1) return <Youtube></Youtube>;
           if (active == 2) return <Youtube></Youtube>;
         })()}

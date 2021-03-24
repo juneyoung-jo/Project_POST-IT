@@ -36,7 +36,6 @@ function Youtube() {
   return (
     <div>
       <br />
-      <Title>유튭</Title>
       <Grid spacing={3}>
         <Grid item xs={12}>
           <Grid container spacing={3}>
