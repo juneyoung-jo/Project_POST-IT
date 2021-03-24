@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
 function MyFolder() {
-  const Wrapper = styled.div`
-    width: 100%;
-    height: 100vh;
-  `;
-
-  return <Wrapper color="red"></Wrapper>;
+  return (
+    <Wrapper>
+      <div>ddd</div>
+    </Wrapper>
+  );
 }
 
 export default MyFolder;
