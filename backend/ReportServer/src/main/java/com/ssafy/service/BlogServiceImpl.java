@@ -33,7 +33,7 @@ public class BlogServiceImpl implements BlogService {
         return Optional.ofNullable(blogRepository.findAll()).orElseGet(Collections::emptyList)
                 .stream()
                 .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
-                .map(o->Adapter.toBlogResponse(o))
+                .map(o -> Adapter.toBlogResponse(o))
                 .collect(Collectors.toList());
     }
 }

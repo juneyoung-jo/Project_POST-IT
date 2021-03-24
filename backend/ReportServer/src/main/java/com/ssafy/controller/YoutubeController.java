@@ -1,6 +1,7 @@
 package com.ssafy.controller;
 
 import com.ssafy.entity.YoutubeDto;
+import com.ssafy.payload.YoutubeResponse;
 import com.ssafy.service.YoutubeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -32,9 +33,9 @@ public class YoutubeController {
 
         ResponseEntity<Map<String, Object>> resEntity = null;
         Map<String, Object> map = new HashMap<String, Object>();
-
+        List<YoutubeResponse> data = null;
         try {
-            List<YoutubeDto> data = youtubeService.listYoutubeContents();
+            data = youtubeService.listYoutubeContents();
             map.put("msg", "success");
             map.put("data", data);
             resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
