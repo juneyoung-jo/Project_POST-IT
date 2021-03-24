@@ -1,7 +1,6 @@
 import { useRef, SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import Amchart from './AmchartTest';
 
 // styles
 const Wrapper = styled.main`
@@ -112,7 +111,6 @@ const Home = () => {
       <Box />
       <SectionOne ref={sectionOne}>
         <h1>section_1</h1>
-        <Amchart></Amchart>
       </SectionOne>
       <SectionTwo ref={sectionTwo}>
         <h1>section_2</h1>

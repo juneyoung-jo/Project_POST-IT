@@ -1,17 +1,10 @@
 # 차트 정리
 
+> 암차트 사용 예정 (https://www.amcharts.com/demos/)
+
 [toc]
 
-> 암차트 사용할 예정입니다. (https://www.amcharts.com/demos/)
->
-> 1. 최다 키워드(`바 그래프` or `워드 클라우드` or `option`)
-> 2. 키워드 연관성(`네트워크 맵`으로 그려주면 좋을듯 싶습니다)
-> 3. 가장 많이 겪는 에러 TOP3는 그래프 X
->
-> 추가
->
-> - 각 키워드별로 다른 사항도 존재함(언어 - 언어별 라이브러리 순위 등)
-> - typescript 코드 첨부했습니다.(데이터가 어떤식으로 들어가는지 참고하시면 좋을거같아서..)
+## 카테고리 별
 
 ### 바 그래프
 
@@ -165,6 +158,8 @@ series.columns.template.adapter.add("fill", function(fill, target){
 });
 
 categoryAxis.sortBySeries = series;
+
+// 태그 + 형태소 빈도수 기반으로
 chart.data = [
     {
       "network": "Facebook",
@@ -270,7 +265,7 @@ setInterval(function () {
 
 ```
 
-- Force-directed tree (바로 스택오버플로우로 가버리게 링크 걸려있음....wow)
+- Tag cloud (바로 스택오버플로우로 가버리게 링크 걸려있음....wow)
 
 ![image-20210323142451830](차트.assets/image-20210323142451830.png)
 
@@ -294,6 +289,7 @@ let series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
 series.randomness = 0.1;
 series.rotationThreshold = 0.5;
 
+// 태그 빈도수 기반으로(형태소 X)
 series.data = [ {
     "tag": "javascript",
     "count": "1765836"
@@ -626,8 +622,6 @@ series.dataFields.value = "count";
 series.heatRules.push({
  "target": series.labels.template,
  "property": "fill",
- "min": am4core.color("#0000CC"),
- "max": am4core.color("#CC00CC"),
  "dataField": "value"
 });
 
@@ -674,13 +668,15 @@ let networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirected
 
 chart.data = [
   {
-    name: "Core",
+    name: "카테고리",
     children: [
       {
-        name: "First",
+        name: "카테고리_태그", // 카테고리 8~10개
         children: [
-          { name: "A1", value: 100 },
-          { name: "A2", value: 60 }
+          // 형태소 3~5개
+          { name: "태그_형태소_top1", value: 100 },
+          { name: "태그_형태소_top2", value: 60 }
+          { name: "태그_형태소_top3", value: 40 }
         ]
       },
       {
@@ -776,11 +772,14 @@ networkSeries.nodes.template.events.on("out", function(event) {
 })
 ```
 
-### option
+## 공통보고서
+
+### 카테고리 별 비율
 
 - Pictorial Stacked Chart
   - 이미지를 변경할 수 있으면, 개발자를 뜻하는 이모티콘 모양으로 그래프를 제작
   - 기존의 데이터를 활용하면 더욱 다채로운 즐거움을 선사할 수 있을듯
+  - 공통보고서(모든 카테고리별 비율)
 
 ![image-20210323143109117](차트.assets/image-20210323143109117.png)
 
@@ -843,3 +842,10 @@ chart.legend.position = "left";
 chart.legend.valign = "bottom";
 ```
 
+### 최다 VOTE글 3개
+
+> 올림픽 금, 은, 동
+
+### 요즘 뜨는 OS / 에디터
+
+> 바 그래프

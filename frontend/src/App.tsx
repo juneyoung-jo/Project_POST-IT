@@ -18,7 +18,7 @@ import { ThemeProvider } from 'styled-components';
 import Header from 'components/common/Header';
 import Footer from 'components/common/Footer';
 import Home from 'pages/Home';
-import Login from 'pages/Login';
+import ChartTest from 'pages/ChartTest';
 import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
 
@@ -34,9 +34,9 @@ const IndexRouter: React.FC = (): ReactElement => {
         <Suspense fallback={<CircularProgress />}>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/myfolder" exact component={MyFolder} />
+            <Route path="/charttest" exact component={ChartTest} />
             <Route path="/contents" component={Contents} />
-            <Route path="/login" component={Login} />
+            <Route path="/myfolder" exact component={MyFolder} />
           </Switch>
         </Suspense>
         <Footer />
