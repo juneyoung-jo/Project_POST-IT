@@ -3,8 +3,8 @@ spring:
   data:
     mongodb:
       authentication-database: postit
-      username: test
-      password: test
+      username: ssafy103pi
+      password: postit123
       host: j4c103.p.ssafy.io
       port: 27017
       database: postit

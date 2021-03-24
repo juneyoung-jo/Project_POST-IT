@@ -1,7 +1,6 @@
 package com.ssafy.controller;
 
-import com.ssafy.dto.BlogDto;
-import com.ssafy.dto.YoutubeDto;
+import com.ssafy.entity.YoutubeDto;
 import com.ssafy.service.YoutubeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

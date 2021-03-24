@@ -1,9 +1,9 @@
 package com.ssafy.service;
 
-import com.ssafy.dto.BlogDto;
+import com.ssafy.payload.BlogResponse;
 
 import java.util.List;
 
 public interface BlogService {
-    List<BlogDto> listBlogContents();
+    List<BlogResponse> listBlogContents();
 }

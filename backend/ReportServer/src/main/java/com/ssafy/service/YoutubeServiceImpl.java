@@ -1,7 +1,6 @@
 package com.ssafy.service;
 
-import com.ssafy.dto.YoutubeDto;
-import com.ssafy.repository.BlogRepository;
+import com.ssafy.entity.YoutubeDto;
 import com.ssafy.repository.YoutubeRepository;
 import org.springframework.stereotype.Service;
 

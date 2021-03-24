@@ -1,4 +1,4 @@
-package com.ssafy.dto;
+package com.ssafy.entity;
 
 import lombok.Data;
 

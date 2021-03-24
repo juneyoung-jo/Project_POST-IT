@@ -1,6 +1,6 @@
 package com.ssafy.repository;
 
-import com.ssafy.dto.YoutubeDto;
+import com.ssafy.entity.YoutubeDto;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
