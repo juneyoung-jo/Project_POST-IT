@@ -3,6 +3,7 @@ package com.ssafy.controller;
 import com.ssafy.entity.BlogDto;
 import com.ssafy.entity.UserInfoDto;
 import com.ssafy.payload.Adapter;
+import com.ssafy.payload.BlogRequest;
 import com.ssafy.payload.BlogResponse;
 import com.ssafy.service.BlogService;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +51,26 @@ public class BlogController {
     }
 
     @PostMapping
-    public List<Integer> listInterestBlogContents(@RequestBody UserInfoDto category){
-        System.out.println(category.toString());
-        return null;
+    public ResponseEntity<Map<String, Object>> listInterestBlogContents(@RequestBody BlogRequest blogRequest){
+        log.info("listInterestBlogContents methods Start : return List<BlogDto>");
+
+        ResponseEntity<Map<String, Object>> resEntity = null;
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<BlogResponse> data = null;
+        try {
+            data = blogService.listInterestBlogContents(blogRequest);
+            map.put("msg", "success");
+            map.put("data", data);
+            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        } catch (NullPointerException e) {
+            log.debug("listInterestBlogContents methods Error : NullPointerError");
+            map.put("msg", "fail");
+            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+        }
+
+        log.info("listInterestBlogContents methods End");
+        return resEntity;
     }
 }
