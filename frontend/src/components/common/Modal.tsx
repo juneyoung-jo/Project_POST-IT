@@ -15,7 +15,7 @@ const fadeIn = keyframes`
 // styled-components에서 keyframe 애니메이션 사용시, css helper를 사용해주는게 좋다고한다.
 //
 const fadeInRule = css`
-  ${fadeIn} 0.2s;
+  animation: ${fadeIn} 0.2s;
 `;
 
 const BackGround = styled.div`
@@ -28,7 +28,7 @@ const BackGround = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInRule};
+  ${fadeInRule};
 `;
 
 const ModalWrapper = styled.div`
@@ -39,7 +39,7 @@ const ModalWrapper = styled.div`
   position: relative;
   z-index: 10;
   border-radius: 8px;
-  animation: ${fadeIn} 0.2s;
+  ${fadeInRule};
 
   @media screen and (max-width: 768px) {
     margin: 1rem 1rem;
