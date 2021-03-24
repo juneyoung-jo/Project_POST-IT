@@ -16,6 +16,7 @@ export default createGlobalStyle`
         url(${NotoSansKR2}) format('otf');
         font-weight: 400;
         font-style: normal;
+        font-display: fallback;
     }
     @font-face {
         font-family: 'OpenSans';
@@ -24,18 +25,16 @@ export default createGlobalStyle`
         url(${OpenSans2}) format('woff2');
         font-weight: 400;
         font-style: normal;
+        font-display: fallback;
     }
     @font-face {
-    font-family: 'Circular Std';
-    src: local('Circular Std Medium'), local('Circular-Std-Medium'),
-        url(${CircularStd}) format('woff2'),
-        url(${CircularStd2}) format('woff'),
-        url(${CircularStd3}) format('truetype');
-    font-weight: 500;
-    font-style: normal;
-
+        font-family: 'Circular Std';
+        src: local('Circular Std Medium'),
+            url(${CircularStd}) format('woff2'),
+            url(${CircularStd2}) format('woff'),
+            url(${CircularStd3}) format('ttf');
+        font-weight: 500;
+        font-style: normal;
+        font-display: fallback;
 }
-    * {
-        font-family: 'Circular Std', 'Noto Sans', 'Open Sans', sans-serif;
-    }
 `;
