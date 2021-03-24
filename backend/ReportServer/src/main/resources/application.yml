@@ -1,3 +1,14 @@
+#mongodb 설정
+spring:
+  data:
+    mongodb:
+      authentication-database: postit
+      username: test
+      password: test
+      host: j4c103.p.ssafy.io
+      port: 27017
+      database: postit
+
 # openapi 3.0 설정
 springdoc:
   version: '@project.version@'
