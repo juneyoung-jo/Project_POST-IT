@@ -2,11 +2,42 @@ body {
   font-family: arial, helvetica;
 }
 
-h3 {
+.title-1 {
   font-size: 5em;
   text-align: center;
   color: #fff;
   font-weight: 700;
+}
+
+.title-2 {
+  display: block;
+  font-size: 3em;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.title-2-1 {
+  display: inline;
+  font-size: 3em;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.sub-title {
+  font-size: 1.5em;
+  color: #fff;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.sub-content {
+  font-size: 1em;
+  color: #fff;
+  font-weight: 300;
+  margin-top: 20px;
 }
 
 #section1 {
@@ -18,8 +49,9 @@ h3 {
 }
 
 button {
-  padding: 0.93em 1.87em;
-  background: #35495e;
+  /* padding: 0.93em 1.87em; */
+  padding: 0;
+  background: #222222;
   border-radius: 5px;
   border-color: transparent;
   display: block;
@@ -27,4 +59,27 @@ button {
   margin: 0 auto;
   cursor: pointer;
   font-size: 0.85em;
+  margin-top: 30px;
+}
+
+.go-to-report {
+  color: #fff;
+  margin-top: 20px;
+  display: block;
+}
+
+.graph {
+  width: 350px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 40px;
+}
+
+.contents {
+  display: inline-block;
+  width: 350px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 40px;  
+  vertical-align: middle;
 }
