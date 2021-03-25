@@ -6,6 +6,11 @@ import Axios from 'axios';
 
 // styles
 import { Wrapper, TitleWrapper, ButtonWrapper } from './Login.styles';
+import {
+  GOOGLE_AUTH_URL,
+  GITHUB_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '../config/config';
 import { Button } from '@material-ui/core';
 import naver from 'assets/images/naver.png';
 import google from 'assets/images/google.png';
@@ -37,7 +42,24 @@ function Login() {
         <p>로그인을 통해 딱 맞는 IT 트렌드 분석 결과를 확인하세요.</p>
       </TitleWrapper>
       <ButtonWrapper>
-        <GoogleLogin
+        <a href={GOOGLE_AUTH_URL}>
+          <button
+            onClick={() => {
+              console.log(GOOGLE_AUTH_URL);
+            }}
+          >
+            <img src={google} alt="Google" /> Log in with Google
+          </button>
+        </a>
+        {/* <a className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
+        <img src={fbLogo} alt="Facebook" /> Log in with Facebook</a> */}
+        <a href={GITHUB_AUTH_URL}>
+          <img src={github} alt="Github" /> Log in with Github
+        </a>
+        <a href={NAVER_AUTH_URL}>
+          <img src={naver} alt="Naver" /> Log in with Naver
+        </a>
+        {/* <GoogleLogin
           render={(props: any) => (
             <Button onClick={props.onClick} style={{ background: '#fff' }}>
               <img src={google} alt="github image" />
@@ -64,7 +86,7 @@ function Login() {
         >
           <img src={naver} alt="github image" />
           <span>Naver</span>
-        </Button>
+        </Button> */}
       </ButtonWrapper>
     </Wrapper>
   );

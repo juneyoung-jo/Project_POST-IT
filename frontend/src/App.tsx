@@ -3,7 +3,7 @@
 import React, { ReactElement, Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import OAuth2RedirectHandler from 'api/oauth2';
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
 import GlobalFonts from 'assets/fonts/fonts';
@@ -37,6 +37,10 @@ const IndexRouter: React.FC = (): ReactElement => {
             <Route path="/charttest" exact component={ChartTest} />
             <Route path="/contents" component={Contents} />
             <Route path="/myfolder" exact component={MyFolder} />
+            <Route
+              path="/oauth2/redirect"
+              component={OAuth2RedirectHandler}
+            ></Route>
           </Switch>
         </Suspense>
         <Footer />
