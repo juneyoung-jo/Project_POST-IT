@@ -17,6 +17,7 @@ import { ThemeProvider } from 'styled-components';
 import Header from 'components/common/Header';
 import Footer from 'components/common/Footer';
 import PrivateRoute from 'components/common/PrivateRoute';
+import NotFound from 'components/common/NotFound';
 
 // pages
 import Home from 'pages/Home';
@@ -78,6 +79,7 @@ const App: React.FC = (): ReactElement => {
               path="/oauth2/redirect"
               component={OAuth2RedirectHandler}
             ></Route>
+            <Route component={NotFound}></Route>
           </Switch>
         </Suspense>
         <Footer />
