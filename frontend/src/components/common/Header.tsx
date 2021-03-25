@@ -33,7 +33,7 @@ const Wrapper = styled.header`
   }
 `;
 
-const LoginButton = styled.button`
+const Button = styled.button`
   background: none;
   border: none;
   margin: auto 1rem;
@@ -61,18 +61,35 @@ function Header(props: PropsType) {
         <Link className="header-logo" to="/">
           POST-IT
         </Link>
+        <Link className="header-menus" to="/charttest">
+          IT 보고서
+        </Link>
         <Link className="header-menus" to="/contents">
           일일 컨텐츠
         </Link>
-        <Link className="header-menus" to="/myfolder">
-          내 스크랩
-        </Link>
+        {props.authenticated ? (
+          <Link className="header-menus" to="/myfolder">
+            내 스크랩
+          </Link>
+        ) : null}
       </div>
-      <div>
-        <LoginButton onClick={openModal}>
-          <span>로그인</span>
-        </LoginButton>
-      </div>
+
+      {props.authenticated ? (
+        <div>
+          <Button onClick={openModal}>
+            <span>로그인</span>
+          </Button>
+        </div>
+      ) : (
+        <div>
+          <Button onClick={openModal}>
+            <span>로그인</span>
+          </Button>
+          {/* <Button onClick={props.onLogout}>
+            <span>로그아웃</span>
+          </Button> */}
+        </div>
+      )}
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
