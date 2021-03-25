@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
-class OAuth2RedirectHandler extends Component {
+class OAuth2RedirectHandler extends Component<{ location?: Location }> {
   getUrlParameter(name: any) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -19,12 +19,12 @@ class OAuth2RedirectHandler extends Component {
 
     if (token) {
       localStorage.setItem('accessToken', token);
-      console.log(token);
+      //   localStorage.setItem('refreshToken', token);
       return (
         <Redirect
           to={{
             pathname: '/',
-            state: { from: location },
+            state: { from: this.props.location },
           }}
         />
       );
@@ -35,7 +35,7 @@ class OAuth2RedirectHandler extends Component {
           to={{
             pathname: '/',
             state: {
-              from: location,
+              from: this.props.location,
               error: error,
             },
           }}
