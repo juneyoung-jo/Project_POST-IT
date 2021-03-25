@@ -486,7 +486,10 @@ function WordCloudChart() {
   }, []);
 
   return (
-    <div id="wordcloud-chart" style={{ width: '100%', height: '500px' }}></div>
+    <div
+      id="wordcloud-chart"
+      style={{ objectFit: 'cover', width: '100%', height: '500px' }}
+    ></div>
   );
 }
 export default WordCloudChart;

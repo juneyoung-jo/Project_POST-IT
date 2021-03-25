@@ -62,6 +62,8 @@ function ImageChart() {
     chart.legend = new am4charts.Legend();
     chart.legend.position = 'left';
     chart.legend.valign = 'bottom';
+    chart.legend.contentWidth = 50;
+
     return () => {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
@@ -69,10 +71,7 @@ function ImageChart() {
   }, []);
 
   return (
-    <div
-      id="image-chart"
-      style={{ position: 'relative', width: '100%', height: '500px' }}
-    ></div>
+    <div id="image-chart" style={{ width: '100%', height: '500px' }}></div>
   );
 }
 export default ImageChart;

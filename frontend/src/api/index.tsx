@@ -1,24 +1,48 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { API_BASE_URL, ACCESS_TOKEN } from 'config/config';
 
-// .env 파일의 변수명은 무조건 `REACT_APP_`으로 생성해야합니다.
+const request = (options: any) => {
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+  });
 
-export function createInstance() {
-  const config: AxiosRequestConfig = {
-    baseURL: process.env.REACT_APP_API_URL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const instance: AxiosInstance = axios.create(config);
-  return instance;
+  if (localStorage.getItem(ACCESS_TOKEN)) {
+    headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem(ACCESS_TOKEN),
+    );
+  }
+
+  const defaults = { headers: headers };
+  options = Object.assign({}, defaults, options);
+
+  return fetch(options.url, options).then((response) =>
+    response.json().then((json) => {
+      if (!response.ok) {
+        return Promise.reject(json);
+      }
+      return json;
+    }),
+  );
+};
+
+export function getCurrentUser() {
+  if (!localStorage.getItem(ACCESS_TOKEN)) {
+    return Promise.reject('No access token set.');
+  }
+
+  return request({
+    url: API_BASE_URL + '/user',
+    method: 'GET',
+  });
 }
 
-export function createFileInstance() {
-  const config: AxiosRequestConfig = {
-    baseURL: process.env.REACT_APP_API_URL,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  };
-  const instance: AxiosInstance = axios.create(config);
-}
+// export function createInstance() {
+//   const config: AxiosRequestConfig = {
+//     baseURL: API_BASE_URL,
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   };
+//   const instance: AxiosInstance = axios.create(config);
+//   return instance;
+// }

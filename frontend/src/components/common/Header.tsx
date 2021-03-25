@@ -44,7 +44,12 @@ const LoginButton = styled.button`
   }
 `;
 
-function Header() {
+interface PropsType {
+  authenticated: boolean;
+  onLogout: any;
+}
+
+function Header(props: PropsType) {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);

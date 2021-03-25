@@ -1,39 +1,13 @@
-import React from 'react';
-
-// lib
-import GoogleLogin from 'react-google-login';
-import Axios from 'axios';
-
-// styles
 import { Wrapper, TitleWrapper, ButtonWrapper } from './Login.styles';
 import {
   GOOGLE_AUTH_URL,
   GITHUB_AUTH_URL,
   NAVER_AUTH_URL,
 } from '../config/config';
-import { Button } from '@material-ui/core';
 import naver from 'assets/images/naver.png';
 import google from 'assets/images/google.png';
 import github from 'assets/images/github2.png';
 
-const config = {
-  headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-  },
-};
-
-const responseGoogle = async (response: any) => {
-  console.log(1, response);
-  let jwtToken = await Axios.post(
-    'http://i4c103.p.ssafy.io:5555/oauth/jwt/google',
-    JSON.stringify(response),
-    config,
-  );
-  if (jwtToken.status === 200) {
-    console.log(2, jwtToken.data);
-    localStorage.setItem('jwtToken', jwtToken.data);
-  }
-};
 function Login() {
   return (
     <Wrapper>

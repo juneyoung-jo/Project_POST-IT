@@ -1,7 +1,3 @@
-export { baseURL };
-
-// Axios 요청을 위한 baseURL
-const baseURL = '';
 export const API_BASE_URL = 'http://localhost:8443';
 
 export const ACCESS_TOKEN = 'accessToken';

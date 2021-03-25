@@ -5,11 +5,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 function MyFolder() {
-  return (
-    <Wrapper>
-      <div>ddd</div>
-    </Wrapper>
-  );
+  return <Wrapper></Wrapper>;
 }
 
 export default MyFolder;
