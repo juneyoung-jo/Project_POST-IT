@@ -35,8 +35,8 @@ function CardButtonGroup() {
 function Job() {
   return (
     <div>
-      <br />
       <Title>채용</Title>
+      <br />
       <Grid spacing={3}>
         <Grid item xs={12}>
           <Grid container spacing={3}>
