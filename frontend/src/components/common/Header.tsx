@@ -62,9 +62,9 @@ function Header() {
         <Link className="header-menus" to="/myfolder">
           내 스크랩
         </Link>
-        <Link className="header-menus" to="/fullpage">
+        {/* <Link className="header-menus" to="/fullpage">
           FullPage
-        </Link>
+        </Link> */}
       </div>
       <div>
         <LoginButton onClick={openModal}>

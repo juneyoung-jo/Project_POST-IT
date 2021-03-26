@@ -21,7 +21,7 @@ import Home from 'pages/Home';
 import ChartTest from 'pages/ChartTest';
 import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
-import FullPage from 'pages/FullPage.js';
+// import FullPage from 'pages/FullPage';
 
 const IndexRouter: React.FC = (): ReactElement => {
   return (
@@ -38,7 +38,7 @@ const IndexRouter: React.FC = (): ReactElement => {
             <Route path="/charttest" exact component={ChartTest} />
             <Route path="/contents" component={Contents} />
             <Route path="/myfolder" exact component={MyFolder} />
-            <Route path="/fullpage" exact component={FullPage} />
+            {/* <Route path="/fullpage" exact component={FullPage} /> */}
           </Switch>
         </Suspense>
         <Footer />
