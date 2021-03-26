@@ -48,52 +48,52 @@ function BarChart() {
 
     chart.data = [
       {
-        network: 'Facebook',
-        MAU: 2255250000,
+        network: 'Javascript',
+        MAU: 2255250,
       },
       {
-        network: 'Google+',
-        MAU: 430000000,
+        network: 'ruby',
+        MAU: 430000,
       },
       {
-        network: 'Instagram',
-        MAU: 1000000000,
+        network: 'C++',
+        MAU: 1000000,
       },
       {
-        network: 'Pinterest',
-        MAU: 246500000,
+        network: 'reactjs',
+        MAU: 246500,
       },
       {
-        network: 'Reddit',
-        MAU: 355000000,
+        network: 'django',
+        MAU: 355000,
       },
       {
-        network: 'TikTok',
-        MAU: 500000000,
+        network: 'mysql',
+        MAU: 500000,
       },
       {
-        network: 'Tumblr',
-        MAU: 624000000,
+        network: 'ios',
+        MAU: 62400,
       },
       {
-        network: 'Twitter',
-        MAU: 329500000,
+        network: 'swift',
+        MAU: 329500,
       },
       {
-        network: 'WeChat',
-        MAU: 1000000000,
+        network: 'android',
+        MAU: 100000,
       },
       {
-        network: 'Weibo',
-        MAU: 431000000,
+        network: 'nodejs',
+        MAU: 431000,
       },
       {
-        network: 'Whatsapp',
-        MAU: 1433333333,
+        network: 'Python',
+        MAU: 1433333,
       },
       {
-        network: 'YouTube',
-        MAU: 1900000000,
+        network: 'Java',
+        MAU: 1900000,
       },
     ];
     return () => {
@@ -102,6 +102,6 @@ function BarChart() {
     };
   }, []);
 
-  return <div id="bar-chart" style={{ width: '100%', height: '500px' }}></div>;
+  return <div id="bar-chart" style={{ width: '93%', height: '500px' }}></div>;
 }
 export default BarChart;

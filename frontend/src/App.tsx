@@ -9,6 +9,7 @@ import { ACCESS_TOKEN } from 'config/config';
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
 import GlobalFonts from 'assets/fonts/fonts';
+
 // theme
 import theme from 'assets/theme/index';
 import { ThemeProvider } from 'styled-components';

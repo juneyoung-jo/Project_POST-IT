@@ -19,31 +19,31 @@ function ImageChart() {
 
     chart.data = [
       {
-        name: 'The first',
+        name: '프로그래밍 언어',
         value: 354,
       },
       {
-        name: 'The second',
+        name: '웹/앱',
         value: 245,
       },
       {
-        name: 'The third',
+        name: '백엔드',
         value: 187,
       },
       {
-        name: 'The fourth',
+        name: '블록체인',
         value: 123,
       },
       {
-        name: 'The fifth',
+        name: '클라우드 / devops',
         value: 87,
       },
       {
-        name: 'The sixth',
+        name: '빅데이터',
         value: 45,
       },
       {
-        name: 'The seventh',
+        name: 'AI',
         value: 23,
       },
     ];
@@ -63,6 +63,12 @@ function ImageChart() {
     chart.legend.position = 'left';
     chart.legend.valign = 'bottom';
     chart.legend.contentWidth = 50;
+
+    let title = chart.titles.create();
+    title.text = '카테고리별 비율';
+    title.fontSize = 20;
+    title.fontWeight = '800';
+    title.marginBottom = 40;
 
     return () => {
       // dispose를 안해주면 warning뜹니다.

@@ -474,10 +474,10 @@ function WordCloudChart() {
     // let subtitle = chart.titles.create();
     // subtitle.text = '(click to open)';
 
-    let title = chart.titles.create();
-    title.text = '스택오버플로우 @별 최다키워드';
-    title.fontSize = 20;
-    title.fontWeight = '800';
+    // let title = chart.titles.create();
+    // title.text = '스택오버플로우 @별 최다키워드';
+    // title.fontSize = 20;
+    // title.fontWeight = '800';
 
     return () => {
       // dispose를 안해주면 warning뜹니다.
