@@ -3,9 +3,9 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4plugins_forceDirected from '@amcharts/amcharts4/plugins/forceDirected';
 
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import am4themes_dark from '@amcharts/amcharts4/themes/dark';
+// import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
-am4core.useTheme(am4themes_dark);
+// am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
 function NetworkMap() {
@@ -73,14 +73,21 @@ function NetworkMap() {
     networkSeries.dataFields.value = 'value';
     networkSeries.dataFields.name = 'name';
     networkSeries.dataFields.children = 'children';
-    networkSeries.nodes.template.tooltipText = '{name}:{value}';
+    networkSeries.nodes.template.tooltipText = '{name}: {value}';
     networkSeries.nodes.template.fillOpacity = 1;
 
     networkSeries.nodes.template.label.text = '{name}';
-    networkSeries.fontSize = 10;
+    networkSeries.fontFamily = 'Circular Std, Noto Sans KR';
 
+    // 노드 사이 거리
+    networkSeries.links.template.distance = 1.5;
     networkSeries.links.template.strokeWidth = 1;
 
+    // 노드 크기 비율
+    networkSeries.minRadius = 8;
+    networkSeries.maxRadius = 65;
+
+    // 연결 링크 두께, 선명도
     let hoverState = networkSeries.links.template.states.create('hover');
     hoverState.properties.strokeWidth = 3;
     hoverState.properties.strokeOpacity = 1;

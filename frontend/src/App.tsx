@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import OAuth2RedirectHandler from 'api/oauth2';
 import { getCurrentUser } from 'api/index';
 import { ACCESS_TOKEN } from 'config/config';
+
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
 import GlobalFonts from 'assets/fonts/fonts';

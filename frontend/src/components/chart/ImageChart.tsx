@@ -51,6 +51,7 @@ function ImageChart() {
     let series = chart.series.push(new am4charts.PictorialStackedSeries());
     series.dataFields.value = 'value';
     series.dataFields.category = 'name';
+
     series.alignLabels = true;
 
     series.maskSprite.path = iconPath;
@@ -58,17 +59,19 @@ function ImageChart() {
     series.ticks.template.locationY = 0.5;
 
     series.labelsContainer.width = 200;
+    series.labelsContainer.fontSize = 14;
+    series.labelsContainer.fontWeight = '700';
+    series.labelsContainer.fontFamily = 'Noto Sans KR';
 
-    chart.legend = new am4charts.Legend();
-    chart.legend.position = 'left';
-    chart.legend.valign = 'bottom';
-    chart.legend.contentWidth = 50;
+    // chart.legend = new am4charts.Legend();
+    // chart.legend.position = 'left';
+    // chart.legend.valign = 'bottom';
+    // chart.legend.contentWidth = 50;
 
     let title = chart.titles.create();
     title.text = '카테고리별 비율';
     title.fontSize = 20;
-    title.fontWeight = '800';
-    title.marginBottom = 40;
+    title.fontWeight = '700';
 
     return () => {
       // dispose를 안해주면 warning뜹니다.

@@ -102,6 +102,6 @@ function BarChart() {
     };
   }, []);
 
-  return <div id="bar-chart" style={{ width: '93%', height: '500px' }}></div>;
+  return <div id="bar-chart" style={{ height: '500px' }}></div>;
 }
 export default BarChart;

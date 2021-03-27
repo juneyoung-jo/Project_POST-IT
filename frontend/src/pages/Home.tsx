@@ -2,6 +2,12 @@ import { useRef, SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 
+const Box1 = styled.div`
+  width: 400px;
+  height: 400px;
+  background-color: red;
+`;
+
 // styles
 const Wrapper = styled.main`
   height: 600vh;
@@ -101,6 +107,8 @@ const Home = () => {
   return (
     <Wrapper ref={wrapper}>
       <Main ref={main}>
+        <Box1></Box1>
+        <Box1></Box1>
         <ButtonWrapper>
           <SlideButton onClick={handleClick}>
             <span>분석결과 확인하기</span>
