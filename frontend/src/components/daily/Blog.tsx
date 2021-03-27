@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Card, Checkbox, Container, Grid } from '@material-ui/core';
 import { TurnedIn, MoreVert } from '@material-ui/icons';
-
+import { SliderSwitch } from './Daily.styles';
 // Base title
 const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.xl};
   color: ${({ theme }) => theme.colors.text.first};
+  display: flex;
+  align-items: center;
 `;
 
 const SubTitle = styled.div`
@@ -29,7 +31,11 @@ function CardButtonGroup() {
           icon={<TurnedIn />}
           checkedIcon={<TurnedIn />}
           checked={checked}
-          onChange={() => setChecked(!checked)}
+          onChange={() => {
+            setChecked(!checked);
+            // 체크 하면 즐겨찾기 api 추가 or 빼기
+            console.log(checked);
+          }}
           color="primary"
         />
       </span>
@@ -38,40 +44,12 @@ function CardButtonGroup() {
 }
 
 function Switch() {
-  const inputSlide = {
-    BoxSizing: 'inherit',
-    font: 'inherit',
-    margin: '0',
-    overflow: 'visible',
-    padding: '0',
-    opacity: '0',
-    height: '0',
-    width: '0',
-    color: 'white',
-  };
-  const slider = {
-    cursor: 'pointer',
-    top: '0',
-    left: '0',
-    right: '0',
-    bottom: '0',
-    backgroundColor: '#ccc',
-    WebkitTransition: '.4s',
-    transition: '.4s',
-  };
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'inline-block',
-        // 한줄 만들기
-        width: '60px',
-        height: '34px',
-      }}
-    >
-      <input type="checkbox" style={inputSlide}></input>
-      <span style={slider}></span>
-    </div>
+    <SliderSwitch>
+      {/* 관심 분야 스위치 온 오프 */}
+      <input type="checkbox" onChange={() => console.log('hello')}></input>
+      <span></span>
+    </SliderSwitch>
   );
 }
 
@@ -89,16 +67,20 @@ function Blog() {
             {[4, 4, 4].map((value) => (
               <Grid item xs={12} md={4} sm={6}>
                 <Card>
-                  <img
-                    src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
-                    alt="random image"
-                  />
+                  <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
+                    <img
+                      src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
+                      alt="random image"
+                    />
+                  </a>
                   <div
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
                     <SubTitle>
-                      Big Data Big DataBig DataBig DataBig DataBig DataBig
-                      DataBig Data
+                      <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
+                        Big Data Big DataBig DataBig DataBig DataBig DataBig
+                        DataBig Data
+                      </a>
                     </SubTitle>
                     <CardButtonGroup></CardButtonGroup>
                   </div>

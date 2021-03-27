@@ -4,7 +4,8 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export function createInstance() {
   const config: AxiosRequestConfig = {
-    baseURL: process.env.REACT_APP_API_URL,
+    // baseURL: process.env.REACT_APP_API_URL,
+    baseURL: 'http://localhost:8080',
     headers: {
       'Content-Type': 'application/json',
     },
