@@ -14,14 +14,7 @@
 #    serviceUrl: # 유레카 클러스터 구축
 #      defaultZone: http://localhost:8761/eureka/
 #
-#zuul:
-#  ignored-services: '*'
-#  prefix: /api
-#  routes:
-#    reportserver: /report/**
-#
-#
-#
+
 #management:
 #  endpoints:
 #    web:
