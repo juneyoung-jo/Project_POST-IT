@@ -5,7 +5,7 @@ spring:
         encrypt.enabled: false
         git:
           uri: https://lab.ssafy.com/gkswogml23/configtest.git
-          search-paths : dirtest, EurekaServer, demo
+          search-paths : dirtest, EurekaServer, demo, zuulserver
           timeout: 10
           username: ENC(uhAztr7N3t9QwLq63pJ2EPJt3naB+wpG)
           password: ENC(qeanC1CyU62L1ppJWR16Ikdkjur7uNg6)
