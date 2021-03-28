@@ -8,6 +8,7 @@ import com.ssafy.authsvr.security.UserPrincipal;
 import com.ssafy.authsvr.security.oauth2.user.OAuth2UserInfo;
 import com.ssafy.authsvr.security.oauth2.user.OAuth2UserInfoFactory;
 import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -28,7 +29,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
-
         try {
             return processOAuth2User(oAuth2UserRequest, oAuth2User);
         } catch (AuthenticationException ex) {
@@ -40,12 +40,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
+        // 이메일 방식으로 찾던 것을 id로 찾기 변경 ( 각 소셜별 이메일 겹칠확률 있음 )
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
-        if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
-            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
+        if(StringUtils.isEmpty(oAuth2UserInfo.getId())) {
+            throw new OAuth2AuthenticationProcessingException("Id not found from OAuth2 provider");
         }
 
-        Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+        Optional<User> userOptional = userRepository.findByProviderId(oAuth2UserInfo.getId()); // providerId로 조
         User user;
         if(userOptional.isPresent()) {
             user = userOptional.get();

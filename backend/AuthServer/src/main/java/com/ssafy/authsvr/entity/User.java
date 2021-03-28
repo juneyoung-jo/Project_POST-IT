@@ -1,96 +1,48 @@
 package com.ssafy.authsvr.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.authsvr.payload.InfoUpdateRequest;
+import lombok.Getter;
+import lombok.Setter;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
-@Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
-})
+
+@Getter
+@Setter
+@Document(collection = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private String name;
+    private ObjectId id;
+
+    private String name; // nickname
 
     private String email;
 
     private String imageUrl;
 
-//    private List<123> blogId; // 유저 1000만 -> 블로그 1개
-//    @Column(nullable = false)
-//    private Boolean emailVerified = false;
-
     @JsonIgnore
     private String password;
 
-    @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
     private String providerId;
 
-    public Long getId() {
-        return id;
-    }
+    private List<Integer> categoryList;
+    private List<Integer> blogList;
+    private List<Integer> youtubeList;
+    private List<Integer> jobList;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-//    public Boolean getEmailVerified() {
-//        return emailVerified;
-//    }
-
-//    public void setEmailVerified(Boolean emailVerified) {
-//        this.emailVerified = emailVerified;
-//    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public AuthProvider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(AuthProvider provider) {
-        this.provider = provider;
-    }
-
-    public String getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
+    public void update(InfoUpdateRequest req){
+        Optional.ofNullable(req.getName()).ifPresent((x)-> this.name = req.getName());
+        Optional.ofNullable(req.getCategoryList()).ifPresent((x)-> this.categoryList = req.getCategoryList());
+        Optional.ofNullable(req.getBlogList()).ifPresent((x)-> this.blogList = req.getBlogList());
+        Optional.ofNullable(req.getYoutubeList()).ifPresent((x)-> this.youtubeList = req.getYoutubeList());
+        Optional.ofNullable(req.getJobList()).ifPresent((x)-> this.jobList = req.getJobList());
     }
 }

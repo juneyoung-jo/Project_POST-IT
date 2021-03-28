@@ -5,6 +5,7 @@ import com.ssafy.authsvr.exception.ResourceNotFoundException;
 import com.ssafy.authsvr.entity.User;
 import com.ssafy.authsvr.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,7 +36,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDetails loadUserById(Long id) {
+    public UserDetails loadUserById(ObjectId id) {
+        System.out.println("id : " + id + " at loadUserbyId");
         User user = userRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("User", "id", id)
         );

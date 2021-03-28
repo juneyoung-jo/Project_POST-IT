@@ -13,7 +13,7 @@ public abstract class OAuth2UserInfo {
         return attributes;
     }
 
-    public abstract String getId();
+    public abstract String getId(); // ProviderId
 
     public abstract String getName();
 

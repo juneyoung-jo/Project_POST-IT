@@ -1,6 +1,9 @@
 package com.ssafy.authsvr.security;
 
 import com.ssafy.authsvr.entity.User;
+import lombok.Getter;
+import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,29 +14,57 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@Getter
+@Setter
 public class UserPrincipal implements OAuth2User, UserDetails {
-    private Long id;
+    private ObjectId id;
+    private String name;
     private String email;
     private String password;
+
+    private List<Integer> blogList;
+    private List<Integer> youtubeList;
+    private List<Integer> jobList;
+    private List<Integer> categoryList;
+
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(ObjectId id, String email, String password, Collection<? extends GrantedAuthority> authorities){
+//                         ,List<Integer> blogList, List<Integer> youtubeList, List<Integer> jobList) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+//        this.blogList = blogList;
+//        this.youtubeList = youtubeList;
+//        this.jobList = jobList;
+    }
+
+    public UserPrincipal(ObjectId id, String name, String email, String password, Collection<? extends GrantedAuthority> authorities
+                         ,List<Integer> blogList, List<Integer> youtubeList, List<Integer> jobList) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+        this.blogList = blogList;
+        this.youtubeList = youtubeList;
+        this.jobList = jobList;
     }
 
     public static UserPrincipal create(User user) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-
         return new UserPrincipal(
                 user.getId(),
+                user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                authorities,
+                user.getBlogList(),
+                user.getYoutubeList(),
+                user.getJobList()
         );
     }
 
@@ -43,7 +74,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return userPrincipal;
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
