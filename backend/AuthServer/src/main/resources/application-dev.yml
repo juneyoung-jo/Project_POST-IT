@@ -70,7 +70,3 @@ app:
       - http://localhost:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
-
-logging:
-  level:
-    root: info
