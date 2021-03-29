@@ -10,6 +10,8 @@ import graph3 from 'assets/images/graph3.png';
 import contents from 'assets/images/contents.png';
 import mycontents from 'assets/images/mycontents.png';
 import styled from 'styled-components';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import { getCurrentUser } from 'api/index';
 
 const Wrapper = styled.div`
   .go-to-report {

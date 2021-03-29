@@ -30,22 +30,40 @@ export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  button {
-    box-sizing: border-box;
+  a {
+    display: flex;
+    align-items: center;
+    margin: 8px auto;
+    padding: 0 1rem;
     width: 240px;
     height: 48px;
-    margin: 8px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-    font-family: 'Circular Std', sans-serif;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    font-family: 'Circular Std', 'Noto Sans KR', sans-serif;
     border-radius: 16px;
-    & img {
-      position: absolute;
+    color: ${({ theme }) => theme.colors.text.first};
+    img {
+      position: relative;
       left: 1.5rem;
       width: 18px;
       height: 18px;
     }
+    span {
+      width: inherit;
+      text-align: center;
+    }
   }
-  button:hover {
+  .btn.google {
+    background-color: #fff;
+    color: #2e2e2e;
+  }
+  .btn.naver {
+    background-color: #19ce60;
+    border: 1px solid #15c654;
+  }
+  .btn.github {
+    background-color: #232d2e;
+  }
+  a:hover {
     transform: scale(1.02);
     transition: 0.2s all;
   }

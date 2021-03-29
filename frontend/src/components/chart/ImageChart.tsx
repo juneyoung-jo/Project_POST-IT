@@ -19,31 +19,31 @@ function ImageChart() {
 
     chart.data = [
       {
-        name: 'The first',
+        name: '프로그래밍 언어',
         value: 354,
       },
       {
-        name: 'The second',
+        name: '웹/앱',
         value: 245,
       },
       {
-        name: 'The third',
+        name: '백엔드',
         value: 187,
       },
       {
-        name: 'The fourth',
+        name: '블록체인',
         value: 123,
       },
       {
-        name: 'The fifth',
+        name: '클라우드 / devops',
         value: 87,
       },
       {
-        name: 'The sixth',
+        name: '빅데이터',
         value: 45,
       },
       {
-        name: 'The seventh',
+        name: 'AI',
         value: 23,
       },
     ];
@@ -51,6 +51,7 @@ function ImageChart() {
     let series = chart.series.push(new am4charts.PictorialStackedSeries());
     series.dataFields.value = 'value';
     series.dataFields.category = 'name';
+
     series.alignLabels = true;
 
     series.maskSprite.path = iconPath;
@@ -58,10 +59,20 @@ function ImageChart() {
     series.ticks.template.locationY = 0.5;
 
     series.labelsContainer.width = 200;
+    series.labelsContainer.fontSize = 14;
+    series.labelsContainer.fontWeight = '700';
+    series.labelsContainer.fontFamily = 'Noto Sans KR';
 
-    chart.legend = new am4charts.Legend();
-    chart.legend.position = 'left';
-    chart.legend.valign = 'bottom';
+    // chart.legend = new am4charts.Legend();
+    // chart.legend.position = 'left';
+    // chart.legend.valign = 'bottom';
+    // chart.legend.contentWidth = 50;
+
+    let title = chart.titles.create();
+    title.text = '카테고리별 비율';
+    title.fontSize = 20;
+    title.fontWeight = '700';
+
     return () => {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
@@ -69,10 +80,7 @@ function ImageChart() {
   }, []);
 
   return (
-    <div
-      id="image-chart"
-      style={{ position: 'relative', width: '100%', height: '500px' }}
-    ></div>
+    <div id="image-chart" style={{ width: '100%', height: '500px' }}></div>
   );
 }
 export default ImageChart;
