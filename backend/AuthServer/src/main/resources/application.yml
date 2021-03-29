@@ -34,7 +34,7 @@ spring:
           google:
             clientId: 8468921618-7nincald8lmi8sse5901lljorqj7i79k.apps.googleusercontent.com
             clientSecret: 2YXhgpguNinN-1CbUSJIxPB-
-            redirectUri: "http://localhost:5555/authserver/oauth2/callback/{registrationId}"
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
@@ -42,7 +42,6 @@ spring:
           naver:
             clientId: T5C4l4_XGy7vi8hIiDyL
             clientSecret: YGFLDz1va1
-#            redirectUri: "http://localhost:5555/api/auth/oauth2/callback/{registrationId}"
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             authorization_grant_type: authorization_code
             scope:
@@ -80,7 +79,7 @@ app:
 
 logging:
   level:
-    root: debug
+    root: INFO
 
 eureka:
   instance:
