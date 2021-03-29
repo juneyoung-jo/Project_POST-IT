@@ -4,11 +4,8 @@ import com.ssafy.authsvr.payload.InfoUpdateRequest;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +15,7 @@ import java.util.Optional;
 @Document(collection = "user")
 public class User {
 
-    private ObjectId id;
+    private String id;
 
     private String name; // nickname
 

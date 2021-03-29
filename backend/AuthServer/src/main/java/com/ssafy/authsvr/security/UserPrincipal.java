@@ -17,7 +17,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class UserPrincipal implements OAuth2User, UserDetails {
-    private ObjectId id;
+    private String id;
     private String name;
     private String email;
     private String password;
@@ -30,7 +30,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    public UserPrincipal(ObjectId id, String email, String password, Collection<? extends GrantedAuthority> authorities){
+    public UserPrincipal(String id, String email, String password, Collection<? extends GrantedAuthority> authorities){
 //                         ,List<Integer> blogList, List<Integer> youtubeList, List<Integer> jobList) {
         this.id = id;
         this.email = email;
@@ -41,7 +41,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 //        this.jobList = jobList;
     }
 
-    public UserPrincipal(ObjectId id, String name, String email, String password, Collection<? extends GrantedAuthority> authorities
+    public UserPrincipal(String id, String name, String email, String password, Collection<? extends GrantedAuthority> authorities
                          ,List<Integer> blogList, List<Integer> youtubeList, List<Integer> jobList) {
         this.id = id;
         this.name = name;
@@ -74,7 +74,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return userPrincipal;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
