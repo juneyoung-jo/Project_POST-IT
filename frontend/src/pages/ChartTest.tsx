@@ -5,6 +5,7 @@ import {
   NetworkMap,
   WordCloudChart,
 } from 'components/chart/ChartWrapper';
+import { Link } from 'react-router-dom';
 
 // styles
 import { Container, Grid } from '@material-ui/core';
@@ -38,15 +39,20 @@ const NavWrapper = styled.nav`
 const NavContainer = styled.div`
   width: 100%;
   height: 100%;
-  color: ${({ theme }) => theme.colors.text.second};
-  .category-1 > a {
+
+  .nav-items > li {
     height: 40px;
-    font-size: ${({ theme }) => theme.fontSizes.lg};
+  }
+  .category-1 > a {
+    color: ${({ theme }) => theme.colors.text.second};
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    height: inherit;
   }
   .category-2 > a {
+    color: ${({ theme }) => theme.colors.text.second};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     height: 32px;
     padding: 4px 2rem 0;
-    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
   .item {
     width: 100%;
@@ -84,7 +90,9 @@ function Sidebar() {
       <NavContainer>
         <ul className="nav-items">
           <li className="category-1">
-            <a className="item">공통 보고서</a>
+            <Link to="/">
+              <span className="item">공통 보고서</span>
+            </Link>
           </li>
           <li className="category-1">
             <a className="item">카테고리 별 보고서</a>
@@ -100,7 +108,6 @@ function Sidebar() {
               </li>
             </ul>
           </li>
-          <li className="category-1"></li>
         </ul>
       </NavContainer>
     </NavWrapper>
@@ -112,11 +119,11 @@ function ChartTest() {
   return (
     <div>
       <Container>
-        <Grid container>
-          <Grid container item xs={12} md={3}>
+        <Grid container spacing={1}>
+          <Grid container item xs={12} md={3} spacing={1}>
             <Sidebar />
           </Grid>
-          <Grid container item xs={12} md={9}>
+          <Grid container item xs={12} md={9} spacing={1}>
             <ContentWrapper>
               <ContentTitle>Title</ContentTitle>
               <Grid item xs={12} spacing={1}>

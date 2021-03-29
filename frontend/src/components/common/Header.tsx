@@ -5,6 +5,8 @@ import { Modal } from './Modal';
 
 import Login from 'pages/Login';
 
+import { getCurrentUser } from 'api/index';
+
 const Wrapper = styled.header`
   font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
   top: 0;
@@ -73,11 +75,27 @@ function Header(props: PropsType) {
           </Link>
         ) : null}
       </div>
-
+      <div>
+        <button
+          onClick={() => {
+            console.log(props.authenticated);
+          }}
+        >
+          Authenticated Check
+        </button>
+        <button
+          onClick={() => {
+            getCurrentUser().then((res) => console.log(res));
+            console.log();
+          }}
+        >
+          Current user response check
+        </button>
+      </div>
       {props.authenticated ? (
         <div>
-          <Button onClick={openModal}>
-            <span>로그인</span>
+          <Button onClick={props.onLogout}>
+            <span>로그아웃</span>
           </Button>
         </div>
       ) : (
@@ -85,9 +103,6 @@ function Header(props: PropsType) {
           <Button onClick={openModal}>
             <span>로그인</span>
           </Button>
-          {/* <Button onClick={props.onLogout}>
-            <span>로그아웃</span>
-          </Button> */}
         </div>
       )}
       <Modal
