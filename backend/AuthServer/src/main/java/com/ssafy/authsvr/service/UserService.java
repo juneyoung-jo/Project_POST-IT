@@ -7,6 +7,6 @@ import org.bson.types.ObjectId;
 
 public interface UserService {
 
-    UserResponse getCurrentUser(ObjectId id);
-    UserResponse updateCurrentUser(ObjectId id, InfoUpdateRequest infoUpdateRequest);
+    User getCurrentUser(ObjectId id);
+    User updateCurrentUser(ObjectId id, InfoUpdateRequest infoUpdateRequest);
 }

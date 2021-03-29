@@ -38,11 +38,12 @@ public class User {
     private List<Integer> youtubeList;
     private List<Integer> jobList;
 
-    public void update(InfoUpdateRequest req){
+    public User update(InfoUpdateRequest req){
         Optional.ofNullable(req.getName()).ifPresent((x)-> this.name = req.getName());
         Optional.ofNullable(req.getCategoryList()).ifPresent((x)-> this.categoryList = req.getCategoryList());
         Optional.ofNullable(req.getBlogList()).ifPresent((x)-> this.blogList = req.getBlogList());
         Optional.ofNullable(req.getYoutubeList()).ifPresent((x)-> this.youtubeList = req.getYoutubeList());
         Optional.ofNullable(req.getJobList()).ifPresent((x)-> this.jobList = req.getJobList());
+        return this;
     }
 }
