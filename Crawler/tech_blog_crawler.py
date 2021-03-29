@@ -26,7 +26,7 @@ client = MongoClient(
 # db
 db = client['postit']
 # 컬렉션
-collection = db['youtube']
+collection = db['blog']
 
 dateMatcher = {
     "Jan": "01",
@@ -64,7 +64,7 @@ def dayFarmat(n):
 data = {}
 # 카카오
 arr = []
-for i in range(1, 5):
+for i in range(1, 4):
     context = ssl._create_unverified_context()
     res = urlopen("https://tech.kakao.com/blog/page/" +
                   str(i)+"/#posts", context=context)
@@ -90,7 +90,7 @@ for i in range(1, 5):
                 #   atag[n-1].get('href') + " " + date_branch[0].text)
         else:
             arr.append({"title": url.text, "url": atag[n-1].get(
-                'href'), "date": date[n-1].text, "image": img[n-1]['src']})
+                'href'), "date": date[n-1].text, "image": img[n-1]['src'], "category": 1})
         n += 1
 
 data["1"] = arr
@@ -115,7 +115,7 @@ for url in urls:
     subdate = dateText[0:dateEnd+5]
     resdate = str(subdate[subdate.find(",")+2:subdate.find(",")+6]) + "." + str(dayFarmat(dateMatcher[subdate[0:3]]))  + "." + str(dayFarmat(subdate[4:subdate.find(",")]))
 
-    arr.append({"title" : url.text, "url" : "http://woowabros.github.io" + atag[n-1].get('href'), "date" : resdate, "image":"https://www.woowahan.com/img/pc/common-logo.png"})
+    arr.append({"title" : url.text, "url" : "http://woowabros.github.io" + atag[n-1].get('href'), "date" : resdate, "image":"https://www.woowahan.com/img/pc/common-logo.png", "category": 2})
     # print(url.text +" "+ "http://woowabros.github.io" + atag[n-1].get('href') +" "+ resdate)
     n += 1
 data["2"] = arr
@@ -155,7 +155,7 @@ for url in urls:
     if tmp[-3:] not in img_attr:
         tmp = "null"
     arr.append(
-        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "image": tmp})
+        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "image": tmp, "category": 3})
     # print(url.text +" "+ atag[n-1].get('href') +" "+ resDate)
     n += 1
 
@@ -175,7 +175,7 @@ n = 1
 for url in urls:
     dateText = date[n-1].text
     resDate = dateText[3:13]
-    arr.append({"title" : url.text, "url" : atag[n-1].get('href'), "date" : '20'+resDate, "image":"https://line.me/static/940874c48d2369be137d812b15491843/f2838/icon-title-pc.png"})
+    arr.append({"title" : url.text, "url" : atag[n-1].get('href'), "date" : '20'+resDate, "image":"https://line.me/static/940874c48d2369be137d812b15491843/f2838/icon-title-pc.png", "category": 4})
     # print(url.text +" "+ atag[n-1].get('href') + " " + resDate)
     n += 1
 
@@ -206,7 +206,7 @@ for url in urls:
     resDate = year + "." + month + "." + day
 
     arr.append(
-        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('src')})
+        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('src'), "category": 5})
     # print(url.text + " " + atag[n-1].get('href') + " " + resDate)
     n += 1
 
@@ -241,19 +241,17 @@ for url in urls:
         year = dateText[dateText.find(",")+2:]
         day = dayFarmat(dateText[dateText.find(',')-2:dateText.find(',')].replace(' ','0'))
     month = dateMatcher[dayFarmat(dateText[0:3])]
-    print(dateText)
-    print(day)
     resDate = year + "." + month + "." + day
-    print(resDate)
 
     arr.append(
-        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('style').split('"')[1]})
+        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('style').split('"')[1], "category": 6})
     # print(url.text + " " + atag[n-1].get('href') + " " + resDate)
     n += 1
 
 data["6"] = arr
+
 # #구글플레이 (최신) (태그정보까지 집어넣을 수 있을거같음)
-# arr = []
+arr = []
 path = ["android-app-development", "game-development"]
 for i in path:
     res = requests.get('https://medium.com/googleplaydev/tagged/' + i)
@@ -279,31 +277,36 @@ for i in path:
         day = dayFarmat(dateText[4:5])
         resDate = year + "." + month + "." + day
 
-        arr.append({"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('src')})
+        arr.append({"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('src'), "category": 7})
 #         # print(url.text + " " + atag[n-1].get('href') + " " + resDate)
         n += 1
 
 data["7"] = arr
 
+
 number = ["1","2","3","4","5","6","7"]
 last_week = (datetime.today() - timedelta(7) )
 
-new_data = {}
+new_data = []
+
+# 기본 데이터 
+# for n in number:
+    # print(data[n])
+    # collection.insert_many(data[n])
+
+# 일주일 갱신 데이터 코드
 for n in number:
-    tmp = []
     for d in data[n]:
         covert_date = datetime.strptime(d["date"], "%Y.%m.%d").date()
         if last_week.date() <= covert_date:
-            tmp.append(d)
-        else:
-            pass
-    new_data[n] = tmp
-# print(new_data)
+            new_data.append(d)
+
+collection.insert_many(new_data)
 
 # 모든 내용 json 파일화
-file = open('result.json', 'w', -1, "utf-8")
-json.dump(data, file, ensure_ascii=False)
-file.close
+# file = open('result.json', 'w', -1, "utf-8")
+# json.dump(data, file, ensure_ascii=False)
+# file.close
 
 # 디비 (json)
 # collection.insert_many(data)
