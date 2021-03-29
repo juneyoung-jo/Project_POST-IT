@@ -9,3 +9,5 @@ function allBlog() {
 function cartegorySearch(category: Array<number>) {
   instance.post('/blog', { category }).then((e) => console.log(e));
 }
+
+export { allBlog , cartegorySearch } 

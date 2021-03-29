@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Button, Card, Checkbox, Container, Grid } from '@material-ui/core';
 import { TurnedIn, MoreVert } from '@material-ui/icons';
 import { SliderSwitch } from './Daily.styles';
+import { allBlog, cartegorySearch } from 'api/daily';
+
 // Base title
 const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.xl};
@@ -46,7 +48,6 @@ function CardButtonGroup() {
 function Switch() {
   return (
     <SliderSwitch>
-      {/* 관심 분야 스위치 온 오프 */}
       <input type="checkbox" onChange={() => console.log('hello')}></input>
       <span></span>
     </SliderSwitch>
