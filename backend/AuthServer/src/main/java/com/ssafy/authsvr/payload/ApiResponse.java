@@ -1,27 +1,15 @@
 package com.ssafy.authsvr.payload;
 
-public class ApiResponse {
-    private boolean success;
-    private String message;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-    public ApiResponse(boolean success, String message) {
-        this.success = success;
-        this.message = message;
-    }
+@Getter
+@Setter
+@RequiredArgsConstructor
+public abstract class ApiResponse<T> {
+    @NonNull private String msg;
+    @NonNull private T data;
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

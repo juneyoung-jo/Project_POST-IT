@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: authserver
+
   data:
     mongodb:
       host: j4c103.p.ssafy.io
@@ -68,7 +69,9 @@ app:
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
-      - http://j4c103.p.ssafy.io:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
 
+logging:
+  level:
+    root: info
