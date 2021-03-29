@@ -7,6 +7,6 @@ import java.util.List;
 @Data
 public class YoutubeRequest {
 
-    List<Integer> category;
+    List<String> id;
 
 }

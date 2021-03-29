@@ -1,11 +1,12 @@
 package com.ssafy.controller;
 
-import com.ssafy.entity.BlogDto;
-import com.ssafy.entity.UserInfoDto;
-import com.ssafy.payload.Adapter;
+import com.ssafy.entity.Blog;
 import com.ssafy.payload.BlogRequest;
 import com.ssafy.payload.BlogResponse;
+import com.ssafy.payload.BlogResponseList;
+import com.ssafy.payload.YoutubeResponseList;
 import com.ssafy.service.BlogService;
+import com.ssafy.util.Adapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,52 +26,32 @@ public class BlogController {
         this.blogService = blogService;
     }
 
+    // feat 1. 블로그 글 컨텐츠 전체 리턴
     @GetMapping
-    public ResponseEntity<Map<String, Object>> listBlogContents() {
+    public ResponseEntity<?> listBlogContents() {
         log.info("listBlogContents methods Start : return List<BlogDto>");
 
-        ResponseEntity<Map<String, Object>> resEntity = null;
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<BlogResponse> data = null;
-        try {
-            data = blogService.listBlogContents();
-            map.put("msg", "success");
-            map.put("data", data);
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        List<Blog> data = blogService.listBlogContents();
 
-        } catch (NullPointerException e) {
-            log.debug("listBlogContents methods Error : NullPointerError");
-            map.put("msg", "fail");
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
-        }
+        BlogResponseList response = Adapter.toBlogResponseList(data);
 
         log.info("listBlogContents methods End");
-        return resEntity;
+        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
 
     }
 
+    // feat 2. 북마크 한 블로그 글 컨텐츠 전체 리턴
     @PostMapping
-    public ResponseEntity<Map<String, Object>> listInterestBlogContents(@RequestBody BlogRequest blogRequest){
+    public ResponseEntity<?> listInterestBlogContents(@RequestBody BlogRequest blogRequest) {
         log.info("listInterestBlogContents methods Start : return List<BlogDto>");
 
-        ResponseEntity<Map<String, Object>> resEntity = null;
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<BlogResponse> data = null;
-        try {
-            data = blogService.listInterestBlogContents(blogRequest);
-            map.put("msg", "success");
-            map.put("data", data);
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        List<Blog> data = blogService.listInterestBlogContents(blogRequest);
 
-        } catch (NullPointerException e) {
-            log.debug("listInterestBlogContents methods Error : NullPointerError");
-            map.put("msg", "fail");
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
-        }
+        BlogResponseList response = Adapter.toBlogResponseList(data);
 
         log.info("listInterestBlogContents methods End");
-        return resEntity;
+        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
     }
 }

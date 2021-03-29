@@ -1,13 +1,13 @@
 package com.ssafy.payload;
 
-import com.ssafy.entity.BlogDto;
+import com.ssafy.entity.Blog;
 import lombok.Builder;
 
-public class BlogResponse extends ApiResponse<BlogDto> {
+public class BlogResponse extends ApiResponse<Blog> {
 
     @Builder
-    public BlogResponse(final BlogDto blogDto) {
-        super(blogDto);
+    public BlogResponse(final Blog blog,final String msg) {
+        super(blog,msg);
     }
 
 }
