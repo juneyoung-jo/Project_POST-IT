@@ -23,7 +23,7 @@ import NotFound from 'components/common/NotFound';
 
 // pages
 import Home from 'pages/Home';
-import ChartTest from 'pages/ChartTest';
+import Report from 'pages/Report';
 import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
 
@@ -72,7 +72,7 @@ const App: React.FC = (): ReactElement => {
         <Suspense fallback={<CircularProgress />}>
           <Switch>
             <Route path="/" component={Home} exact={true} />
-            <Route path="/charttest" component={ChartTest} exact={true} />
+            <Route path="/report" component={Report} exact={true} />
             <Route path="/contents" component={Contents} exact={true} />
             <PrivateRoute
               path="/myfolder/:username"

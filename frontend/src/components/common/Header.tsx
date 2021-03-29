@@ -63,7 +63,7 @@ function Header(props: PropsType) {
         <Link className="header-logo" to="/">
           POST-IT
         </Link>
-        <Link className="header-menus" to="/charttest">
+        <Link className="header-menus" to="/report">
           IT 보고서
         </Link>
         <Link className="header-menus" to="/contents">

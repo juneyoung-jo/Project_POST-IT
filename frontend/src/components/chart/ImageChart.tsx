@@ -58,8 +58,12 @@ function ImageChart() {
     series.ticks.template.locationX = 1;
     series.ticks.template.locationY = 0.5;
 
-    series.labelsContainer.width = 200;
-    series.labelsContainer.fontSize = 14;
+    let chartBox = document.querySelector('#image-chart');
+    chartBox?.addEventListener('fullscreenchange', function (e) {
+      console.log(e.target);
+    });
+    series.labelsContainer.width = 150;
+    series.labelsContainer.fontSize = 12;
     series.labelsContainer.fontWeight = '700';
     series.labelsContainer.fontFamily = 'Noto Sans KR';
 
@@ -70,8 +74,9 @@ function ImageChart() {
 
     let title = chart.titles.create();
     title.text = '카테고리별 비율';
-    title.fontSize = 20;
+    title.fontSize = 18;
     title.fontWeight = '700';
+    title.marginBottom = 40;
 
     return () => {
       // dispose를 안해주면 warning뜹니다.

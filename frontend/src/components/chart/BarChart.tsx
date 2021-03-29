@@ -25,6 +25,7 @@ function BarChart() {
     // X축
     let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
+    valueAxis.strictMinMax = true; // 반응형으로 min, max를 설정해줍니다.
 
     // 데이터 연결(차트 유형 별로 관련 시리즈가 따로 존재함)
     let series = chart.series.push(new am4charts.ColumnSeries());
@@ -102,6 +103,11 @@ function BarChart() {
     };
   }, []);
 
-  return <div id="bar-chart" style={{ height: '500px' }}></div>;
+  return (
+    <div
+      id="bar-chart"
+      style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+    ></div>
+  );
 }
 export default BarChart;
