@@ -9,9 +9,85 @@ import graph2 from 'assets/images/graph2.png';
 import graph3 from 'assets/images/graph3.png';
 import contents from 'assets/images/contents.png';
 import mycontents from 'assets/images/mycontents.png';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
-import './FullPageStyle.css';
+// import './FullPageStyle.css';
+
+const Wrapper = styled.div`
+  .go-to-report {
+    color: #fff;
+    margin-top: 25px;
+    display: block;
+  }
+  .title-1 {
+    font-size: 5em;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+  }
+  .title-2 {
+    display: block;
+    font-size: 3em;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .title-2-1 {
+    display: inline;
+    font-size: 3em;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    vertical-align: middle;
+  }
+
+  .sub-title {
+    font-size: 1.5em;
+    color: #fff;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+
+  .sub-content {
+    font-size: 1.5em;
+    color: #fff;
+    font-weight: 300;
+    margin-top: 20px;
+  }
+  .fp-section {
+    text-align: center;
+  }
+`;
+
+const Graph = styled.img`
+  width: 350px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 40px;
+`;
+
+const Contents = styled.img`
+  display: inline-block;
+  width: 350px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 40px;
+  vertical-align: middle;
+`;
+
+const Button = styled.button`
+  padding: 0;
+  background: #222222;
+  border-radius: 5px;
+  border-color: transparent;
+  display: block;
+  color: #fff;
+  margin: 0 auto;
+  cursor: pointer;
+  font-size: 0.85em;
+  margin-top: 30px;
+`;
 
 interface IProps {
   state: any;
@@ -34,7 +110,8 @@ class FullpageWrapper extends React.Component {
         // afterLoad={this.afterLoad.bind(this)}
         render={({ state, fullpageApi }: IProps) => {
           return (
-            <div id="fullpage-wrapper">
+            <Wrapper>
+              {/* <div id="fullpage-wrapper"> */}
               <div className="section section1">
                 <h5 className="sub-title">IT 트렌드를 담다</h5>
                 <h3 className="title-1">POST-IT.</h3>
@@ -44,9 +121,12 @@ class FullpageWrapper extends React.Component {
                 <h4 className="title-2">
                   다양한 그래프를 통해 최신 IT 트렌드를 확인해보세요.
                 </h4>
-                <img src={graph1} alt="graph1" className="graph" />
+                <Graph src={graph1} alt="graph1"></Graph>
+                <Graph src={graph2} alt="graph2"></Graph>
+                <Graph src={graph3} alt="graph3"></Graph>
+                {/* <img src={graph1} alt="graph1" className="graph" />
                 <img src={graph2} alt="graph2" className="graph" />
-                <img src={graph3} alt="graph3" className="graph" />
+                <img src={graph3} alt="graph3" className="graph" /> */}
                 <h6 className="sub-content">
                   분야별 통계를 통해 더욱더 자세한 트렌드를 확인할 수 있어요.
                 </h6>
@@ -59,7 +139,8 @@ class FullpageWrapper extends React.Component {
                 </div> */}
               </div>
               <div className="section">
-                <img src={contents} alt="graph3" className="contents" />
+                <Contents src={contents} alt="graph3"></Contents>
+                {/* <img src={contents} alt="graph3" className="contents" /> */}
                 <h4 className="title-2-1">
                   최신 트렌드 관련 콘텐츠를 확인해보세요.
                 </h4>
@@ -68,7 +149,8 @@ class FullpageWrapper extends React.Component {
                 <h4 className="title-2-1">
                   다시 보고 싶은 콘텐츠를 스크랩하여 모아보세요.
                 </h4>
-                <img src={mycontents} alt="mycontents" className="contents" />
+                <Contents src={mycontents} alt="mycontents"></Contents>
+                {/* <img src={mycontents} alt="mycontents" className="contents" /> */}
               </div>
               <div className="section">
                 <h4 className="title-2">
@@ -77,14 +159,16 @@ class FullpageWrapper extends React.Component {
                 <Link to="/" className="go-to-report">
                   IT트렌드 확인하러 가기!
                 </Link>
-                <button
+                <Button onClick={() => fullpageApi.moveTo(1, 0)}>맨위로</Button>
+                {/* <button
                   // className={styles.button}
                   onClick={() => fullpageApi.moveTo(1, 0)}
                 >
                   맨위로
-                </button>
+                </button> */}
               </div>
-            </div>
+              {/* </div> */}
+            </Wrapper>
           );
         }}
       />
