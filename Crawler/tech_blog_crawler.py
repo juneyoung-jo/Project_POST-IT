@@ -7,6 +7,26 @@ from selenium import webdriver
 from urllib.request import urlopen
 import ssl
 
+import urllib.parse
+from pymongo import MongoClient
+
+host = "j4c103.p.ssafy.io"
+port = 27017
+
+user_name = "ssafy103pi"
+pass_word = "postit123"
+
+db_name = "postit"  # database name to authenticate
+
+# if you are password has '@' then you might need to escape hence we are using "urllib.parse.quote_plus()"
+client = MongoClient(
+    f'mongodb://{user_name}:{urllib.parse.quote_plus(pass_word)}@{host}:{port}/{db_name}')
+
+# db
+db = client['postit']
+# 컬렉션
+collection = db['youtube']
+
 dateMatcher = {
     "Jan": "01",
     "Feb": "02",
@@ -308,3 +328,6 @@ print("%%%%%%%%%%%%%%%%%")
 file = open('result.json', 'w', -1, "utf-8")
 json.dump(data, file, ensure_ascii=False)
 file.close
+
+# 디비 (json)
+# collection.insert_many(data)
