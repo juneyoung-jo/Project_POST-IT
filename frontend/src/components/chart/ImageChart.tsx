@@ -5,13 +5,10 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
-// types
-import { Iprops } from 'types/report/chartTypes';
-
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function ImageChart(props: Iprops) {
+function ImageChart() {
   useLayoutEffect(() => {
     // create chart
     let iconPath =
@@ -71,7 +68,7 @@ function ImageChart(props: Iprops) {
     series.labelsContainer.fontFamily = 'Noto Sans KR';
 
     let title = chart.titles.create();
-    title.text = `"${props.category}" 카테고리 인기 키워드 비율`;
+    title.text = `카테고리 별 인기 키워드 비율`;
     title.fontSize = 20;
     title.fontWeight = '700';
     title.marginBottom = 40;
@@ -80,7 +77,7 @@ function ImageChart(props: Iprops) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, [props]);
+  }, []);
 
   return (
     <div id="image-chart" style={{ width: '100%', height: '500px' }}></div>
