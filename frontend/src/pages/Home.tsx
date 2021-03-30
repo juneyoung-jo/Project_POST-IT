@@ -1,5 +1,3 @@
-// eslint-disable import/no-extraneous-dependencies
-import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -10,61 +8,22 @@ import graph3 from 'assets/images/graph3.png';
 import contents from 'assets/images/contents.png';
 import mycontents from 'assets/images/mycontents.png';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-
-import styled from 'styled-components';
+import {
+  Section,
+  Title,
+  SubTitle,
+  ContentText,
+  SubContentText,
+  Img,
+} from '../assets/styles/HomeStyle';
 import { Container } from '@material-ui/core';
 
 AOS.init();
 
-const Section = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
-`;
-
-const Title = styled.div`
-  font-size: 5em;
-  text-align: center;
-  color: #fff;
-  font-weight: 700;
-`;
-
-const SubTitle = styled.div`
-  font-size: 1.5em;
-  color: #fff;
-  font-weight: 300;
-  margin-bottom: 10px;
-  text-align: center;
-`;
-
-const ContentText = styled.div`
-  /* display: block; */
-  font-size: 200%;
-  color: #fff;
-  font-weight: 700;
-`;
-
-const SubContentText = styled.div`
-  font-size: 100%;
-  color: #fff;
-  font-weight: 300;
-  /* margin-top: 20px; */
-  /* text-align: end; */
-`;
-
-const Img = styled.img`
-  width: 100%;
-  /* margin-left: 16px;
-  margin-right: 16px; */
-  /* margin-top: 40px; */
-`;
-
 const Home = () => {
   return (
     <Container>
+      {/* 첫번째 section */}
       <Section>
         <Grid container>
           <Grid item xs={12}>
@@ -77,7 +36,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Section>
-      {/* <Grid item xs={12}> */}
+      {/* 두번째 section */}
       <Section>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -99,13 +58,13 @@ const Home = () => {
               카테고리별 통계를 통해 더욱더 자세한 트렌드를 확인할 수 있어요.
             </SubContentText>
           </Grid>
-          {/* </Grid> */}
         </Grid>
       </Section>
+      {/* 세번째 section */}
       <Section>
         <Grid container>
           <Grid item xs={12} sm={5}>
-            <Img src={contents} alt="graph3" data-aos="fade-in"></Img>
+            <Img src={contents} alt="graph3" data-aos="fade-right"></Img>
           </Grid>
           <Grid container xs={12} sm={7} direction="column" justify="center">
             <ContentText data-aos="fade-in" style={{ textAlign: 'end' }}>
@@ -120,6 +79,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Section>
+      {/* 네번째 section */}
       <Section>
         <Grid container>
           <Grid container xs={12} sm={7} direction="column" justify="center">
@@ -134,7 +94,31 @@ const Home = () => {
             </SubContentText>
           </Grid>
           <Grid item xs={12} sm={5}>
-            <Img src={mycontents} alt="mycontents" data-aos="fade-in"></Img>
+            <Img src={mycontents} alt="mycontents" data-aos="fade-left"></Img>
+          </Grid>
+        </Grid>
+      </Section>
+      {/* 다섯번째 section */}
+      <Section>
+        <Grid container>
+          <Grid item xs={12}>
+            <ContentText
+              data-aos="fade-in"
+              data-delay="1000"
+              style={{ textAlign: 'center' }}
+            >
+              이제 POST-IT과 함께 개발자로 성장해보세요!
+            </ContentText>
+          </Grid>
+          <Grid item xs={12} direction="row" justify="center">
+            <Link
+              to="/"
+              data-aos="fade-in"
+              data-aos-duration="1000"
+              className="go-report"
+            >
+              IT 트렌드 확인하러 가기 Click!
+            </Link>
           </Grid>
         </Grid>
       </Section>
