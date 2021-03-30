@@ -5,11 +5,16 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
+// types
+import { Iprops } from 'types/report/chartTypes';
+
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function BarChart() {
+function BarChart(props: Iprops) {
   useLayoutEffect(() => {
+    console.log(props);
+
     // create chart
     let chart = am4core.create('bar-chart', am4charts.XYChart);
     chart.padding(40, 40, 40, 40); // 상, 하, 좌, 우
@@ -97,16 +102,23 @@ function BarChart() {
         MAU: 1900000,
       },
     ];
+
+    let title = chart.titles.create();
+    title.text = `"${props.category}" 카테고리 인기 키워드 비율`;
+    title.fontSize = 20;
+    title.fontWeight = '700';
+    title.marginBottom = 40;
+
     return () => {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, []);
+  }, [props]);
 
   return (
     <div
       id="bar-chart"
-      style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+      style={{ width: '100%', height: '500px', objectFit: 'cover' }}
     ></div>
   );
 }

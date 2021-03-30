@@ -5,10 +5,12 @@ import * as am4plugins_wordCloud from '@amcharts/amcharts4/plugins/wordCloud';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
+import { Iprops } from 'types/report/chartTypes';
+
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function WordCloudChart() {
+function WordCloudChart(props: Iprops) {
   useLayoutEffect(() => {
     let chart = am4core.create(
       'wordcloud-chart',
@@ -474,16 +476,18 @@ function WordCloudChart() {
     // let subtitle = chart.titles.create();
     // subtitle.text = '(click to open)';
 
-    // let title = chart.titles.create();
-    // title.text = '스택오버플로우 @별 최다키워드';
-    // title.fontSize = 20;
-    // title.fontWeight = '800';
+    let title = chart.titles.create();
+    title.text = `"${props.category}" 키워드`;
+    title.fontSize = 20;
+    title.fontWeight = '700';
+    title.marginBottom = 40;
+    title.marginTop = 20;
 
     return () => {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, []);
+  }, [props]);
 
   return (
     <div

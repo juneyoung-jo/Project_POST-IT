@@ -3,12 +3,15 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4plugins_forceDirected from '@amcharts/amcharts4/plugins/forceDirected';
 
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-// import am4themes_dark from '@amcharts/amcharts4/themes/dark';
+import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
-// am4core.useTheme(am4themes_dark);
+// types
+import { Iprops } from 'types/report/chartTypes';
+
+am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function NetworkMap() {
+function NetworkMap(props: Iprops) {
   useLayoutEffect(() => {
     let chart = am4core.create(
       'networkmap',
@@ -110,12 +113,19 @@ function NetworkMap() {
       }
     });
 
+    let title = chart.titles.create();
+    title.text = `"${props.category}" 네트워크 맵`;
+    title.fontSize = 20;
+    title.fontWeight = '700';
+    title.marginBottom = 40;
+    title.marginTop = 20;
+
     return () => {
       // dispose를 안해주면 warning뜹니다. 아래를 참고했습니다.
       // https://www.amcharts.com/docs/v4/tutorials/chart-was-not-disposed/#React
       chart.dispose();
     };
-  }, []);
+  }, [props]);
 
   return <div id="networkmap" style={{ width: '100%', height: '500px' }}></div>;
 }

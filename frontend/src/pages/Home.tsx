@@ -11,7 +11,7 @@ import contents from 'assets/images/contents.png';
 import mycontents from 'assets/images/mycontents.png';
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import { getCurrentUser } from 'api/index';
+import { getCurrentUser } from 'api/user';
 
 const Wrapper = styled.div`
   .go-to-report {
