@@ -87,8 +87,8 @@ function NetworkMap(props: Iprops) {
     networkSeries.links.template.strokeWidth = 1;
 
     // 노드 크기 비율
-    networkSeries.minRadius = 8;
-    networkSeries.maxRadius = 65;
+    networkSeries.minRadius = 25;
+    networkSeries.maxRadius = 55;
 
     // 연결 링크 두께, 선명도
     let hoverState = networkSeries.links.template.states.create('hover');
