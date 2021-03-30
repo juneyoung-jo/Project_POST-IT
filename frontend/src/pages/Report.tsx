@@ -15,7 +15,6 @@ import {
   Container,
   FormControl,
   Grid,
-  InputLabel,
   MenuItem,
   Select,
   Typography,
@@ -263,12 +262,8 @@ function Report() {
           <Subtitle>요즘뜨는 OS, 요즘뜨는 에디터는 뭐가 있을까요?</Subtitle>
           <Section>
             <Grid container spacing={3}>
-              <Grid className={classes.grid} item xs={12}>
-                <BarChart category={category}></BarChart>
-              </Grid>
-              <Grid className={classes.grid} item xs={12}>
-                <BarChart category={category}></BarChart>
-              </Grid>
+              <Grid className={classes.grid} item xs={12}></Grid>
+              <Grid className={classes.grid} item xs={12}></Grid>
             </Grid>
           </Section>
           {/* ETC 끝 */}
