@@ -1,15 +1,21 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import Close from '@material-ui/icons/Close';
 
 // styled-components에서 keyframe 애니메이션을 적용
-const fadeIn = keyframes`
-  from {
+const pulse = keyframes`
+  0% {
     opacity: 0
   }
-  to {
+  100% {
     opacity: 1
   }
+`;
+
+// styled-components에서 keyframe 애니메이션 사용시, css helper를 사용해주는게 좋다고한다.
+//
+const animation = css`
+  ${pulse} 0.2s;
 `;
 
 const BackGround = styled.div`
@@ -22,7 +28,7 @@ const BackGround = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeIn} 0.2s;
+  animation: ${animation};
 `;
 
 const ModalWrapper = styled.div`
@@ -33,7 +39,7 @@ const ModalWrapper = styled.div`
   position: relative;
   z-index: 10;
   border-radius: 8px;
-  animation: ${fadeIn} 0.2s;
+  animation: ${animation};
 
   @media screen and (max-width: 768px) {
     margin: 1rem 1rem;

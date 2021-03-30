@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 
 const Wrapper = styled.footer`
   bottom: 0;

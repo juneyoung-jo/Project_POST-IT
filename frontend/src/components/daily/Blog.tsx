@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Card, Checkbox, Container, Grid } from '@material-ui/core';
-import { TurnedIn, MoreVert } from '@material-ui/icons';
+import Card from '@material-ui/core/Card';
+import Checkbox from '@material-ui/core/Checkbox';
+import Grid from '@material-ui/core/Grid';
+import { Block, TurnedIn } from '@material-ui/icons';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { SliderSwitch } from './Daily.styles';
 import { allBlog, cartegorySearch } from 'api/daily';
+// import { withStyles } from '@material-ui/core/styles';
 
 // Base title
 const Title = styled.div`
@@ -17,12 +21,31 @@ const SubTitle = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   color: ${({ theme }) => theme.colors.first};
   margin: 10px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const CardButtonWrapper = styled.div`
   display: flex;
   /* align-items: center; */
 `;
+
+const StyledCard = styled(Card)`
+  -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  overflow: hidden;
+  &:hover {
+    box-shadow: 0px 0px 5px #41d3bd;
+    transform: translateY(-5px);
+  }
+` as typeof Card;
+// const useStyles = makeStyles({
+//   card: {
+//     '&:hover': {
+//       border: '5px solid red',
+//     },
+//   },
+// });
 
 function CardButtonGroup() {
   const [checked, setChecked] = useState(false);
@@ -64,10 +87,10 @@ function Blog() {
       <br />
       <Grid spacing={4}>
         <Grid item xs={12}>
-          <Grid container spacing={3}>
+          <Grid container spacing={4}>
             {[4, 4, 4].map((value) => (
               <Grid item xs={12} md={4} sm={6}>
-                <Card>
+                <StyledCard>
                   <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
                     <img
                       src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
@@ -79,14 +102,18 @@ function Blog() {
                   >
                     <SubTitle>
                       <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
-                        Big Data Big DataBig DataBig DataBig DataBig DataBig
-                        DataBig Data
+                        Big Data is very good skill. but I don't like it. I want
+                        frontend Big Data is very good skill. but I don't like
+                        it. I want frontend
                       </a>
                     </SubTitle>
                     <CardButtonGroup></CardButtonGroup>
                   </div>
-                  <SubTitle>naver</SubTitle>
-                </Card>
+                  <SubTitle>
+                    <p>naver</p>
+                    <p>2021-01-03</p>
+                  </SubTitle>
+                </StyledCard>
               </Grid>
             ))}
           </Grid>
