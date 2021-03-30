@@ -1,13 +1,11 @@
-import { createInstance } from './index';
-
-const instance = createInstance();
+import { instance } from './index';
 
 function allBlog() {
-  instance.get('blog/').then((e) => console.log(e));
+  return instance.get('blog');
 }
 
-function cartegorySearch(category: Array<number>) {
-  instance.post('/blog', { category }).then((e) => console.log(e));
+function cartegorySearch(params: object, success: any, fail: any) {
+  instance.post('/blog', params).then(success).catch(fail);
 }
 
-export { allBlog , cartegorySearch } 
+export { allBlog, cartegorySearch };

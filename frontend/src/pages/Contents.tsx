@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Card, Checkbox, Container, Grid } from '@material-ui/core';
 import { TurnedIn, MoreVert } from '@material-ui/icons';
@@ -66,10 +66,6 @@ function Contents() {
   };
   return (
     <Wrapper>
-<<<<<<< HEAD
-=======
-      <Button />
->>>>>>> fdabd766871414355490311abd951ddee58c2b6f
       <Container>
         <Tab>
           <MyButton

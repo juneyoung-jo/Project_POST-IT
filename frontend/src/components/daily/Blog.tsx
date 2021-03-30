@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import { Block, TurnedIn } from '@material-ui/icons';
+import { Block, ContactSupportOutlined, TurnedIn } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { SliderSwitch } from './Daily.styles';
 import { allBlog, cartegorySearch } from 'api/daily';
@@ -39,13 +39,6 @@ const StyledCard = styled(Card)`
     transform: translateY(-5px);
   }
 ` as typeof Card;
-// const useStyles = makeStyles({
-//   card: {
-//     '&:hover': {
-//       border: '5px solid red',
-//     },
-//   },
-// });
 
 function CardButtonGroup() {
   const [checked, setChecked] = useState(false);
@@ -78,9 +71,22 @@ function Switch() {
 }
 
 function Blog() {
+  // console.log('hello');
+  useEffect(() => {
+    console.log('랜더링 완료');
+    allBlog().then((res) => {
+      console.log(res);
+    });
+    return () => {
+      // 해당 컴포넌트가 사라질 때
+      console.log('컴포넌트 업데이트');
+    };
+  }, []);
+
   return (
     <div>
       <Title>최신 블로그 게시물</Title>
+      <button onClick={() => allBlog()}>asdasd</button>
       <Title style={{ fontSize: '16px', float: 'right' }}>
         내 관심 분야 <Switch></Switch>
       </Title>
