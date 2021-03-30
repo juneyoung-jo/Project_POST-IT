@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Data
 @Document(collection = "youtube")
 @Builder
-public class Youtube extends Contents{
+public class Youtube extends Contents {
 
     private String youtubeId;
 

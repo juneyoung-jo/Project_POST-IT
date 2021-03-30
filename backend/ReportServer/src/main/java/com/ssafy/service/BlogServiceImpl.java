@@ -26,7 +26,6 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> listBlogContents() {
         /*
         1. findAll함수로 List<BlogDto>를 가져옴.
-        2. Optinal로 null체크
             1. null -> 빈List만들어서 리턴
             2. 아닐경우 스트림으로 변경 -> 최신순으로 정렬 -> list형태로 변환
         */
@@ -40,7 +39,6 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> listInterestBlogContents(BlogRequest blogRequest) {
         /*
         1. findByCategoryIn함수로 blogRequest의 category List와 맞는 List<BlogDto>를 가져옴.
-        2. Optinal로 null체크
             1. null -> 빈 List만들어서 리턴
             2. 아닐경우 스트림으로 변경 -> 최신순으로 정렬 -> list형태로 변환
         */
