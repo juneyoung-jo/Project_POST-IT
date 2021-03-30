@@ -37,7 +37,7 @@ public class UserController {
         logger.info("getCurrentUser End");
 
         return response.getData() != null ?
-                ResponseEntity.ok(response) : ResponseEntity.accepted().body(response);
+                ResponseEntity.ok(response) : ResponseEntity.noContent().build();
     }
 
 
@@ -56,7 +56,7 @@ public class UserController {
         logger.info("updateCurrentUser End");
 
         return response.getData() != null ?
-                ResponseEntity.ok(response) : ResponseEntity.accepted().body(response);
+                ResponseEntity.ok(response) : ResponseEntity.noContent().build();
     }
 
 

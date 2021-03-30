@@ -33,6 +33,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+                // 이 부분은 추후 삭제되어야함, 유저 정보가 묶여있으면 독립적으로 구현 불가능
                 ObjectId userId = new ObjectId(tokenProvider.getUserIdFromToken(jwt));
 
                 UserDetails userDetails = customUserDetailsService.loadUserById(userId);

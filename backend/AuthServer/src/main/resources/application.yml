@@ -14,10 +14,6 @@ spring:
       database: user
       username: userAdmin
       password: youser@dm1n!%#
-  #  datasource:
-#    url: jdbc:mysql://localhost:3306/oauth2?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-#    username: root
-#    password: wogml23
 
   jpa:
     show-sql: true
@@ -66,7 +62,8 @@ spring:
 app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
-    tokenExpirationMsec: 864000000
+    tokenExpirationMsec: 3600
+    refreshTokenExpirationMesc: 864000000
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
     # we'll be generating an auth token for the user and sending the token to the
