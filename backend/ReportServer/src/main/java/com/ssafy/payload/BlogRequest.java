@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class BlogRequest {
 
-    List<Integer> category;
+    List<String> id;
 }

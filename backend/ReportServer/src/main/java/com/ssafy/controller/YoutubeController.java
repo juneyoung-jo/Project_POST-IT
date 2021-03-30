@@ -1,11 +1,11 @@
 package com.ssafy.controller;
 
-import com.ssafy.entity.YoutubeDto;
-import com.ssafy.payload.BlogRequest;
-import com.ssafy.payload.BlogResponse;
+import com.ssafy.entity.Youtube;
 import com.ssafy.payload.YoutubeRequest;
 import com.ssafy.payload.YoutubeResponse;
+import com.ssafy.payload.YoutubeResponseList;
 import com.ssafy.service.YoutubeService;
+import com.ssafy.util.Adapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,53 +27,34 @@ public class YoutubeController {
         this.youtubeService = youtubeService;
     }
 
+    // feat 1. 유튜브 컨텐츠 전체 리턴
     @GetMapping
-    public ResponseEntity<Map<String, Object>> listYoutubeContents() {
+    public ResponseEntity<?> listYoutubeContents() {
         log.info("listYoutubeContents methods Start : return List<YoutubeDto>");
 
-        ResponseEntity<Map<String, Object>> resEntity = null;
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<YoutubeResponse> data = null;
-        try {
-            data = youtubeService.listYoutubeContents();
-            map.put("msg", "success");
-            map.put("data", data);
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        List<Youtube> data = null;
+        data = youtubeService.listYoutubeContents();
 
-        } catch (NullPointerException e) {
-            log.debug("listYoutubeContents methods Error : NullPointerError");
-            map.put("msg", "fail");
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
-        }
+        YoutubeResponseList response = Adapter.toYoutubeResponseList(data);
 
         log.info("listYoutubeContents methods End");
-        return resEntity;
 
+        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
     }
 
+    // feat 2. 북마크 한 유튜브 컨텐츠 리턴
     @PostMapping
-    public ResponseEntity<Map<String, Object>> listInterestYoutubeContents(@RequestBody YoutubeRequest youtubeRequest){
+    public ResponseEntity<?> listInterestYoutubeContents(@RequestBody YoutubeRequest youtubeRequest) {
         log.info("listInterestYoutubeContents methods Start : return List<BlogDto>");
 
-        ResponseEntity<Map<String, Object>> resEntity = null;
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<YoutubeResponse> data = null;
-        try {
-            data = youtubeService.listInterestYoutubeContents(youtubeRequest);
-            map.put("msg", "success");
-            map.put("data", data);
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        List<Youtube> data = youtubeService.listInterestYoutubeContents(youtubeRequest);
 
-        } catch (NullPointerException e) {
-            log.debug("listInterestYoutubeContents methods Error : NullPointerError");
-            map.put("msg", "fail");
-            resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
-        }
+        YoutubeResponseList response = Adapter.toYoutubeResponseList(data);
 
         log.info("listInterestYoutubeContents methods End");
-        return resEntity;
+        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
     }
 
 }

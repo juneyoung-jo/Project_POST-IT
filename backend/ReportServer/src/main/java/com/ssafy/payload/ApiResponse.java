@@ -11,5 +11,6 @@ import lombok.Setter;
 public abstract class ApiResponse<T> {
 
     @NonNull private T data;
+    @NonNull private String msg;
 
 }
