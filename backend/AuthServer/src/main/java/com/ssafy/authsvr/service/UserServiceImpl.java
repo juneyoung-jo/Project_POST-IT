@@ -23,10 +23,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateCurrentUser(String id, InfoUpdateRequest infoUpdateRequest) {
         User user = userRepository.findById(id).get();
-        if(user != null)
-            return userRepository.save(user.update(infoUpdateRequest));
-        else
-            return null;
+        return user != null ?
+            userRepository.save(user.update(infoUpdateRequest)) : null;
     }
 
 }

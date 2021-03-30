@@ -36,10 +36,8 @@ public class UserController {
 
         logger.info("getCurrentUser End");
 
-        if(response.getData() == null)
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
-        else
-            return ResponseEntity.ok(response);
+        return response.getData() != null ?
+                ResponseEntity.ok(response) : ResponseEntity.accepted().body(response);
     }
 
 
@@ -57,10 +55,8 @@ public class UserController {
 
         logger.info("updateCurrentUser End");
 
-        if(response.getData() == null)
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
-        else
-            return ResponseEntity.ok(response);
+        return response.getData() != null ?
+                ResponseEntity.ok(response) : ResponseEntity.accepted().body(response);
     }
 
 
