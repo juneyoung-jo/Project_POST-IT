@@ -12,7 +12,9 @@ function BarChart() {
   useLayoutEffect(() => {
     // create chart
     let chart = am4core.create('bar-chart', am4charts.XYChart);
-    chart.padding(40, 40, 40, 40);
+    chart.padding(40, 40, 40, 40); // 상, 하, 좌, 우
+
+    // Y축
     let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.dataFields.category = 'network';
@@ -20,9 +22,11 @@ function BarChart() {
     categoryAxis.renderer.inversed = true;
     categoryAxis.renderer.grid.template.disabled = true;
 
+    // X축
     let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
 
+    // 데이터 연결(차트 유형 별로 관련 시리즈가 따로 존재함)
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.categoryY = 'network';
     series.dataFields.valueX = 'MAU';
@@ -31,63 +35,65 @@ function BarChart() {
     series.columns.template.column.cornerRadiusBottomRight = 5;
     series.columns.template.column.cornerRadiusTopRight = 5;
 
+    // 내부 label
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.horizontalCenter = 'left';
-    labelBullet.label.dx = 10;
+    labelBullet.label.dx = 10; // 라벨 text의 margin
     labelBullet.label.text =
-      "{values.valueX.workingValue.formatNumber('#.0as')}";
+      "{values.valueX.workingValue.formatNumber('#.0as')}"; // 소숫점 자리
     labelBullet.locationX = 1;
 
+    // 정렬
     categoryAxis.sortBySeries = series;
 
     chart.data = [
       {
-        network: 'Facebook',
-        MAU: 2255250000,
+        network: 'Javascript',
+        MAU: 2255250,
       },
       {
-        network: 'Google+',
-        MAU: 430000000,
+        network: 'ruby',
+        MAU: 430000,
       },
       {
-        network: 'Instagram',
-        MAU: 1000000000,
+        network: 'C++',
+        MAU: 1000000,
       },
       {
-        network: 'Pinterest',
-        MAU: 246500000,
+        network: 'reactjs',
+        MAU: 246500,
       },
       {
-        network: 'Reddit',
-        MAU: 355000000,
+        network: 'django',
+        MAU: 355000,
       },
       {
-        network: 'TikTok',
-        MAU: 500000000,
+        network: 'mysql',
+        MAU: 500000,
       },
       {
-        network: 'Tumblr',
-        MAU: 624000000,
+        network: 'ios',
+        MAU: 62400,
       },
       {
-        network: 'Twitter',
-        MAU: 329500000,
+        network: 'swift',
+        MAU: 329500,
       },
       {
-        network: 'WeChat',
-        MAU: 1000000000,
+        network: 'android',
+        MAU: 100000,
       },
       {
-        network: 'Weibo',
-        MAU: 431000000,
+        network: 'nodejs',
+        MAU: 431000,
       },
       {
-        network: 'Whatsapp',
-        MAU: 1433333333,
+        network: 'Python',
+        MAU: 1433333,
       },
       {
-        network: 'YouTube',
-        MAU: 1900000000,
+        network: 'Java',
+        MAU: 1900000,
       },
     ];
     return () => {
@@ -96,6 +102,6 @@ function BarChart() {
     };
   }, []);
 
-  return <div id="bar-chart" style={{ width: '100%', height: '500px' }}></div>;
+  return <div id="bar-chart" style={{ height: '500px' }}></div>;
 }
 export default BarChart;

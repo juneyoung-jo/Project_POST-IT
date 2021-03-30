@@ -5,6 +5,8 @@ import { Modal } from './Modal';
 
 import Login from 'pages/Login';
 
+import { getCurrentUser } from 'api/index';
+
 const Wrapper = styled.header`
   font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
   top: 0;
@@ -33,7 +35,7 @@ const Wrapper = styled.header`
   }
 `;
 
-const LoginButton = styled.button`
+const Button = styled.button`
   background: none;
   border: none;
   margin: auto 1rem;
@@ -44,7 +46,12 @@ const LoginButton = styled.button`
   }
 `;
 
-function Header() {
+interface PropsType {
+  authenticated: boolean;
+  onLogout: any;
+}
+
+function Header(props: PropsType) {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -56,21 +63,48 @@ function Header() {
         <Link className="header-logo" to="/">
           POST-IT
         </Link>
+        <Link className="header-menus" to="/charttest">
+          IT 보고서
+        </Link>
         <Link className="header-menus" to="/contents">
           일일 컨텐츠
         </Link>
-        <Link className="header-menus" to="/myfolder">
-          내 스크랩
-        </Link>
-        {/* <Link className="header-menus" to="/fullpage">
-          FullPage
-        </Link> */}
+        {props.authenticated ? (
+          <Link className="header-menus" to="/myfolder">
+            내 스크랩
+          </Link>
+        ) : null}
       </div>
       <div>
-        <LoginButton onClick={openModal}>
-          <span>로그인</span>
-        </LoginButton>
+        <button
+          onClick={() => {
+            console.log(props.authenticated);
+          }}
+        >
+          Authenticated Check
+        </button>
+        <button
+          onClick={() => {
+            getCurrentUser().then((res) => console.log(res));
+            console.log();
+          }}
+        >
+          Current user response check
+        </button>
       </div>
+      {props.authenticated ? (
+        <div>
+          <Button onClick={props.onLogout}>
+            <span>로그아웃</span>
+          </Button>
+        </div>
+      ) : (
+        <div>
+          <Button onClick={openModal}>
+            <span>로그인</span>
+          </Button>
+        </div>
+      )}
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}

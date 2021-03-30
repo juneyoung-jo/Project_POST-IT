@@ -18,6 +18,11 @@ import {
 } from '../assets/styles/HomeStyle';
 import { Container } from '@material-ui/core';
 
+import styled from 'styled-components';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import { getCurrentUser } from 'api/index';
+
+
 AOS.init();
 
 const Home = () => {

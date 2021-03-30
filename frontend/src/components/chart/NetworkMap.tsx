@@ -3,9 +3,9 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4plugins_forceDirected from '@amcharts/amcharts4/plugins/forceDirected';
 
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import am4themes_dark from '@amcharts/amcharts4/themes/dark';
+// import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
-am4core.useTheme(am4themes_dark);
+// am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
 function NetworkMap() {
@@ -20,70 +20,51 @@ function NetworkMap() {
 
     chart.data = [
       {
-        name: '카테고리',
+        name: '언어',
         children: [
           {
-            name: '카테고리_태그', // 카테고리 8~10개
+            name: 'Python', // 카테고리 8~10개
             children: [
               // 형태소 3~5개
-              { name: '태그_형태소_top1', value: 100 },
-              { name: '태그_형태소_top2', value: 60 },
-              { name: '태그_형태소_top3', value: 40 },
+              { name: 'django', value: 275 },
+              { name: 'flask', value: 188 },
+              { name: 'Tornado', value: 133 },
             ],
           },
           {
-            name: 'Second',
+            name: 'Java',
             children: [
-              { name: 'B1', value: 135 },
-              { name: 'B2', value: 98 },
+              { name: 'Spring', value: 384 },
+              { name: 'STRUTS', value: 267 },
             ],
           },
           {
-            name: 'Third',
+            name: 'Javascript',
             children: [
-              {
-                name: 'C1',
-                children: [
-                  { name: 'EE1', value: 130 },
-                  { name: 'EE2', value: 87 },
-                  { name: 'EE3', value: 55 },
-                ],
-              },
-              { name: 'C2', value: 148 },
-              {
-                name: 'C3',
-                children: [
-                  { name: 'CC1', value: 53 },
-                  { name: 'CC2', value: 30 },
-                ],
-              },
-              { name: 'C4', value: 26 },
+              { name: 'react', value: 415 },
+              { name: 'angular', value: 148 },
+              { name: 'vue', value: 89 },
             ],
           },
           {
-            name: 'Fourth',
+            name: 'database',
             children: [
-              { name: 'D1', value: 415 },
-              { name: 'D2', value: 148 },
-              { name: 'D3', value: 89 },
+              { name: 'mysql', value: 155 },
+              { name: 'sqlite3', value: 66 },
+              { name: 'mongoDB', value: 189 },
             ],
           },
           {
-            name: 'Fifth',
-            children: [
-              {
-                name: 'E1',
-                children: [
-                  { name: 'EE1', value: 33 },
-                  { name: 'EE2', value: 40 },
-                  { name: 'EE3', value: 89 },
-                ],
-              },
-              {
-                name: 'E2',
-                value: 148,
-              },
-            ],
+            name: 'C++',
+            value: 487,
+          },
+          {
+            name: 'golang',
+            value: 355,
+          },
+          {
+            name: 'Typescript',
+            value: 321,
           },
         ],
       },
@@ -92,14 +73,21 @@ function NetworkMap() {
     networkSeries.dataFields.value = 'value';
     networkSeries.dataFields.name = 'name';
     networkSeries.dataFields.children = 'children';
-    networkSeries.nodes.template.tooltipText = '{name}:{value}';
+    networkSeries.nodes.template.tooltipText = '{name}: {value}';
     networkSeries.nodes.template.fillOpacity = 1;
 
     networkSeries.nodes.template.label.text = '{name}';
-    networkSeries.fontSize = 10;
+    networkSeries.fontFamily = 'Circular Std, Noto Sans KR';
 
+    // 노드 사이 거리
+    networkSeries.links.template.distance = 1.5;
     networkSeries.links.template.strokeWidth = 1;
 
+    // 노드 크기 비율
+    networkSeries.minRadius = 8;
+    networkSeries.maxRadius = 65;
+
+    // 연결 링크 두께, 선명도
     let hoverState = networkSeries.links.template.states.create('hover');
     hoverState.properties.strokeWidth = 3;
     hoverState.properties.strokeOpacity = 1;
