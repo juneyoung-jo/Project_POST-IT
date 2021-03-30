@@ -29,6 +29,8 @@ const CategorySelect = styled.div`
 
 const Section = styled.div`
   margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: ${({ theme }) => theme.colors.second};
 `;
 /* const SectionTwo = styled.div``;
 const SectionThree = styled.div``; */

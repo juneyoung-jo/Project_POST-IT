@@ -8,15 +8,10 @@ import {
   WordCloudChart,
 } from 'components/chart/ChartWrapper';
 
-// types
-import { ChartProps } from 'types/chartTypes';
-
 // styles
 import {
-  Button,
   Card,
   CardContent,
-  CardActions,
   Container,
   FormControl,
   Grid,
@@ -40,8 +35,8 @@ import {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
+    divider: {
+      background: '#858090',
     },
     formControl: {
       width: '25%',
@@ -51,12 +46,15 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '1rem',
       marginBottom: '1rem',
     },
-    select: {
-      backgroundColor: '#f2f3f6',
+    card_grid: {
+      padding: '0.5rem',
     },
     listitemlink: {
       height: '56px',
       color: '#e2e3e6',
+    },
+    select: {
+      backgroundColor: '#f2f3f6',
     },
   }),
 );
@@ -64,7 +62,11 @@ const useStyles = makeStyles((theme: Theme) =>
 // top 3 더미데이터
 let top3: any[] = [];
 for (let i = 1; i < 4; i++) {
-  top3.push({ title: 'top ' + i, content: "I 'm Top" + i });
+  top3.push({
+    id: i,
+    title: '안녕하세요 나는 타이틀입니다.',
+    content: "I 'm Top" + i,
+  });
 }
 
 // top10 더미데이터
@@ -86,10 +88,12 @@ const options = [
 ];
 
 function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
+  const classes = useStyles();
+
   return (
     <>
       <ListItem button component="a" {...props} />
-      <Divider />
+      <Divider className={classes.divider} />
     </>
   );
 }
@@ -113,16 +117,16 @@ function Report() {
     <div>
       <Container>
         <Wrapper>
-          {/* 공통 시작 */}
+          {/* top10 시작 */}
           <Title>Vote Top 10</Title>
           <Subtitle>
-            스택오버플로우에서 주간 vote수 top10을 가져와봤어요 !
+            스택오버플로우에서 주간 vote수 top10을 가져왔어요.
           </Subtitle>
           <Section>
             {/* Top 3 시작 */}
-            <Grid container>
-              {top3.map(() => (
-                <Grid md={4}>
+            <Grid container spacing={2} justify="space-between">
+              {top3.map((content, index) => (
+                <Grid item xs={12} md={4} key={content.id}>
                   <Card>
                     <CardContent>
                       <svg
@@ -138,7 +142,7 @@ function Report() {
                         Keyword of the Week
                       </Typography>
                       <Typography variant="h5" component="h2">
-                        Title: I'm Title !!!
+                        Top {index + 1} - {content.title}
                       </Typography>
                       <Typography color="textSecondary">tagname</Typography>
                       <Typography variant="body2" component="p">
@@ -165,15 +169,23 @@ function Report() {
               ))}
             </List>
           </Section>
-          {/* 공통 끝 */}
+          {/* top10 끝 */}
+
+          {/* image-chart 시작 */}
+          <Title>Report by category</Title>
+          <Subtitle>
+            프로그래밍 언어, 웹, 모바일, 백엔드 등 주간 카테고리별 보고서를
+            가져왔어요.
+          </Subtitle>
+          {/* image-chart 끝 */}
 
           {/* 카테고리 시작 */}
+          <Title>Report by category</Title>
+          <Subtitle>
+            프로그래밍 언어, 웹, 모바일, 백엔드 등 주간 카테고리별 보고서를
+            가져왔어요.
+          </Subtitle>
           <Section>
-            <Title>Report by category</Title>
-            <Subtitle>
-              프로그래밍 언어, 웹, 모바일, 백엔드 등 주간 카테고리별 보고서를
-              가져왔어요.
-            </Subtitle>
             <CategorySelect>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="grouped-select">카테고리</InputLabel>
@@ -192,20 +204,21 @@ function Report() {
                 </Select>
               </FormControl>
             </CategorySelect>
-
-            <Grid className={classes.grid} item xs={12} spacing={1}>
-              <BarChart />
-            </Grid>
-            <Grid container>
-              <Grid className={classes.grid} item xs={12} md={6} spacing={3}>
-                <WordCloudChart />
+            <Grid container spacing={3}>
+              <Grid className={classes.grid} item xs={12}>
+                <BarChart category={category}></BarChart>
               </Grid>
-              <Grid className={classes.grid} item xs={12} md={6} spacing={3}>
-                <NetworkMap />
+              <Grid container>
+                <Grid className={classes.grid} item xs={12} md={6}>
+                  <WordCloudChart category={category} />
+                </Grid>
+                <Grid className={classes.grid} item xs={12} md={6}>
+                  <NetworkMap category={category} />
+                </Grid>
               </Grid>
-            </Grid>
-            <Grid className={classes.grid} item xs={12} spacing={3}>
-              <ImageChart />
+              <Grid className={classes.grid} item xs={12}>
+                <ImageChart category={category} />
+              </Grid>
             </Grid>
           </Section>
           {/* 카테고리 끝 */}

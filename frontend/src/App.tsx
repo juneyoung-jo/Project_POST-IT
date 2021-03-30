@@ -4,7 +4,7 @@ import React, { ReactElement, Suspense, useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import OAuth2RedirectHandler from 'api/oauth2';
-import { getCurrentUser } from 'api/index';
+import { getCurrentUser } from 'api/user';
 import { ACCESS_TOKEN } from 'config/config';
 
 // styles
