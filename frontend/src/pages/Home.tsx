@@ -1,168 +1,134 @@
-// eslint-disable import/no-extraneous-dependencies
-import React from 'react';
 import ReactDOM from 'react-dom';
-import 'fullpage.js/vendors/scrolloverflow'; // Optional. When using scrollOverflow:true
-import ReactFullpage from '@fullpage/react-fullpage';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 import graph1 from 'assets/images/graph1.png';
 import graph2 from 'assets/images/graph2.png';
 import graph3 from 'assets/images/graph3.png';
 import contents from 'assets/images/contents.png';
 import mycontents from 'assets/images/mycontents.png';
+import Grid from '@material-ui/core/Grid';
+import {
+  Section,
+  Title,
+  SubTitle,
+  ContentText,
+  SubContentText,
+  Img,
+} from '../assets/styles/HomeStyle';
+import { Container } from '@material-ui/core';
+
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { getCurrentUser } from 'api/user';
 
-const Wrapper = styled.div`
-  .go-to-report {
-    color: #fff;
-    margin-top: 25px;
-    display: block;
-  }
-  .title-1 {
-    font-size: 5em;
-    text-align: center;
-    color: #fff;
-    font-weight: 700;
-  }
-  .title-2 {
-    display: block;
-    font-size: 3em;
-    text-align: center;
-    color: #fff;
-    font-weight: 700;
-  }
 
-  .title-2-1 {
-    display: inline;
-    font-size: 3em;
-    text-align: center;
-    color: #fff;
-    font-weight: 700;
-    vertical-align: middle;
-  }
+AOS.init();
 
-  .sub-title {
-    font-size: 1.5em;
-    color: #fff;
-    font-weight: 300;
-    margin-bottom: 10px;
-  }
+const Home = () => {
+  return (
+    <Container>
+      {/* 첫번째 section */}
+      <Section>
+        <Grid container>
+          <Grid item xs={12}>
+            <SubTitle data-aos="fade-in" data-aos-duration="1000">
+              IT 트렌드를 담다
+            </SubTitle>
+            <Title data-aos="fade-in" data-delay="1000">
+              POST-IT.
+            </Title>
+          </Grid>
+        </Grid>
+      </Section>
+      {/* 두번째 section */}
+      <Section>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <ContentText data-aos="fade-in" style={{ textAlign: 'center' }}>
+              다양한 그래프를 통해 최신 IT 트렌드를 확인해보세요.
+            </ContentText>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Img src={graph1} alt="graph1" data-aos="fade-in"></Img>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Img src={graph2} alt="graph2" data-aos="fade-in"></Img>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Img src={graph3} alt="graph3" data-aos="fade-in"></Img>
+          </Grid>
+          <Grid item xs={12}>
+            <SubContentText style={{ textAlign: 'center' }}>
+              카테고리별 통계를 통해 더욱더 자세한 트렌드를 확인할 수 있어요.
+            </SubContentText>
+          </Grid>
+        </Grid>
+      </Section>
+      {/* 세번째 section */}
+      <Section>
+        <Grid container>
+          <Grid item xs={12} sm={5}>
+            <Img src={contents} alt="graph3" data-aos="fade-right"></Img>
+          </Grid>
+          <Grid container xs={12} sm={7} direction="column" justify="center">
+            <ContentText data-aos="fade-in" style={{ textAlign: 'end' }}>
+              최신 트렌드 관련 콘텐츠를 확인해보세요.
+            </ContentText>
+            <SubContentText
+              data-aos="fade-in"
+              style={{ textAlign: 'end', marginTop: '20px' }}
+            >
+              관심 키워드 ON/OFF 기능을 통해 관심분야만 빠르게 확인할 수 있어요.
+            </SubContentText>
+          </Grid>
+        </Grid>
+      </Section>
+      {/* 네번째 section */}
+      <Section>
+        <Grid container>
+          <Grid container xs={12} sm={7} direction="column" justify="center">
+            <ContentText data-aos="fade-in" style={{ textAlign: 'start' }}>
+              다시 보고 싶은 콘텐츠를 스크랩하여 모아보세요.
+            </ContentText>
+            <SubContentText
+              data-aos="fade-in"
+              style={{ textAlign: 'start', marginTop: '20px' }}
+            >
+              콘텐츠별 스크랩이 가능해 편리하게 모아볼 수 있어요.
+            </SubContentText>
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <Img src={mycontents} alt="mycontents" data-aos="fade-left"></Img>
+          </Grid>
+        </Grid>
+      </Section>
+      {/* 다섯번째 section */}
+      <Section>
+        <Grid container>
+          <Grid item xs={12}>
+            <ContentText
+              data-aos="fade-in"
+              data-delay="1000"
+              style={{ textAlign: 'center' }}
+            >
+              이제 POST-IT과 함께 개발자로 성장해보세요!
+            </ContentText>
+          </Grid>
+          <Grid item xs={12} direction="row" justify="center">
+            <Link
+              to="/"
+              data-aos="fade-in"
+              data-aos-duration="1000"
+              className="go-report"
+            >
+              IT 트렌드 확인하러 가기 Click!
+            </Link>
+          </Grid>
+        </Grid>
+      </Section>
+    </Container>
+  );
+};
 
-  .sub-content {
-    font-size: 1.5em;
-    color: #fff;
-    font-weight: 300;
-    margin-top: 20px;
-  }
-  .fp-section {
-    text-align: center;
-  }
-`;
-
-const Graph = styled.img`
-  width: 350px;
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-top: 40px;
-`;
-
-const Contents = styled.img`
-  display: inline-block;
-  width: 350px;
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-top: 40px;
-  vertical-align: middle;
-`;
-
-const Button = styled.button`
-  padding: 0;
-  background: #222222;
-  border-radius: 5px;
-  border-color: transparent;
-  display: block;
-  color: #fff;
-  margin: 0 auto;
-  cursor: pointer;
-  font-size: 0.85em;
-  margin-top: 30px;
-`;
-
-interface IProps {
-  state: any;
-  fullpageApi: any;
-}
-
-class FullpageWrapper extends React.Component {
-  // onLeave(origin: any, destination:any, direction:any) {
-  //   console.log('Leaving section ' + origin.index);
-  // }
-  // afterLoad(origin, destination, direction) {
-  //   console.log('After load: ' + destination.index);
-  // }
-  render() {
-    return (
-      <ReactFullpage
-        scrollOverflow={true}
-        sectionsColor={['#222222', '#222222', '#222222', '#222222', '#222222']}
-        // onLeave={this.onLeave.bind(this)}
-        // afterLoad={this.afterLoad.bind(this)}
-        render={({ state, fullpageApi }: IProps) => {
-          return (
-            <Wrapper>
-              <div className="section section1">
-                <h5 className="sub-title">IT 트렌드를 담다</h5>
-                <h3 className="title-1">POST-IT.</h3>
-              </div>
-              <div className="section">
-                <h4 className="title-2">
-                  다양한 그래프를 통해 최신 IT 트렌드를 확인해보세요.
-                </h4>
-                <Graph src={graph1} alt="graph1"></Graph>
-                <Graph src={graph2} alt="graph2"></Graph>
-                <Graph src={graph3} alt="graph3"></Graph>
-
-                <h6 className="sub-content">
-                  분야별 통계를 통해 더욱더 자세한 트렌드를 확인할 수 있어요.
-                </h6>
-                {/* </div> */}
-                {/* <div className="slide">
-                  <h3>Slide 2.2</h3>
-                </div>
-                <div className="slide">
-                  <h3>Slide 2.3</h3>
-                </div> */}
-              </div>
-              <div className="section">
-                <Contents src={contents} alt="graph3"></Contents>
-                <h4 className="title-2-1">
-                  최신 트렌드 관련 콘텐츠를 확인해보세요.
-                </h4>
-              </div>
-              <div className="section">
-                <h4 className="title-2-1">
-                  다시 보고 싶은 콘텐츠를 스크랩하여 모아보세요.
-                </h4>
-                <Contents src={mycontents} alt="mycontents"></Contents>
-              </div>
-              <div className="section">
-                <h4 className="title-2">
-                  이제 POST-IT과 함께 개발자로 성장해보세요!
-                </h4>
-                <Link to="/" className="go-to-report">
-                  IT트렌드 확인하러 가기!
-                </Link>
-                <Button onClick={() => fullpageApi.moveTo(1, 0)}>맨위로</Button>
-              </div>
-            </Wrapper>
-          );
-        }}
-      />
-    );
-  }
-}
-
-// ReactDOM.render(<FullpageWrapper />, document.getElementById('react-root'));
-
-export default FullpageWrapper;
+export default Home;
