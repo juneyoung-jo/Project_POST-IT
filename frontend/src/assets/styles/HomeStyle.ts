@@ -11,6 +11,17 @@ export const Section = styled.div`
     justify-content: center;
     margin-top: 20px;
   }
+  .text-center {
+    text-align: center;
+  }
+  .text-start {
+    text-align: start;
+    margin-top: 1rem;
+  }
+  .text-end {
+    text-align: end;
+    margin-top: 1rem;
+  }
 `;
 
 export const Title = styled.div`
@@ -32,6 +43,7 @@ export const ContentText = styled.div`
   font-size: 200%;
   color: #fff;
   font-weight: 700;
+  margin-bottom: 1rem;
 `;
 
 export const SubContentText = styled.div`

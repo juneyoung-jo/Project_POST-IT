@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ReactDOM from 'react-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -21,11 +22,30 @@ import { Container } from '@material-ui/core';
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { getCurrentUser } from 'api/index';
-
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 AOS.init();
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    grid: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      // alignItems: 'flex-end',
+      textAlign: 'center',
+    },
+  }),
+);
+
 const Home = () => {
+  const classes = useStyles();
+
+  // const [inverted, setInverted] = useState(false);
+  // const hadleChage = () => {
+  //   setInverted(true)
+  // }
+
   return (
     <Container>
       {/* 첫번째 section */}
@@ -45,7 +65,7 @@ const Home = () => {
       <Section>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <ContentText data-aos="fade-in" style={{ textAlign: 'center' }}>
+            <ContentText data-aos="fade-in" className="text-center">
               다양한 그래프를 통해 최신 IT 트렌드를 확인해보세요.
             </ContentText>
           </Grid>
@@ -59,7 +79,7 @@ const Home = () => {
             <Img src={graph3} alt="graph3" data-aos="fade-in"></Img>
           </Grid>
           <Grid item xs={12}>
-            <SubContentText style={{ textAlign: 'center' }}>
+            <SubContentText className="text-center" data-aos="fade-in">
               카테고리별 통계를 통해 더욱더 자세한 트렌드를 확인할 수 있어요.
             </SubContentText>
           </Grid>
@@ -71,14 +91,12 @@ const Home = () => {
           <Grid item xs={12} sm={5}>
             <Img src={contents} alt="graph3" data-aos="fade-right"></Img>
           </Grid>
-          <Grid container xs={12} sm={7} direction="column" justify="center">
-            <ContentText data-aos="fade-in" style={{ textAlign: 'end' }}>
+
+          <Grid item className={classes.grid} xs={12} sm={7}>
+            <ContentText data-aos="fade-in" className="text-end">
               최신 트렌드 관련 콘텐츠를 확인해보세요.
             </ContentText>
-            <SubContentText
-              data-aos="fade-in"
-              style={{ textAlign: 'end', marginTop: '20px' }}
-            >
+            <SubContentText data-aos="fade-in" className="text-end">
               관심 키워드 ON/OFF 기능을 통해 관심분야만 빠르게 확인할 수 있어요.
             </SubContentText>
           </Grid>
@@ -87,13 +105,14 @@ const Home = () => {
       {/* 네번째 section */}
       <Section>
         <Grid container>
-          <Grid container xs={12} sm={7} direction="column" justify="center">
+          <Grid item className={classes.grid} xs={12} sm={7}>
             <ContentText data-aos="fade-in" style={{ textAlign: 'start' }}>
               다시 보고 싶은 콘텐츠를 스크랩하여 모아보세요.
             </ContentText>
             <SubContentText
               data-aos="fade-in"
-              style={{ textAlign: 'start', marginTop: '20px' }}
+              className="text-start"
+              // style={{ textAlign: 'start' }}
             >
               콘텐츠별 스크랩이 가능해 편리하게 모아볼 수 있어요.
             </SubContentText>
@@ -106,16 +125,12 @@ const Home = () => {
       {/* 다섯번째 section */}
       <Section>
         <Grid container>
-          <Grid item xs={12}>
-            <ContentText
-              data-aos="fade-in"
-              data-delay="1000"
-              style={{ textAlign: 'center' }}
-            >
+          <Grid item className={classes.grid} xs={12}>
+            <ContentText data-aos="fade-in" data-delay="1000">
               이제 POST-IT과 함께 개발자로 성장해보세요!
             </ContentText>
           </Grid>
-          <Grid item xs={12} direction="row" justify="center">
+          <Grid item className={classes.grid} xs={12}>
             <Link
               to="/"
               data-aos="fade-in"
