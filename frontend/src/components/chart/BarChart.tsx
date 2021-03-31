@@ -5,10 +5,13 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
+// types
+import { Iprops } from 'types/report/chartTypes';
+
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function BarChart() {
+function BarChart({ category = '공통' }: Iprops) {
   useLayoutEffect(() => {
     // create chart
     let chart = am4core.create('bar-chart', am4charts.XYChart);
@@ -25,6 +28,7 @@ function BarChart() {
     // X축
     let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
+    valueAxis.strictMinMax = true; // 반응형으로 min, max를 설정해줍니다.
 
     // 데이터 연결(차트 유형 별로 관련 시리즈가 따로 존재함)
     let series = chart.series.push(new am4charts.ColumnSeries());
@@ -96,12 +100,24 @@ function BarChart() {
         MAU: 1900000,
       },
     ];
+
+    let title = chart.titles.create();
+    title.text = `"${category}" 카테고리 인기 키워드 비율`;
+    title.fontSize = 20;
+    title.fontWeight = '700';
+    title.marginBottom = 40;
+
     return () => {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, []);
+  }, [category]);
 
-  return <div id="bar-chart" style={{ height: '500px' }}></div>;
+  return (
+    <div
+      id="bar-chart"
+      style={{ width: '100%', height: '500px', objectFit: 'cover' }}
+    ></div>
+  );
 }
 export default BarChart;

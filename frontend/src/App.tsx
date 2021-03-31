@@ -4,7 +4,7 @@ import React, { ReactElement, Suspense, useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import OAuth2RedirectHandler from 'api/oauth2';
-import { getCurrentUser } from 'api/index';
+import { getCurrentUser } from 'api/user';
 import { ACCESS_TOKEN } from 'config/config';
 
 // styles
@@ -23,7 +23,7 @@ import NotFound from 'components/common/NotFound';
 
 // pages
 import Home from 'pages/Home';
-import ChartTest from 'pages/ChartTest';
+import Report from 'pages/Report';
 import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
 
@@ -72,7 +72,7 @@ const App: React.FC = (): ReactElement => {
         <Suspense fallback={<CircularProgress />}>
           <Switch>
             <Route path="/" component={Home} exact={true} />
-            <Route path="/charttest" component={ChartTest} exact={true} />
+            <Route path="/report" component={Report} exact={true} />
             <Route path="/contents" component={Contents} exact={true} />
             <PrivateRoute
               path="/myfolder/:username"

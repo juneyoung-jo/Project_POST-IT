@@ -5,8 +5,6 @@ import { Modal } from './Modal';
 
 import Login from 'pages/Login';
 
-import { getCurrentUser } from 'api/index';
-
 const Wrapper = styled.header`
   font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
   top: 0;
@@ -63,7 +61,7 @@ function Header(props: PropsType) {
         <Link className="header-logo" to="/">
           POST-IT
         </Link>
-        <Link className="header-menus" to="/charttest">
+        <Link className="header-menus" to="/report">
           IT 보고서
         </Link>
         <Link className="header-menus" to="/contents">
@@ -75,7 +73,7 @@ function Header(props: PropsType) {
           </Link>
         ) : null}
       </div>
-      <div>
+      {/* <div>
         <button
           onClick={() => {
             console.log(props.authenticated);
@@ -91,7 +89,7 @@ function Header(props: PropsType) {
         >
           Current user response check
         </button>
-      </div>
+      </div> */}
       {props.authenticated ? (
         <div>
           <Button onClick={props.onLogout}>
