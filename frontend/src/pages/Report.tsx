@@ -11,6 +11,7 @@ import { ImageChart, PieChart } from 'components/chart/common/ChartWrapper';
 
 // styles
 import {
+  Button,
   Card,
   CardContent,
   Container,
@@ -32,6 +33,7 @@ import {
   CategorySelect,
   Section,
 } from './Report.styles';
+import TopButton from 'components/common/TopButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -132,9 +134,13 @@ function Report() {
     setWeek(e.target.value as string);
   };
 
+  const root = document.getElementById('root');
+  console.log(root);
+
   return (
     <div>
       <Container>
+        <TopButton></TopButton>
         <Wrapper>
           <CategorySelect>
             <FormControl className={classes.formControl}>
