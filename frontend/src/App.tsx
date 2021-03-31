@@ -50,14 +50,6 @@ const App: React.FC = (): ReactElement => {
     setAuthenticated(false), setCurrentUser(null);
   }
 
-  useEffect(() => {
-    console.log('랜더링 완료');
-    loadCurrentlyLoggedInUser();
-    return () => {
-      console.log('컴포넌트 업데이트');
-    };
-  }, []);
-
   if (loading) {
     return <CircularProgress />;
   }

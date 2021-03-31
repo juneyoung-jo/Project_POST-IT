@@ -124,11 +124,11 @@ function Report() {
   const [week, setWeek] = useState('현재');
 
   const handleChangeCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setCategory(e.target.value as string);
   };
   const handleChangeWeek = (e: React.ChangeEvent<{ value: unknown }>) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setWeek(e.target.value as string);
   };
 
