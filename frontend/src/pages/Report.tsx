@@ -134,9 +134,6 @@ function Report() {
     setWeek(e.target.value as string);
   };
 
-  const root = document.getElementById('root');
-  console.log(root);
-
   return (
     <div>
       <Container>
