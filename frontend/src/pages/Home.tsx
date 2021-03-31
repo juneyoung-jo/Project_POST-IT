@@ -22,7 +22,6 @@ import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { getCurrentUser } from 'api/user';
 
-
 AOS.init();
 
 const Home = () => {

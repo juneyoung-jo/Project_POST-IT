@@ -29,7 +29,7 @@ const colors = {
   },
 };
 const gradient = {
-  main: 'linear-gradient(45deg, #804bd8, #544ad8)',
+  main: 'linear-gradient(45deg, #2d2839, #312c40)',
 };
 
 const theme: DefaultTheme = {

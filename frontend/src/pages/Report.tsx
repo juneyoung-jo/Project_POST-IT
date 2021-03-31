@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import LazyLoad from 'react-lazyload';
 
 // components
 import {
   BarChart,
-  ImageChart,
   NetworkMap,
   WordCloudChart,
-} from 'components/chart/ChartWrapper';
+} from 'components/chart/category/ChartWrapper';
+import { ImageChart, PieChart } from 'components/chart/common/ChartWrapper';
 
 // styles
 import {
@@ -208,7 +209,7 @@ function Report() {
 
           {/* image-chart 시작 */}
           <Title>Keyword Ratio</Title>
-          <Subtitle>키워드 별로 빈도수의 비율을 계산했어요.</Subtitle>
+          <Subtitle>키워드 별 빈도수의 비율을 계산했어요.</Subtitle>
           <Section>
             <ImageChart />
           </Section>
@@ -238,33 +239,41 @@ function Report() {
                 </Select>
               </FormControl>
             </CategorySelect>
-            <Grid container spacing={3}>
-              <Grid className={classes.grid} item xs={12}>
-                <BarChart category={category}></BarChart>
-              </Grid>
-              <Grid container>
-                <Grid className={classes.grid} item xs={12} md={6}>
-                  <WordCloudChart category={category} />
+            <LazyLoad height={200} offset={100} once>
+              <Grid container spacing={3}>
+                <Grid className={classes.grid} item xs={12}>
+                  <BarChart category={category}></BarChart>
                 </Grid>
-                <Grid className={classes.grid} item xs={12} md={6}>
-                  <NetworkMap category={category} />
+                <Grid container>
+                  <Grid className={classes.grid} item xs={12} md={6}>
+                    <WordCloudChart category={category} />
+                  </Grid>
+                  <Grid className={classes.grid} item xs={12} md={6}>
+                    <NetworkMap category={category} />
+                  </Grid>
+                </Grid>
+                <Grid className={classes.grid} item xs={12}>
+                  <Title>에러 TOP 3</Title>
                 </Grid>
               </Grid>
-              <Grid className={classes.grid} item xs={12}>
-                <Title>에러 TOP 3</Title>
-              </Grid>
-            </Grid>
+            </LazyLoad>
           </Section>
           {/* 카테고리 끝 */}
 
           {/* ETC 시작 */}
           <Title>요즘뜨는 OO</Title>
-          <Subtitle>요즘뜨는 OS, 요즘뜨는 에디터는 뭐가 있을까요?</Subtitle>
+          <Subtitle>요즘뜨는 OS, 요즘뜨는 Editor는 무엇이 있을까요?</Subtitle>
           <Section>
-            <Grid container spacing={3}>
-              <Grid className={classes.grid} item xs={12}></Grid>
-              <Grid className={classes.grid} item xs={12}></Grid>
-            </Grid>
+            <LazyLoad height={500} offset={100} once>
+              <Grid container spacing={3}>
+                <Grid className={classes.grid} item xs={12}>
+                  <PieChart chartId="os-chart" />
+                </Grid>
+                <Grid className={classes.grid} item xs={12}>
+                  <PieChart chartId="editor-chart" />
+                </Grid>
+              </Grid>
+            </LazyLoad>
           </Section>
           {/* ETC 끝 */}
         </Wrapper>
