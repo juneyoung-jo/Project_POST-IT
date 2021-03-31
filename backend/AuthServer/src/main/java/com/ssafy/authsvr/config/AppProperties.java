@@ -27,10 +27,16 @@ public class AppProperties {
             return tokenExpirationMsec;
         }
 
-        public long getRefreshTokenExpirationMesc() { return refreshTokenExpirationMesc; }
+        public long getRefreshTokenExpirationMesc() {
+            return refreshTokenExpirationMesc;
+        }
 
         public void setTokenExpirationMsec(long tokenExpirationMsec) {
             this.tokenExpirationMsec = tokenExpirationMsec;
+        }
+
+        public void setRefreshTokenExpirationMesc(long refreshTokenExpirationMesc) {
+            this.refreshTokenExpirationMesc = refreshTokenExpirationMesc;
         }
     }
 

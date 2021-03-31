@@ -8,7 +8,8 @@ spring:
     name: authserver
   data:
     mongodb:
-      host: j4c103.p.ssafy.io
+#      host: j4c103.p.ssafy.io
+      host: 3.34.182.63
       port: 27017
       authentication-database: user
       database: user
@@ -62,7 +63,7 @@ spring:
 app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
-    tokenExpirationMsec: 3600
+    tokenExpirationMsec: 3600000
     refreshTokenExpirationMesc: 864000000
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
