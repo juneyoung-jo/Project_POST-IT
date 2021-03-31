@@ -37,8 +37,10 @@ export const Section = styled.div`
 
   // 모바일 버전일 경우 글과 사진 거꾸로 배치
   .mobile-reverse {
-    display: flex;
-    flex-direction: column-reverse;
+    ${media.sm} {
+      display: flex;
+      flex-direction: column-reverse;
+    }
   }
 `;
 
