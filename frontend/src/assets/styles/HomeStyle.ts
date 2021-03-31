@@ -8,10 +8,6 @@ interface TextStyle {
   marginTop?: string;
 }
 
-interface Img {
-  hide?: string;
-}
-
 const customMediaQuery = (maxWidth: number) =>
   `@media (max-width: ${maxWidth}px)`;
 
@@ -64,11 +60,11 @@ export const TextStyle = styled.div<TextStyle>`
   }
 `;
 
-export const Img = styled.img<Img>`
+export const Img = styled.img<{ hide?: string }>`
   width: 100%;
 
   ${media.sm} {
-    // 모바일 버전에선 그림 3개 중에 1개만 나오게 하기
+    // 모바일 버전에선 그림 3개 중에 1개만 나오게 하기 & 마진 조정
     display: ${(props) => props.hide};
     margin-top: 10px;
   }
