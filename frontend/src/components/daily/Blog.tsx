@@ -19,7 +19,7 @@ const Title = styled.div`
 
 const SubTitle = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.lg};
-  color: ${({ theme }) => theme.colors.first};
+  color: ${({ theme }) => theme.colors.card.content};
   margin: 10px;
   display: flex;
   justify-content: space-between;
@@ -34,9 +34,12 @@ const StyledCard = styled(Card)`
   -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   overflow: hidden;
+  .MuiCard-rounded {
+    border-radius: 16px;
+    border: 0.3px solid #2e2e2e;
+  }
   &:hover {
-    box-shadow: 0px 0px 5px #41d3bd;
-    transform: translateY(-5px);
+    transform: scale(1.02);
   }
 ` as typeof Card;
 
@@ -96,29 +99,42 @@ function Blog() {
           <Grid container spacing={4}>
             {[4, 4, 4].map((value) => (
               <Grid item xs={12} md={4} sm={6}>
-                <StyledCard>
-                  <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
+                <StyledCard style={{ borderRadius: '20px' }}>
+                  <a
+                    href="https://www.instagram.com/p/CG2jk9HgNLq/"
+                    style={{ backgroundColor: '#2e2e2e', display: 'block' }}
+                  >
                     <img
                       src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
                       alt="random image"
                     />
                   </a>
-                  <div
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                  >
-                    <SubTitle>
-                      <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
-                        Big Data is very good skill. but I don't like it. I want
-                        frontend Big Data is very good skill. but I don't like
-                        it. I want frontend
-                      </a>
+                  <div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        backgroundColor: '#2e2e2e',
+                        color: '#b6b7b8',
+                        marginTop: '0',
+                      }}
+                    >
+                      <SubTitle>
+                        <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
+                          Big Data is very good skill. but I don't like it. I
+                          want frontend Big Data is very good skill. but I don't
+                          like it. I want frontend
+                        </a>
+                      </SubTitle>
+                      <CardButtonGroup></CardButtonGroup>
+                    </div>
+                    <SubTitle
+                      style={{ backgroundColor: '#2e2e2e', margin: '0' }}
+                    >
+                      <p style={{ margin: '10px' }}>naver</p>
+                      <p style={{ margin: '10px' }}>2021-01-03</p>
                     </SubTitle>
-                    <CardButtonGroup></CardButtonGroup>
                   </div>
-                  <SubTitle>
-                    <p>naver</p>
-                    <p>2021-01-03</p>
-                  </SubTitle>
                 </StyledCard>
               </Grid>
             ))}
