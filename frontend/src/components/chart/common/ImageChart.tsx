@@ -58,10 +58,6 @@ function ImageChart() {
     series.ticks.template.locationX = 1;
     series.ticks.template.locationY = 0.5;
 
-    let chartBox = document.querySelector('#image-chart');
-    chartBox?.addEventListener('fullscreenchange', function (e) {
-      console.log(e.target);
-    });
     series.labelsContainer.width = 150;
     series.labelsContainer.fontSize = 12;
     series.labelsContainer.fontWeight = '700';

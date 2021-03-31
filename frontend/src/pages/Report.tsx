@@ -11,6 +11,7 @@ import { ImageChart, PieChart } from 'components/chart/common/ChartWrapper';
 
 // styles
 import {
+  Button,
   Card,
   CardContent,
   Container,
@@ -32,6 +33,7 @@ import {
   CategorySelect,
   Section,
 } from './Report.styles';
+import TopButton from 'components/common/TopButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -124,17 +126,21 @@ function Report() {
   const [week, setWeek] = useState('현재');
 
   const handleChangeCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setCategory(e.target.value as string);
   };
   const handleChangeWeek = (e: React.ChangeEvent<{ value: unknown }>) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setWeek(e.target.value as string);
   };
+
+  const root = document.getElementById('root');
+  console.log(root);
 
   return (
     <div>
       <Container>
+        <TopButton></TopButton>
         <Wrapper>
           <CategorySelect>
             <FormControl className={classes.formControl}>
