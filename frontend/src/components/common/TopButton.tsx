@@ -1,14 +1,5 @@
 import NavigationIcon from '@material-ui/icons/Navigation';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import styled from 'styled-components';
-
-const useStyle = makeStyles((theme: Theme) =>
-  createStyles({
-    main: {
-      backGround: '#ffffff',
-    },
-  }),
-);
 
 const Button = styled.button`
   width: 40px;
@@ -36,7 +27,6 @@ const Button = styled.button`
 `;
 
 function TopButton() {
-  const classes = useStyle();
   const root = document.getElementById('root');
 
   const handleClick = () => {
