@@ -35,7 +35,7 @@ const ModalWrapper = styled.div`
   width: 700px;
   height: 500px;
   padding: 2rem;
-  background: ${({ theme }) => theme.colors.first};
+  background: ${({ theme }) => theme.gradient.main};
   position: relative;
   z-index: 10;
   border-radius: 8px;

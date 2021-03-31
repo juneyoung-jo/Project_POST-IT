@@ -22,7 +22,7 @@ const Wrapper = styled.header`
     color: ${({ theme }) => theme.colors.text.first};
   }
   .header-menus {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
     padding: 0 1rem;
     color: ${({ theme }) => theme.colors.text.third};
@@ -34,6 +34,9 @@ const Wrapper = styled.header`
 `;
 
 const Button = styled.button`
+  font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
   background: none;
   border: none;
   margin: auto 1rem;
@@ -98,9 +101,7 @@ function Header(props: PropsType) {
         </div>
       ) : (
         <div>
-          <Button onClick={openModal}>
-            <span>로그인</span>
-          </Button>
+          <Button onClick={openModal}>로그인</Button>
         </div>
       )}
       <Modal

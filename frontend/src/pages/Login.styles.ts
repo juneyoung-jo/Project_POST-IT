@@ -21,6 +21,7 @@ export const TitleWrapper = styled.div`
     color: ${({ theme }) => theme.colors.text.first};
   }
   p {
+    font-size: ${({ theme }) => theme.fontSizes.md};
     color: ${({ theme }) => theme.colors.text.first};
     margin: 1rem auto;
   }
