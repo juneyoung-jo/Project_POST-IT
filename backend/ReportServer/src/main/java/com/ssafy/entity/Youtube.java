@@ -7,7 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Schema(description = "유튜브정보")
-@Data
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "youtube")
 @Builder
 public class Youtube extends Contents {
