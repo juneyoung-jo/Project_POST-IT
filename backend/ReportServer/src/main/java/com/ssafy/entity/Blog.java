@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Blog extends Contents{
 
     private int blogId;
-    private String img;
+    private String image;
 
 }
 

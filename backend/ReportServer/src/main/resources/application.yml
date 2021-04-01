@@ -5,7 +5,8 @@ spring:
       authentication-database: postit
       username: ssafy103pi
       password: postit123
-      host: j4c103.p.ssafy.io
+#      host: j4c103.p.ssafy.io
+      host: 3.34.182.63
       port: 27017
       database: postit
 
