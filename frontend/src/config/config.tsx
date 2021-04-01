@@ -3,13 +3,8 @@ export const API_BASE_URL = 'http://3.34.182.63:8443';
 
 export const ACCESS_TOKEN = 'accessToken';
 
-<<<<<<< HEAD
 export const OAUTH2_REDIRECT_URI = 'http://3.34.182.63/oauth2/redirect';
 // export const OAUTH2_REDIRECT_URI = 'http://j4c103.p.ssafy.io/oauth2/redirect';
-=======
-export const OAUTH2_REDIRECT_URI = 'http://j4c103.p.ssafy.io:8443/oauth2/redirect';
-
->>>>>>> ed53830fdfb62cec3014bcbe6ea6308d792b32bc
 
 export const GOOGLE_AUTH_URL =
   API_BASE_URL + '/oauth2/authorize/google?redirect_uri=' + OAUTH2_REDIRECT_URI;

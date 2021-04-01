@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import LazyLoad from 'react-lazyload';
 import { RouteComponentProps } from 'react-router-dom';
 
+// axios
+import { instance } from 'api/index';
+
 // components
 import {
   BarChart,
@@ -134,7 +137,6 @@ const Report: React.FC<RouteComponentProps> = ({
 }) => {
   // 스택오버플로우 top10을 넣어둘 변수
   // const [top10, setTop10] = useState([]);
-  console.log(match, location, history);
 
   // material-ui 스타일 적용
   const classes = useStyles();
@@ -151,6 +153,12 @@ const Report: React.FC<RouteComponentProps> = ({
     // console.log(e.target.value);
     setWeek(e.target.value as string);
   };
+
+  //axios작업
+  useEffect(() => {
+    instance.get('/report/common').then((res) => console.log(res));
+    return () => {};
+  }, []);
 
   return (
     <div>

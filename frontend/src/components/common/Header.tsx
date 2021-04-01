@@ -1,11 +1,10 @@
-import React from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
-import { Modal } from './Modal';
+import styled from 'styled-components';
 
 import Login from 'pages/Login';
 import theme from 'assets/theme';
+import { Modal } from './Modal';
 
 const Wrapper = styled.header`
   font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
@@ -58,9 +57,10 @@ interface MenuTypes {
   to: string;
   item: string;
   children?: string;
+  onClick?: any;
 }
 
-const MenuItem = ({ to, item, children }: MenuTypes) => (
+const MenuItem = ({ to, item, children, onClick }: MenuTypes) => (
   <NavLink
     to={to}
     className={`header-${item}`}
@@ -71,12 +71,14 @@ const MenuItem = ({ to, item, children }: MenuTypes) => (
       }
       return match.isExact;
     }}
+    onClick={onClick}
   >
     {children}
   </NavLink>
 );
 
 function Header(props: PropsTypes) {
+  // 모달
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);
