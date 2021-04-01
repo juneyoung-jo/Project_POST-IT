@@ -3,14 +3,11 @@ package com.ssafy.authsvr.controller;
 import com.ssafy.authsvr.payload.InfoUpdateRequest;
 import com.ssafy.authsvr.payload.UserResponse;
 import com.ssafy.authsvr.security.CurrentUser;
-import com.ssafy.authsvr.security.RestAuthenticationEntryPoint;
 import com.ssafy.authsvr.security.UserPrincipal;
 import com.ssafy.authsvr.service.UserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(RestAuthenticationEntryPoint.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     // feat 1. 로그인 성공 -> 리턴값 : nickName, profile, category, blogId, youtubeId, jobId
     @GetMapping("/user/me")

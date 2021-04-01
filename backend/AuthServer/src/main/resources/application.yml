@@ -50,7 +50,7 @@ spring:
           github:
             clientId: f94d66b82e2e9a0b300c
             clientSecret: 05db68d8b0ca77dff03f994ae98ae40c5a995ac4
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "http://localhost:5555/api/auth/oauth2/callback/{registrationId}"
             scope:
               - user:email
               - read:user
@@ -71,6 +71,7 @@ app:
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
+      - http://localhost:5555/api/auth/oauth2/redirect
       - http://localhost:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect

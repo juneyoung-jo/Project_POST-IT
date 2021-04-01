@@ -2,12 +2,14 @@ package com.ssafy.authsvr.config;
 
 import com.ssafy.authsvr.security.CustomUserDetailsService;
 import com.ssafy.authsvr.security.RestAuthenticationEntryPoint;
+import com.ssafy.authsvr.security.TestFilter;
 import com.ssafy.authsvr.security.TokenAuthenticationFilter;
 import com.ssafy.authsvr.security.oauth2.CustomOAuth2UserService;
 import com.ssafy.authsvr.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.ssafy.authsvr.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.ssafy.authsvr.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,7 +31,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         jsr250Enabled = true,
         prePostEnabled = true
 )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService customUserDetailsService;
@@ -47,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new TokenAuthenticationFilter();
     }
 
+    @Bean
+    public TestFilter testFilter() { return new TestFilter(); }
     /*
       By default, Spring OAuth2 uses HttpSessionOAuth2AuthorizationRequestRepository to save
       the authorization request. But, since our service is stateless, we can't save it in
@@ -105,7 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                         .permitAll()
-                    .antMatchers("/auth/**", "/oauth2/**")
+                    .antMatchers("api/auth/oauth2/**", "/oauth2/**")
                         .permitAll()
                     .anyRequest()
                         .authenticated()
@@ -125,6 +129,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureHandler(oAuth2AuthenticationFailureHandler);
 
         // Add our custom Token based authentication filter
+        http.addFilterBefore(testFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

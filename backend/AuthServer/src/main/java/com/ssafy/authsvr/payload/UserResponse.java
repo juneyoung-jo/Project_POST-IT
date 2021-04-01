@@ -1,7 +1,6 @@
 package com.ssafy.authsvr.payload;
 
 
-import com.ssafy.authsvr.entity.User;
 import lombok.Builder;
 
 public class UserResponse extends ApiResponse<UserForApp>{
