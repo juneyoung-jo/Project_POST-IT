@@ -31,8 +31,8 @@ db = client['postit']
 collection = db['youtube']
 
 
-# DEVELOPER_KEY = "AIzaSyC0wo07Z69Ig5hy7lWwe595XQ-o5KPJU50"  # 유튜브 API 키 값
-DEVELOPER_KEY = "AIzaSyCk52y-NA-4W_DOohpl_M56NLv-f1aqQUs"
+DEVELOPER_KEY = "AIzaSyC0wo07Z69Ig5hy7lWwe595XQ-o5KPJU50"  # 유튜브 API 키 값
+# DEVELOPER_KEY = "AIzaSyCk52y-NA-4W_DOohpl_M56NLv-f1aqQUs"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
@@ -54,7 +54,7 @@ channels = ['UChflhu32f5EUHlY7_SetNWw', 'UC-TpdzGorF3igglmjCWQhMA', 'UCM9urpxJao
             'UC2wPiIf2xSXGTJNqo8UOY9g', 'UCNrehnUq7Il-J7HQxrzp7CA', 'UCwjaZf1WggZdbczi36bWlBA', 'UCSIsVRwCR9dbUXS7KUXX8JQ', 'UC7yfnfvEUlXUIfm8rGLwZdA',
             'UCLLncfeIYljE0o_yUw7MkcA', 'UC0Y0T9JpgIBbyGDjvy9PbOg', 'UCW4ixpFivk6eJl8b5bFOLkg', 'UCDGiCfCZIV5phsoGiPwIcyQ']
 
-# channels = ['UC-TpdzGorF3igglmjCWQhMA']
+# channels = ['UChflhu32f5EUHlY7_SetNWw']
 
 
 # # 채널 아이디 파싱
@@ -98,5 +98,6 @@ file = open('youtube_result.json', 'w', -1, "utf-8")
 json.dump(data, file, ensure_ascii=False)
 file.close
 
+print(data)
 # 디비에 insert
-collection.insert_many(data)
+# collection.insert_many(data)
