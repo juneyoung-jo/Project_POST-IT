@@ -75,8 +75,9 @@ function Switch() {
 
 function Blog() {
   // console.log('hello');
+  const blog = [];
   useEffect(() => {
-    console.log('랜더링 완료');
+    // console.log('랜더링 완료');
     allBlog().then((res) => {
       console.log(res);
     });
@@ -89,7 +90,6 @@ function Blog() {
   return (
     <div>
       <Title>최신 블로그 게시물</Title>
-      <button onClick={() => allBlog()}>asdasd</button>
       <Title style={{ fontSize: '16px', float: 'right' }}>
         내 관심 분야 <Switch></Switch>
       </Title>
@@ -107,6 +107,7 @@ function Blog() {
                     <img
                       src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
                       alt="random image"
+                      style={{ height: '250px' }}
                     />
                   </a>
                   <div>
