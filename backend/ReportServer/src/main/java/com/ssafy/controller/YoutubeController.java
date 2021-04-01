@@ -2,19 +2,19 @@ package com.ssafy.controller;
 
 import com.ssafy.entity.Youtube;
 import com.ssafy.payload.YoutubeRequest;
-import com.ssafy.payload.YoutubeResponse;
 import com.ssafy.payload.YoutubeResponseList;
 import com.ssafy.service.YoutubeService;
 import com.ssafy.util.Adapter;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@Tag(name = "Youtube", description = "Youtube API")
 @RestController
 @CrossOrigin(origins = {"*"})
 @RequestMapping("youtube")
@@ -27,7 +27,7 @@ public class YoutubeController {
         this.youtubeService = youtubeService;
     }
 
-    // feat 1. 유튜브 컨텐츠 전체 리턴
+    @Operation(summary = "유튜브 컨텐츠 전체 리턴", description = "유튜브 컨텐츠 전체를 조회합니다.")
     @GetMapping
     public ResponseEntity<?> listYoutubeContents() {
         log.info("listYoutubeContents methods Start : return List<YoutubeDto>");
@@ -43,7 +43,7 @@ public class YoutubeController {
                 : ResponseEntity.ok(response);
     }
 
-    // feat 2. 북마크 한 유튜브 컨텐츠 리턴
+    @Operation(summary = "북마크 한 유튜브 컨텐츠 리턴", description = "북마크 한 유튜브 컨텐츠를 조회합니다.")
     @PostMapping
     public ResponseEntity<?> listInterestYoutubeContents(@RequestBody YoutubeRequest youtubeRequest) {
         log.info("listInterestYoutubeContents methods Start : return List<BlogDto>");

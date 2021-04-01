@@ -22,6 +22,14 @@ public class Adapter {
                 .build();
     }
 
+    public static ReportResponse toReportResponse(final Report report, String date) {
+        return ReportResponse.builder()
+                .category_report(report.getCategory_report())
+                .common_report(report.getCommon_report())
+                .date(date)
+                .build();
+    }
+
     public static YoutubeResponse toYoutubeResponse(final Youtube youtube) {
         return YoutubeResponse.builder()
                 .youtube(youtube)
@@ -35,7 +43,7 @@ public class Adapter {
                 .build();
     }
 
-    public static ReportResponseList toReportResponseList(final List<Report> data){
+    public static ReportResponseList toReportResponseList(final List<ReportResponse> data) {
         return ReportResponseList.builder()
                 .data(data)
                 .msg("Success")
