@@ -10,7 +10,8 @@ from datetime import datetime, timedelta
 import urllib.parse
 from pymongo import MongoClient
 
-host = "j4c103.p.ssafy.io"
+# host = "j4c103.p.ssafy.io"
+host = "3.34.182.63"
 port = 27017
 user_name = "ssafy103pi"
 pass_word = "postit123"
@@ -206,7 +207,7 @@ for url in urls:
     resDate = year + "." + month + "." + day
 
     arr.append(
-        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('src'), "category": 5})
+        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "image": imgs[n-1].get('src'), "category": 5})
     # print(url.text + " " + atag[n-1].get('href') + " " + resDate)
     n += 1
 
@@ -244,7 +245,7 @@ for url in urls:
     resDate = year + "." + month + "." + day
 
     arr.append(
-        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('style').split('"')[1], "category": 6})
+        {"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "image": imgs[n-1].get('style').split('"')[1], "category": 6})
     # print(url.text + " " + atag[n-1].get('href') + " " + resDate)
     n += 1
 
@@ -277,7 +278,7 @@ for i in path:
         day = dayFarmat(dateText[4:5])
         resDate = year + "." + month + "." + day
 
-        arr.append({"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "img": imgs[n-1].get('src'), "category": 7})
+        arr.append({"title": url.text, "url": atag[n-1].get('href'), "date": resDate, "image": imgs[n-1].get('src'), "category": 7})
 #         # print(url.text + " " + atag[n-1].get('href') + " " + resDate)
         n += 1
 
@@ -291,8 +292,8 @@ new_data = []
 
 # 기본 데이터 
 # for n in number:
-    # print(data[n])
-    # collection.insert_many(data[n])
+#     print(data[n])
+#     collection.insert_many(data[n])
 
 # 일주일 갱신 데이터 코드
 for n in number:
@@ -301,7 +302,7 @@ for n in number:
         if last_week.date() <= covert_date:
             new_data.append(d)
 
-collection.insert_many(new_data)
+# collection.insert_many(new_data)
 
 # 모든 내용 json 파일화
 # file = open('result.json', 'w', -1, "utf-8")
