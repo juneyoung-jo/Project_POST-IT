@@ -1,3 +1,4 @@
+import { ArrowUpward } from '@material-ui/icons';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import styled from 'styled-components';
 
@@ -12,17 +13,18 @@ const Button = styled.button`
   right: 2rem;
   bottom: 3rem;
   box-shadow: 3px 3px rgba(0, 0, 0, 0.3);
-  border: 2px solid rgba(65, 65, 65, 0.5);
+  border: 2px solid #a9a9a9;
   border-radius: 16px;
   background-color: ${({ theme }) => theme.colors.second};
   &:hover {
     & svg {
-      color: ${({ theme }) => theme.colors.mint};
+      color: white;
       transition: 0.1s all ease-in;
     }
+    border: 2px solid white;
   }
   & svg {
-    color: ${({ theme }) => theme.colors.text.first};
+    color: #a9a9a9;
   }
 `;
 
@@ -34,7 +36,7 @@ function TopButton() {
   };
   return (
     <Button onClick={handleClick}>
-      <NavigationIcon />
+      <ArrowUpward />
     </Button>
   );
 }
