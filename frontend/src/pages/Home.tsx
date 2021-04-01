@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactDOM from 'react-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -9,58 +8,35 @@ import graph3 from 'assets/images/graph3.png';
 import contents from 'assets/images/contents.png';
 import mycontents from 'assets/images/mycontents.png';
 import Grid from '@material-ui/core/Grid';
-import { Section, TextStyle, Img } from '../assets/styles/HomeStyle';
+import {
+  Section,
+  Title,
+  SubTitle,
+  ContentText,
+  SubContentText,
+  Img,
+} from '../assets/styles/HomeStyle';
 import { Container } from '@material-ui/core';
 
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { getCurrentUser } from 'api/user';
 
 AOS.init();
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    grid: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-    },
-  }),
-);
-
 const Home = () => {
-  const classes = useStyles();
-
-  // const [inverted, setInverted] = useState(false);
-  // const hadleChage = () => {
-  //   setInverted(true)
-  // }
-
   return (
     <Container>
       {/* 첫번째 section */}
       <Section>
         <Grid container>
           <Grid item xs={12}>
-            <TextStyle
-              fontSize="1.5em"
-              fontWeight="300"
-              data-aos="fade-in"
-              data-aos-delay="400"
-              data-aos-duration="800"
-            >
+            <SubTitle data-aos="fade-in" data-aos-duration="1000">
               IT 트렌드를 담다
-            </TextStyle>
-            <TextStyle
-              fontSize="5em"
-              fontWeight="700"
-              data-aos="fade-in"
-              data-aos-delay="1000"
-              data-aos-duration="800"
-            >
+            </SubTitle>
+            <Title data-aos="fade-in" data-delay="1000">
               POST-IT.
-            </TextStyle>
+            </Title>
           </Grid>
         </Grid>
       </Section>
@@ -68,99 +44,58 @@ const Home = () => {
       <Section>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <TextStyle
-              fontSize="2.5em"
-              fontWeight="700"
-              data-aos="fade-in"
-              className="text-center"
-            >
+            <ContentText data-aos="fade-in" style={{ textAlign: 'center' }}>
               다양한 그래프를 통해 최신 IT 트렌드를 확인해보세요.
-            </TextStyle>
+            </ContentText>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Img
-              src={graph1}
-              alt="graph1"
-              data-aos="fade-right"
-              data-aos-delay="200"
-              hide="none"
-            ></Img>
+            <Img src={graph1} alt="graph1" data-aos="fade-in"></Img>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Img
-              src={graph2}
-              alt="graph2"
-              data-aos="fade-in"
-              data-aos-delay="250"
-            ></Img>
+            <Img src={graph2} alt="graph2" data-aos="fade-in"></Img>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Img
-              src={graph3}
-              alt="graph3"
-              data-aos="fade-left"
-              data-aos-delay="200"
-              hide="none"
-            ></Img>
+            <Img src={graph3} alt="graph3" data-aos="fade-in"></Img>
           </Grid>
           <Grid item xs={12}>
-            <TextStyle fontSize="1.5em" fontWeight="300" data-aos="fade-in">
+            <SubContentText style={{ textAlign: 'center' }}>
               카테고리별 통계를 통해 더욱더 자세한 트렌드를 확인할 수 있어요.
-            </TextStyle>
+            </SubContentText>
           </Grid>
         </Grid>
       </Section>
       {/* 세번째 section */}
       <Section>
-        <Grid container className="mobile-reverse">
+        <Grid container>
           <Grid item xs={12} sm={5}>
             <Img src={contents} alt="graph3" data-aos="fade-right"></Img>
           </Grid>
-
-          <Grid item className={classes.grid} xs={12} sm={7}>
-            <TextStyle
-              fontSize="2.3em"
-              fontWeight="700"
-              textAlign="end"
-              data-aos="fade-in"
-            >
+          <Grid container xs={12} sm={7} direction="column" justify="center">
+            <ContentText data-aos="fade-in" style={{ textAlign: 'end' }}>
               최신 트렌드 관련 콘텐츠를 확인해보세요.
-            </TextStyle>
-            <TextStyle
-              fontSize="1em"
-              fontWeight="300"
-              textAlign="end"
-              marginTop="20px"
+            </ContentText>
+            <SubContentText
               data-aos="fade-in"
-              data-aos-delay="200"
+              style={{ textAlign: 'end', marginTop: '20px' }}
             >
               관심 키워드 ON/OFF 기능을 통해 관심분야만 빠르게 확인할 수 있어요.
-            </TextStyle>
+            </SubContentText>
           </Grid>
         </Grid>
       </Section>
       {/* 네번째 section */}
       <Section>
         <Grid container>
-          <Grid item className={classes.grid} xs={12} sm={7}>
-            <TextStyle
-              fontSize="2em"
-              fontWeight="700"
-              textAlign="start"
-              data-aos="fade-in"
-            >
+          <Grid container xs={12} sm={7} direction="column" justify="center">
+            <ContentText data-aos="fade-in" style={{ textAlign: 'start' }}>
               다시 보고 싶은 콘텐츠를 스크랩하여 모아보세요.
-            </TextStyle>
-            <TextStyle
-              fontSize="1em"
-              fontWeight="300"
-              textAlign="start"
-              marginTop="20px"
+            </ContentText>
+            <SubContentText
               data-aos="fade-in"
-              data-aos-delay="200"
+              style={{ textAlign: 'start', marginTop: '20px' }}
             >
               콘텐츠별 스크랩이 가능해 편리하게 모아볼 수 있어요.
-            </TextStyle>
+            </SubContentText>
           </Grid>
           <Grid item xs={12} sm={5}>
             <Img src={mycontents} alt="mycontents" data-aos="fade-left"></Img>
@@ -170,24 +105,23 @@ const Home = () => {
       {/* 다섯번째 section */}
       <Section>
         <Grid container>
-          <Grid item className={classes.grid} xs={12}>
-            <TextStyle
-              fontSize="2.5em"
-              fontWeight="700"
+          <Grid item xs={12}>
+            <ContentText
               data-aos="fade-in"
               data-delay="1000"
+              style={{ textAlign: 'center' }}
             >
               이제 POST-IT과 함께 개발자로 성장해보세요!
-            </TextStyle>
+            </ContentText>
           </Grid>
-          <Grid item className={classes.grid} xs={12}>
+          <Grid item xs={12} direction="row" justify="center">
             <Link
-              to="/report"
+              to="/"
               data-aos="fade-in"
-              data-aos-delay="200"
+              data-aos-duration="1000"
               className="go-report"
             >
-              IT 트렌드 확인하러 가기
+              IT 트렌드 확인하러 가기 Click!
             </Link>
           </Grid>
         </Grid>
