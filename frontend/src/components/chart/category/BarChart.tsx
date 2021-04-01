@@ -15,7 +15,6 @@ function BarChart({ category = '공통' }: Iprops) {
   useLayoutEffect(() => {
     // create chart
     let chart = am4core.create('bar-chart', am4charts.XYChart);
-    chart.padding(40, 40, 40, 40); // 상, 하, 좌, 우
 
     // Y축
     let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());

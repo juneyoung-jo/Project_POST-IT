@@ -48,20 +48,35 @@ function PieChart(props: Iprops) {
         litres: 99,
       },
     ];
-
+    chart.innerRadius = am4core.percent(40);
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = 'litres';
     pieSeries.dataFields.category = 'country';
     pieSeries.slices.template.stroke = am4core.color('#fff');
     pieSeries.slices.template.strokeOpacity = 1;
+    pieSeries.labels.template.disabled = true;
 
     // This creates initial animation
     pieSeries.hiddenState.properties.opacity = 1;
     pieSeries.hiddenState.properties.endAngle = -90;
     pieSeries.hiddenState.properties.startAngle = -90;
-
     chart.hiddenState.properties.radius = am4core.percent(0);
+
+    // chart legend
+    chart.legend = new am4charts.Legend();
+    chart.legend.fontSize = '12';
+    chart.legend.position = 'right';
+    chart.legend.marginTop = 40;
+    chart.legend.marginBottom = 40;
+
+    // chart title
+    let title = chart.titles.create();
+    title.text = `${props.category} 키워드 빈도수`;
+    title.fontSize = 20;
+    title.fontWeight = '700';
+    title.marginTop = 40;
+    title.marginBottom = 40;
 
     return () => {
       chart.dispose();
@@ -69,7 +84,7 @@ function PieChart(props: Iprops) {
   }, []);
 
   return (
-    <div id={props.chartId} style={{ width: '100%', height: '500px' }}></div>
+    <div id={props.chartId} style={{ width: '100%', height: '400px' }}></div>
   );
 }
 

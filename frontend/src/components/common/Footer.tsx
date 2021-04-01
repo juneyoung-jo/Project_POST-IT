@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.footer`
+  left: 0;
   bottom: 0;
+  position: relative;
   display: flex;
-  position: fixed;
-  width: 100%;
-  height: 48px;
-  justify-content: flex-end;
   align-items: center;
-  background-color: #2c2c2c;
+  justify-content: flex-end;
+  width: 100%;
+  height: 10rem;
   z-index: 100;
-  color: #f2f2f2;
+  background-color: #16141c;
 `;
 
 const Context = {};

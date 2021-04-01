@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import OAuth2RedirectHandler from 'api/oauth2';
 import { getCurrentUser } from 'api/user';
 import { ACCESS_TOKEN } from 'config/config';
+import AOS from 'aos';
 
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
@@ -27,24 +28,30 @@ import Report from 'pages/Report';
 import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
 
+AOS.init();
+
 const App: React.FC = (): ReactElement => {
   const [authenticated, setAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  function loadCurrentlyLoggedInUser() {
-    setLoading(true);
+  useEffect(() => {
+    function loadCurrentlyLoggedInUser() {
+      setLoading(true);
 
-    getCurrentUser()
-      .then((response) => {
-        setCurrentUser(response), setAuthenticated(true), setLoading(false);
-        console.log(response);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
-  }
+      getCurrentUser()
+        .then((response) => {
+          setCurrentUser(response), setAuthenticated(true), setLoading(false);
+          console.log(response);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error);
+        });
+    }
+    return () => {};
+  }, []);
+
   function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false), setCurrentUser(null);
@@ -79,7 +86,7 @@ const App: React.FC = (): ReactElement => {
             <Route component={NotFound}></Route>
           </Switch>
         </Suspense>
-        <Footer />
+        <Footer data-aos="fade-in" data-aos-duration="2000" />
       </BrowserRouter>
     </ThemeProvider>
   );

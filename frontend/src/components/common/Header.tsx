@@ -1,9 +1,11 @@
+import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 import { Modal } from './Modal';
 
 import Login from 'pages/Login';
+import theme from 'assets/theme';
 
 const Wrapper = styled.header`
   font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
@@ -47,12 +49,34 @@ const Button = styled.button`
   }
 `;
 
-interface PropsType {
+interface PropsTypes {
   authenticated: boolean;
   onLogout: any;
 }
 
-function Header(props: PropsType) {
+interface MenuTypes {
+  to: string;
+  item: string;
+  children?: string;
+}
+
+const MenuItem = ({ to, item, children }: MenuTypes) => (
+  <NavLink
+    to={to}
+    className={`header-${item}`}
+    activeStyle={{ color: theme.colors.text.first }}
+    isActive={(match) => {
+      if (!match) {
+        return false;
+      }
+      return match.isExact;
+    }}
+  >
+    {children}
+  </NavLink>
+);
+
+function Header(props: PropsTypes) {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -61,38 +85,21 @@ function Header(props: PropsType) {
   return (
     <Wrapper>
       <div>
-        <Link className="header-logo" to="/">
+        <MenuItem to={'/'} item={'logo'}>
           POST-IT
-        </Link>
-        <Link className="header-menus" to="/report">
+        </MenuItem>
+        <MenuItem to={'/report'} item={'menus'}>
           IT 보고서
-        </Link>
-        <Link className="header-menus" to="/contents">
+        </MenuItem>
+        <MenuItem to={'/contents'} item={'menus'}>
           일일 컨텐츠
-        </Link>
+        </MenuItem>
         {props.authenticated ? (
-          <Link className="header-menus" to="/myfolder">
+          <MenuItem to={'/myfolder'} item={'menus'}>
             내 스크랩
-          </Link>
+          </MenuItem>
         ) : null}
       </div>
-      {/* <div>
-        <button
-          onClick={() => {
-            console.log(props.authenticated);
-          }}
-        >
-          Authenticated Check
-        </button>
-        <button
-          onClick={() => {
-            getCurrentUser().then((res) => console.log(res));
-            console.log();
-          }}
-        >
-          Current user response check
-        </button>
-      </div> */}
       {props.authenticated ? (
         <div>
           <Button onClick={props.onLogout}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LazyLoad from 'react-lazyload';
+import { RouteComponentProps } from 'react-router-dom';
 
 // components
 import {
@@ -40,9 +41,21 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       background: '#858090',
     },
-    formControl: {
+    formControlA: {
       width: '25%',
       minWidth: 120,
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+        marginBottom: '3rem',
+      },
+    },
+    formControlB: {
+      width: '25%',
+      minWidth: 120,
+      [theme.breakpoints.down('xs')]: {
+        width: '100%',
+        marginBottom: '1rem',
+      },
     },
     grid: {
       padding: '1rem',
@@ -114,9 +127,14 @@ function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
   );
 }
 
-function Report() {
+const Report: React.FC<RouteComponentProps> = ({
+  match,
+  location,
+  history,
+}) => {
   // 스택오버플로우 top10을 넣어둘 변수
   // const [top10, setTop10] = useState([]);
+  console.log(match, location, history);
 
   // material-ui 스타일 적용
   const classes = useStyles();
@@ -140,7 +158,7 @@ function Report() {
         <TopButton></TopButton>
         <Wrapper>
           <CategorySelect>
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.formControlA}>
               <Select
                 variant="outlined"
                 id="week-select"
@@ -226,7 +244,7 @@ function Report() {
           </Subtitle>
           <Section>
             <CategorySelect>
-              <FormControl className={classes.formControl}>
+              <FormControl className={classes.formControlB}>
                 <Select
                   variant="outlined"
                   id="category-select"
@@ -270,10 +288,10 @@ function Report() {
             <LazyLoad height={500} offset={100} once>
               <Grid container spacing={3}>
                 <Grid className={classes.grid} item xs={12}>
-                  <PieChart chartId="os-chart" />
+                  <PieChart category="OS" chartId="os-chart" />
                 </Grid>
                 <Grid className={classes.grid} item xs={12}>
-                  <PieChart chartId="editor-chart" />
+                  <PieChart category="Editor" chartId="editor-chart" />
                 </Grid>
               </Grid>
             </LazyLoad>
@@ -283,6 +301,6 @@ function Report() {
       </Container>
     </div>
   );
-}
+};
 
 export default Report;
