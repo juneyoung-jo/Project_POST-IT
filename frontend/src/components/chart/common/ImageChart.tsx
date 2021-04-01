@@ -8,7 +8,13 @@ import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function ImageChart() {
+interface IProps {
+  data: any;
+}
+
+function ImageChart(props: IProps) {
+  let data = props.data;
+
   useLayoutEffect(() => {
     // create chart
     let iconPath =
@@ -17,36 +23,7 @@ function ImageChart() {
     let chart = am4core.create('image-chart', am4charts.SlicedChart);
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
 
-    chart.data = [
-      {
-        name: '프로그래밍 언어',
-        value: 354,
-      },
-      {
-        name: '웹/앱',
-        value: 245,
-      },
-      {
-        name: '백엔드',
-        value: 187,
-      },
-      {
-        name: '블록체인',
-        value: 123,
-      },
-      {
-        name: '클라우드 / devops',
-        value: 87,
-      },
-      {
-        name: '빅데이터',
-        value: 45,
-      },
-      {
-        name: 'AI',
-        value: 23,
-      },
-    ];
+    chart.data = props.data;
 
     let series = chart.series.push(new am4charts.PictorialStackedSeries());
     series.dataFields.value = 'value';
