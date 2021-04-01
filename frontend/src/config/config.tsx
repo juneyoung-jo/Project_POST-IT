@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://3.34.182.63/:8443';
+export const API_BASE_URL = 'http://3.34.182.63:8443';
 
 export const ACCESS_TOKEN = 'accessToken';
 
