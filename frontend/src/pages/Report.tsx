@@ -8,11 +8,7 @@ import { instance } from 'api/index';
 // components
 import ImageChart from 'components/chart/common/ImageChart';
 import { useStyles } from 'components/report/material.styles';
-import {
-  SectionOne,
-  SectionTwo,
-  SectionThree,
-} from 'components/report/Wrapper';
+import { SectionOne, SectionTwo } from 'components/report/Wrapper';
 
 // styles
 import { Container, FormControl, MenuItem, Select } from '@material-ui/core';
@@ -45,11 +41,11 @@ const Report: React.FC<RouteComponentProps> = ({
   history,
 }) => {
   const classes = useStyles();
+
   // 공통
   const [commonCategoryRatio, setCommonCategoryRatio] = useState([]);
   const [mostVote, setMostVote] = useState([]);
-  const [os, setOs] = useState([]);
-  const [editor, setEditor] = useState([]);
+
   // 카테고리
   const [categoryReport, setCategoryReport] = useState([]);
 
@@ -61,7 +57,7 @@ const Report: React.FC<RouteComponentProps> = ({
   };
 
   //axios작업
-  useEffect(() => {
+  useLayoutEffect(() => {
     instance
       .get('/report/common')
       .then((res) => res.data.data)
@@ -74,7 +70,6 @@ const Report: React.FC<RouteComponentProps> = ({
       })
       .catch((err) => console.log(err));
   }, []);
-
   return (
     <div>
       <Container>
@@ -112,7 +107,9 @@ const Report: React.FC<RouteComponentProps> = ({
           <Title>Keyword Ratio</Title>
           <Subtitle>키워드 별 빈도수의 비율을 계산했어요.</Subtitle>
           <Section>
-            <ImageChart data={commonCategoryRatio} />
+            <LazyLoad height={200} offset={100} once>
+              <ImageChart data={commonCategoryRatio} />
+            </LazyLoad>
           </Section>
           {/* section 1-2 끝 */}
 
@@ -128,16 +125,6 @@ const Report: React.FC<RouteComponentProps> = ({
             </LazyLoad>
           </Section>
           {/* section 2(카테고리별) 끝 */}
-
-          {/* section 3 시작 */}
-          <Title>요즘뜨는 OO</Title>
-          <Subtitle>요즘뜨는 OS, 요즘뜨는 Editor는 무엇이 있을까요?</Subtitle>
-          <Section>
-            <LazyLoad height={500} offset={100} once>
-              <SectionThree></SectionThree>
-            </LazyLoad>
-          </Section>
-          {/* section 3 시작 */}
         </Wrapper>
       </Container>
     </div>

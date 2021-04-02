@@ -13,8 +13,6 @@ interface IProps {
 }
 
 function ImageChart(props: IProps) {
-  let data = props.data;
-
   useLayoutEffect(() => {
     // create chart
     let iconPath =
@@ -50,7 +48,7 @@ function ImageChart(props: IProps) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, []);
+  }, [props.data]);
 
   return (
     <div id="image-chart" style={{ width: '100%', height: '500px' }}></div>

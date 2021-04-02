@@ -16,14 +16,13 @@ import { CategorySelect } from 'pages/Report.styles';
 
 // 카테고리 옵션
 const options = [
-  '공통',
-  '언어',
-  '웹',
-  '모바일',
-  '백엔드',
-  '블록체인',
-  '클라우드/devops',
-  '빅데이터/머신러닝/AI',
+  'language',
+  'web',
+  'mobile',
+  'backend',
+  'cloud-devops',
+  'bigdata-ai-ml',
+  'database',
 ];
 
 interface IProps {
@@ -32,12 +31,9 @@ interface IProps {
 }
 
 function SectionTwo(props: IProps) {
-  console.log(props.data);
   const classes = useStyles();
-  const [category, setCategory] = useState('공통');
-
+  const [category, setCategory] = useState('language');
   const handleChangeCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
-    // console.log(e.target.value);
     setCategory(e.target.value as string);
   };
   return (
@@ -61,7 +57,7 @@ function SectionTwo(props: IProps) {
       </CategorySelect>
       <Grid container spacing={3}>
         <Grid className={classes.grid} item xs={12}>
-          <BarChart category={category}></BarChart>
+          <BarChart data={props.data.backend}></BarChart>
         </Grid>
         <Grid container>
           <Grid className={classes.grid} item xs={12} md={6}>
