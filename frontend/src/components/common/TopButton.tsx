@@ -1,12 +1,13 @@
 import { ArrowUpward } from '@material-ui/icons';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import { Console } from 'node:console';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
   width: 40px;
   height: 40px;
   z-index: 101;
-  display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -26,16 +27,32 @@ const Button = styled.button`
   & svg {
     color: #a9a9a9;
   }
+  &.hide {
+    display: none;
+  }
+  &.display {
+    display: flex;
+  }
 `;
 
 function TopButton() {
   const root = document.getElementById('root');
-
+  const [hide, setHide] = useState(false);
   const handleClick = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
+
+  const scrollListener = () => {
+    const hide = scrollY > 750;
+    setHide(hide);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollListener);
+  });
+
   return (
-    <Button onClick={handleClick}>
+    <Button className={hide ? 'display' : 'hide'} onClick={handleClick}>
       <ArrowUpward />
     </Button>
   );
