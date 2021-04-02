@@ -47,7 +47,6 @@ function Contents() {
   const [isBlog, setBlog] = useState(true);
   const [isYoutube, setYoutube] = useState(false);
   const [isJob, setJob] = useState(false);
-
   const clickHandler = (v: number) => {
     if (v == 0) {
       setBlog(true);

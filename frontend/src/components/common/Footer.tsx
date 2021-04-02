@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.footer`
+  left: 0;
   bottom: 0;
+  position: relative;
   display: flex;
   /* position: fixed; */
   width: 100%;

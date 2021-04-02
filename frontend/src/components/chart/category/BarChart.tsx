@@ -11,11 +11,11 @@ import { Iprops } from 'types/report/chartTypes';
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function BarChart({ category = '공통' }: Iprops) {
+function BarChart(props: Iprops) {
+  // console.log(props);
   useLayoutEffect(() => {
     // create chart
     let chart = am4core.create('bar-chart', am4charts.XYChart);
-    chart.padding(40, 40, 40, 40); // 상, 하, 좌, 우
 
     // Y축
     let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
@@ -102,7 +102,7 @@ function BarChart({ category = '공통' }: Iprops) {
     ];
 
     let title = chart.titles.create();
-    title.text = `"${category}" 카테고리 인기 키워드 비율`;
+    title.text = `"" 카테고리 인기 키워드 비율`;
     title.fontSize = 20;
     title.fontWeight = '700';
     title.marginBottom = 40;
@@ -111,7 +111,7 @@ function BarChart({ category = '공통' }: Iprops) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, [category]);
+  }, []);
 
   return (
     <div
