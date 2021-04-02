@@ -7,6 +7,8 @@ import { Block, ContactSupportOutlined, TurnedIn } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { SliderSwitch } from './Daily.styles';
 import { allBlog, cartegorySearch } from 'api/daily';
+import LazyLoad from 'react-lazyload';
+
 // import { withStyles } from '@material-ui/core/styles';
 
 // Base title
@@ -22,6 +24,7 @@ const SubTitle = styled.div`
   color: ${({ theme }) => theme.colors.card.content};
   margin: 10px;
   display: flex;
+
   justify-content: space-between;
 `;
 
@@ -33,11 +36,6 @@ const CardButtonWrapper = styled.div`
 const StyledCard = styled(Card)`
   -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-  overflow: hidden;
-  .MuiCard-rounded {
-    border-radius: 16px;
-    border: 0.3px solid #2e2e2e;
-  }
   &:hover {
     transform: scale(1.02);
   }
@@ -63,7 +61,7 @@ function CardButtonGroup() {
     </CardButtonWrapper>
   );
 }
-
+// Switch 버튼 컴포넌트
 function Switch() {
   return (
     <SliderSwitch>
@@ -74,18 +72,82 @@ function Switch() {
 }
 
 function Blog() {
-  // console.log('hello');
-  const blog = [];
+  const [blog, setBlog] = useState([]);
   useEffect(() => {
-    // console.log('랜더링 완료');
-    allBlog().then((res) => {
-      console.log(res);
-    });
+    // consolelog('랜더링 완료');
+    async function setContent() {
+      console.log('1');
+      setBlog(await allBlog().then((res) => res.data.data));
+      console.log(blog);
+    }
+    setContent();
     return () => {
       // 해당 컴포넌트가 사라질 때
-      console.log('컴포넌트 업데이트');
+      console.log('업데이트');
+      // setContent();
     };
   }, []);
+
+  const company: any = {
+    1: '카카오',
+    2: '우아한 형제들',
+    3: '쿠팡',
+    4: '라인',
+    5: '페이스북',
+    6: '넷플릭스',
+    7: '구글플레이',
+  };
+  const cardList = blog.map((res: any) => (
+    <Grid item xs={12} md={4} sm={6}>
+      <StyledCard
+        style={{
+          borderRadius: '20px',
+          height: '450px',
+          backgroundColor: '#2e2e2e',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <img
+          src={res.image}
+          alt="content image"
+          style={{
+            minHeight: '300px',
+            objectFit: 'fill',
+            height: '300px',
+          }}
+        />
+        <div
+          style={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'space-between',
+              backgroundColor: '#2e2e2e',
+              color: '#b6b7b8',
+              marginTop: '0',
+              height: 'inherit',
+            }}
+          >
+            <SubTitle>
+              <a href={res.url}>{res.title}</a>
+              <CardButtonGroup></CardButtonGroup>
+            </SubTitle>
+            <SubTitle style={{ backgroundColor: '#2e2e2e', marginTop: 'auto' }}>
+              <p style={{ margin: '10px' }}>{company[res.category]}</p>
+              <p style={{ margin: '10px' }}>{res.date}</p>
+            </SubTitle>
+          </div>
+        </div>
+      </StyledCard>
+    </Grid>
+  ));
 
   return (
     <div>
@@ -94,54 +156,15 @@ function Blog() {
         내 관심 분야 <Switch></Switch>
       </Title>
       <br />
-      <Grid spacing={4}>
-        <Grid item xs={12}>
-          <Grid container spacing={4}>
-            {[4, 4, 4].map((value) => (
-              <Grid item xs={12} md={4} sm={6}>
-                <StyledCard style={{ borderRadius: '20px' }}>
-                  <a
-                    href="https://www.instagram.com/p/CG2jk9HgNLq/"
-                    style={{ backgroundColor: '#2e2e2e', display: 'block' }}
-                  >
-                    <img
-                      src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
-                      alt="random image"
-                      style={{ height: '250px' }}
-                    />
-                  </a>
-                  <div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        backgroundColor: '#2e2e2e',
-                        color: '#b6b7b8',
-                        marginTop: '0',
-                      }}
-                    >
-                      <SubTitle>
-                        <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
-                          Big Data is very good skill. but I don't like it. I
-                          want frontend Big Data is very good skill. but I don't
-                          like it. I want frontend
-                        </a>
-                      </SubTitle>
-                      <CardButtonGroup></CardButtonGroup>
-                    </div>
-                    <SubTitle
-                      style={{ backgroundColor: '#2e2e2e', margin: '0' }}
-                    >
-                      <p style={{ margin: '10px' }}>naver</p>
-                      <p style={{ margin: '10px' }}>2021-01-03</p>
-                    </SubTitle>
-                  </div>
-                </StyledCard>
-              </Grid>
-            ))}
+      <LazyLoad once>
+        <Grid spacing={4}>
+          <Grid item xs={12}>
+            <Grid container spacing={4}>
+              {cardList}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </LazyLoad>
     </div>
   );
 }
