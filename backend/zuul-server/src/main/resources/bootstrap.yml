@@ -1,13 +1,13 @@
-server:
-  port: 5555
-
-spring:
-  application:
-    name: zuulserver
-
-  profiles:
-    active: dev
-
-  cloud:
-    config:
-      uri: http://localhost:8888
+#server:
+#  port: 5555
+#
+#spring:
+#  application:
+#    name: zuulserver
+#
+#  profiles:
+#    active: dev
+#
+#  cloud:
+#    config:
+#      uri: http://localhost:8888
