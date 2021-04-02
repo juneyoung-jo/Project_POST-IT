@@ -33,7 +33,7 @@ spring:
           google:
             clientId: 8468921618-7nincald8lmi8sse5901lljorqj7i79k.apps.googleusercontent.com
             clientSecret: 2YXhgpguNinN-1CbUSJIxPB-
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "http://j4c103.ssafy.io:5555/api/auth/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
@@ -41,7 +41,7 @@ spring:
           naver:
             clientId: T5C4l4_XGy7vi8hIiDyL
             clientSecret: YGFLDz1va1
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "http://j4c103.ssafy.io:5555/api/auth/oauth2/callback/{registrationId}"
             authorization_grant_type: authorization_code
             scope:
               - name
@@ -52,7 +52,7 @@ spring:
           github:
             clientId: f94d66b82e2e9a0b300c
             clientSecret: 05db68d8b0ca77dff03f994ae98ae40c5a995ac4
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "http://j4c103.ssafy.io:5555/api/auth/oauth2/callback/{registrationId}"
             scope:
               - user:email
               - read:user
@@ -66,6 +66,7 @@ app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
     tokenExpirationMsec: 864000000
+    refreshTokenExpirationMesc: 864000000
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
     # we'll be generating an auth token for the user and sending the token to the
