@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 
 
 @Component
@@ -67,9 +66,14 @@ public class TrackingFilter extends ZuulFilter {
 //            String headerName = enum_header.nextElement();
 //            logger.info("Request Header : " + headerName + req.getHeader(headerName));
 //        }
-        for(Cookie cookie: req.getCookies()){
-            logger.info("Request Cookie : " + cookie.getName() + " " + cookie.getValue());
+        try {
+            for (Cookie cookie : req.getCookies()) {
+                logger.info("Request Cookie : " + cookie.getName() + " " + cookie.getValue());
+            }
+        }catch(Exception e){
+            logger.info(e.toString());
         }
+
 
 
         String authHeader = req.getHeader(HttpHeaders.AUTHORIZATION);

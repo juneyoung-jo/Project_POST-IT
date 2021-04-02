@@ -48,8 +48,12 @@ public class PostFilter extends ZuulFilter {
 //            String headerName = enum_header.nextElement();
 //            logger.info("Request Header : " + headerName + req.getHeader(headerName));
 //        }
-        for(Cookie cookie: req.getCookies()){
-            logger.info("Request Cookie : " + cookie.getName() + " " + cookie.getValue());
+        try {
+            for (Cookie cookie : req.getCookies()) {
+                logger.info("Request Cookie : " + cookie.getName() + " " + cookie.getValue());
+            }
+        }catch(Exception e){
+            logger.info(e.toString());
         }
 
 
