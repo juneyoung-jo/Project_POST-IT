@@ -2,7 +2,6 @@ package com.ssafy.authsvr.security;
 
 import com.ssafy.authsvr.config.AppProperties;
 import io.jsonwebtoken.*;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -21,11 +20,15 @@ public class TokenProvider {
         this.appProperties = appProperties;
     }
 
-    public String createToken(Authentication authentication) {
+    public String createToken(Authentication authentication, int type) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
+        Date expiryDate;
+        if(type == 0)
+            expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
+        else
+            expiryDate = new Date(now.getTime() + appProperties.getAuth().getRefreshTokenExpirationMesc());
 
         return Jwts.builder()
                 .setSubject(userPrincipal.getId())

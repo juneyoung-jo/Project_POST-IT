@@ -24,11 +24,11 @@ import static com.ssafy.authsvr.security.oauth2.HttpCookieOAuth2AuthorizationReq
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
-    private AppProperties appProperties;
+    private final AppProperties appProperties;
 
-    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 
     @Autowired
@@ -62,11 +62,12 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
-        String token = tokenProvider.createToken(authentication);
+        String accessToken = tokenProvider.createToken(authentication, 0);
+        String refreshToken = tokenProvider.createToken(authentication, 1);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("token", token)
-                .queryParam("RefreshToken", "hiyo") // 리프레시 토큰 추가
+                .queryParam("token", accessToken)
+                .queryParam("refreshToken", refreshToken) // 리프레시 토큰 추가
                 .build().toUriString();
     }
 
@@ -84,11 +85,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     // Only validate host and port. Let the clients use different paths if they want to
                     System.out.println("uri : " + authorizedRedirectUri);
                     URI authorizedURI = URI.create(authorizedRedirectUri);
-                    if(authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
-                            && authorizedURI.getPort() == clientRedirectUri.getPort()) {
-                        return true;
-                    }
-                    return false;
+                    return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
+                            && authorizedURI.getPort() == clientRedirectUri.getPort();
                 });
     }
 }
