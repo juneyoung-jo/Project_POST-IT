@@ -1,4 +1,4 @@
-export interface Iprops {
+export interface ChartPropsType {
   chartId?: string;
   category?: string;
   data?: any;

@@ -6,12 +6,13 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
 // types
-import { Iprops } from 'types/report/chartTypes';
+import { ChartPropsType } from 'types/report/chartTypes';
 
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function NetworkMap(props: Iprops) {
+function NetworkMap(props: ChartPropsType) {
+  console.log(props.data);
   useLayoutEffect(() => {
     let chart = am4core.create(
       'networkmap',
@@ -21,57 +22,7 @@ function NetworkMap(props: Iprops) {
       new am4plugins_forceDirected.ForceDirectedSeries(),
     );
 
-    chart.data = [
-      {
-        name: '언어',
-        children: [
-          {
-            name: 'Python', // 카테고리 8~10개
-            children: [
-              // 형태소 3~5개
-              { name: 'django', value: 275 },
-              { name: 'flask', value: 188 },
-              { name: 'Tornado', value: 133 },
-            ],
-          },
-          {
-            name: 'Java',
-            children: [
-              { name: 'Spring', value: 384 },
-              { name: 'STRUTS', value: 267 },
-            ],
-          },
-          {
-            name: 'Javascript',
-            children: [
-              { name: 'react', value: 415 },
-              { name: 'angular', value: 148 },
-              { name: 'vue', value: 89 },
-            ],
-          },
-          {
-            name: 'database',
-            children: [
-              { name: 'mysql', value: 155 },
-              { name: 'sqlite3', value: 66 },
-              { name: 'mongoDB', value: 189 },
-            ],
-          },
-          {
-            name: 'C++',
-            value: 487,
-          },
-          {
-            name: 'golang',
-            value: 355,
-          },
-          {
-            name: 'Typescript',
-            value: 321,
-          },
-        ],
-      },
-    ];
+    chart.data = props.data;
 
     networkSeries.dataFields.value = 'value';
     networkSeries.dataFields.name = 'name';
@@ -114,7 +65,7 @@ function NetworkMap(props: Iprops) {
     });
 
     let title = chart.titles.create();
-    title.text = `"${props.category}" 네트워크 맵`;
+    title.text = `키워드 네트워크 맵`;
     title.fontSize = 20;
     title.fontWeight = '700';
     title.marginBottom = 40;

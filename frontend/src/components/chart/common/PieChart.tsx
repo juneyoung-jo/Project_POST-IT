@@ -5,7 +5,7 @@ import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 import { useLayoutEffect } from 'react';
-import { Iprops } from 'types/report/chartTypes';
+import { ChartPropsType } from 'types/report/chartTypes';
 
 /* Chart code */
 // Themes begin
@@ -13,7 +13,7 @@ am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 // Themes end
 
-function PieChart(props: Iprops) {
+function PieChart(props: ChartPropsType) {
   useLayoutEffect(() => {
     // Create chart instance
     let chart = am4core.create(props.chartId, am4charts.PieChart);
