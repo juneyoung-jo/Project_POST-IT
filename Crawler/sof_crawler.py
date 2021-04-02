@@ -4,6 +4,19 @@ from stackapi import StackAPI
 import pandas as pd
 import csv
 
+import datetime
+import time
+
+
+def cal_fromdate(now, i):  # (시간, i일 전)
+    f = now - datetime.timedelta(days=i)
+    return datetime.datetime.isoformat(f).split('T')[0] + ' 00:00:00'
+
+
+def cal_todate(now, i):  # (시간, i일 전)
+    f = now - datetime.timedelta(days=i)
+    return datetime.datetime.isoformat(f).split('T')[0] + ' 23:59:59'
+
 # import requests
 # import json
 
@@ -15,12 +28,25 @@ import csv
 # print(len(res.json()['items']))
 
 
+day = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+r = datetime.datetime.today().weekday()-1
+
+# 현재 시간
+now = datetime.datetime.now()
+tf = cal_fromdate(now, 1)  # 시작시간
+tt = cal_todate(now, 1)  # 끝 시간
+
+fromdate = time.mktime(datetime.datetime.strptime(
+    tf, '%Y-%m-%d %H:%M:%S').timetuple())
+
+todate = time.mktime(datetime.datetime.strptime(
+    tt, '%Y-%m-%d %H:%M:%S').timetuple())
+
 SITE = StackAPI('stackoverflow')
 SITE.page_size = 100
-SITE.max_pages = 1000
-questions = SITE.fetch('questions', min='1616371200', max='1616889600',
+SITE.max_pages = 100
+questions = SITE.fetch('questions', min=int(fromdate), max=int(todate), sort='creation',
                        filter="!LaSRLvLhBKxW(RHyO8wrN-")
-
 
 idd = []
 title = []
@@ -39,16 +65,9 @@ for question in questions['items']:
     view_count.append(question['view_count'])
     up_vote_count.append(question['up_vote_count'])
 
-# for tag in tags:
-
-
 data = {"id": idd, "title": title, "body": body, "creation_date": creation_date,
         "tags": tags, "view_count": view_count, "up_vote_count": up_vote_count}
 
 df = pd.DataFrame(data)
 
-df.to_csv('sof_weekly.csv')
-
-# print(df['tags'])
-# print(questions['items'][1])
-# print(len(questions['items']))
+df.to_csv('./sof/'+day[r] + '.csv')
