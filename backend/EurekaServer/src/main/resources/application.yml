@@ -9,4 +9,4 @@ eureka:
     wait-time-in-ms-when-sync-empty: 5 # 서버가 요청을 받기 전 대기할 초기 시간 설정
     # 배포할 땐 제거, 로컬에서 이걸 설정하면, 유레카 서비스 등록 시간을 단축시킬 수 있다.
   serviceUrl:
-    defaultZone: http://localhost:8761
+    defaultZone: http://j4c103.p.ssafy.io:8761
