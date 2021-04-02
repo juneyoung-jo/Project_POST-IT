@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { getCurrentUser } from 'api/user';
+
 import Login from 'pages/Login';
 import theme from 'assets/theme';
 import { Modal } from './Modal';
@@ -102,6 +104,15 @@ function Header(props: PropsTypes) {
           </MenuItem>
         ) : null}
       </div>
+      <button
+        onClick={() => {
+          getCurrentUser()
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        }}
+      >
+        getUser
+      </button>
       {props.authenticated ? (
         <div>
           <Button onClick={props.onLogout}>
