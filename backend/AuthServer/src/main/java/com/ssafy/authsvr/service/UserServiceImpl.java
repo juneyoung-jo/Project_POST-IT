@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
         return user == null ?
                 null :
                 UserForApp.builder()
+                        .name(user.getName())
                         .email(user.getEmail())
                         .imageUrl(user.getImageUrl())
                         .blogList(user.getBlogList())
