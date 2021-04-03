@@ -47,4 +47,13 @@ public class BlogServiceImpl implements BlogService {
                 .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Blog> listCategoryBlogContents(int category) {
+        return blogRepository.findAll()
+                .stream()
+                .filter(o->o.getCategory() == category)
+                .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate()))
+                .collect(Collectors.toList());
+    }
 }

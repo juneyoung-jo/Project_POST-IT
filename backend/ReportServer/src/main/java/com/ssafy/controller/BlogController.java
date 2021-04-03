@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.*;
 
 @Tag(name = "Blog", description = "Blog API")
@@ -55,4 +56,20 @@ public class BlogController {
         return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "기업별 블로그 글 컨텐츠 전체 리턴", description = "기업별 블로그 글 컨텐츠 전체를 조회합니다.")
+    @GetMapping("category")
+    public ResponseEntity<?> listCategoryBlogContents(@RequestParam int category){
+        log.info("listCategoryBlogContents methods Start : return List<BlogDto>");
+        List<Blog> data = blogService.listCategoryBlogContents(category);
+
+        BlogResponseList response = Adapter.toBlogResponseList(data);
+
+        log.info("listCategoryBlogContents methods End");
+        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
+    }
+
+
+    
 }
