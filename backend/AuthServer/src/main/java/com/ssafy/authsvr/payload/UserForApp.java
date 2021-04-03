@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 public class UserForApp {
 
+    private String name;
     private String email;
     private String imageUrl;
     private List<Integer> categoryList;
