@@ -1,3 +1,6 @@
+#포트변경
+server:
+  port: 8000
 #mongodb 설정
 spring:
   data:
