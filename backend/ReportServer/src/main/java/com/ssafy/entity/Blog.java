@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Schema(description = "블로그 글 정보")
 @Document(collection = "blog")
 @Data
-public class Blog extends Contents{
+public class Blog extends Contents {
 
     private int blogId;
     private String image;

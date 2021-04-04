@@ -29,5 +29,5 @@ springdoc:
     - /main/**
     - /blog/**
     - /youtube/**
-    - /common/**
+    - /report/**
     - /job/**
