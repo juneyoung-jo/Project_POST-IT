@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Card from '@material-ui/core/Card';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import { Block, ContactSupportOutlined, TurnedIn } from '@material-ui/icons';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { SliderSwitch } from './Daily.styles';
+import { TurnedIn } from '@material-ui/icons';
+import { StyledCard, StyledSelect } from './Daily.styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { allBlog, cartegorySearch } from 'api/daily';
 import LazyLoad from 'react-lazyload';
-
+import { CardButtonGroup, Switch } from './Common';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 // import { withStyles } from '@material-ui/core/styles';
 
 // Base title
@@ -24,67 +25,75 @@ const SubTitle = styled.div`
   color: ${({ theme }) => theme.colors.card.content};
   margin: 10px;
   display: flex;
-
   justify-content: space-between;
 `;
 
-const CardButtonWrapper = styled.div`
-  display: flex;
-  /* align-items: center; */
-`;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    formControl: {
+      marginTop: '25px',
+      minWidth: 150,
+      backgroundColor: '#201d29',
+      border: '1.5px solid #858090',
+      borderRadius: '5px',
+    },
+  }),
+);
 
-const StyledCard = styled(Card)`
-  -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-  &:hover {
-    transform: scale(1.02);
-  }
-` as typeof Card;
-
-function CardButtonGroup() {
-  const [checked, setChecked] = useState(false);
+function MySelect(props: any) {
+  const classes = useStyles();
+  const [category, setCategory] = React.useState('');
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCategory(event.target.value as string);
+  };
   return (
-    <CardButtonWrapper color="green">
-      <span>
-        <Checkbox
-          icon={<TurnedIn />}
-          checkedIcon={<TurnedIn />}
-          checked={checked}
-          onChange={() => {
-            setChecked(!checked);
-            // 체크 하면 즐겨찾기 api 추가 or 빼기
-            console.log(checked);
-          }}
-          color="primary"
-        />
-      </span>
-    </CardButtonWrapper>
-  );
-}
-// Switch 버튼 컴포넌트
-function Switch() {
-  return (
-    <SliderSwitch>
-      <input type="checkbox" onChange={() => console.log('hello')}></input>
-      <span></span>
-    </SliderSwitch>
+    <div>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <StyledSelect
+          id="demo-simple-select-outlined"
+          value={category}
+          onChange={handleChange}
+          label="회사"
+          defaultValue={1}
+        >
+          <MenuItem value={1}>카카오</MenuItem>
+          <MenuItem className="item" value={2}>
+            우아한 형제들
+          </MenuItem>
+          <MenuItem className="item" value={3}>
+            쿠팡
+          </MenuItem>
+          <MenuItem className="item" value={4}>
+            라인
+          </MenuItem>
+          <MenuItem className="item" value={5}>
+            페이스북
+          </MenuItem>
+          <MenuItem className="item" value={6}>
+            넷플릭스
+          </MenuItem>
+          <MenuItem className="item" value={7}>
+            구글플레이
+          </MenuItem>
+        </StyledSelect>
+      </FormControl>
+    </div>
   );
 }
 
 function Blog() {
   const [blog, setBlog] = useState([]);
+  const [blogId, setBlogId] = useState([]);
   useEffect(() => {
-    // consolelog('랜더링 완료');
     async function setContent() {
-      console.log('1');
-      setBlog(await allBlog().then((res) => res.data.data));
-      console.log(blog);
+      // setBlog(await allBlog().then((res) => res.data.data));
+      const data = await allBlog();
+      setBlog(data.data.data);
     }
     setContent();
     return () => {
       // 해당 컴포넌트가 사라질 때
       console.log('업데이트');
-      // setContent();
     };
   }, []);
 
@@ -111,37 +120,17 @@ function Blog() {
         <img
           src={res.image}
           alt="content image"
-          style={{
-            minHeight: '300px',
-            objectFit: 'fill',
-            height: '300px',
-          }}
+          style={{ objectFit: 'fill' }}
         />
-        <div
-          style={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'space-between',
-              backgroundColor: '#2e2e2e',
-              color: '#b6b7b8',
-              marginTop: '0',
-              height: 'inherit',
-            }}
-          >
+        <div className="content">
+          <div className="inner">
             <SubTitle>
               <a href={res.url}>{res.title}</a>
               <CardButtonGroup></CardButtonGroup>
             </SubTitle>
-            <SubTitle style={{ backgroundColor: '#2e2e2e', marginTop: 'auto' }}>
-              <p style={{ margin: '10px' }}>{company[res.category]}</p>
-              <p style={{ margin: '10px' }}>{res.date}</p>
+            <SubTitle style={{ backgroundColor: '#201d29', marginTop: 'auto' }}>
+              <p>{company[res.category]}</p>
+              <p>{res.date}</p>
             </SubTitle>
           </div>
         </div>
@@ -152,6 +141,7 @@ function Blog() {
   return (
     <div>
       <Title>최신 블로그 게시물</Title>
+      <MySelect></MySelect>
       <Title style={{ fontSize: '16px', float: 'right' }}>
         내 관심 분야 <Switch></Switch>
       </Title>

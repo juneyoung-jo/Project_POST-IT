@@ -5,7 +5,11 @@ function allBlog() {
 }
 
 function cartegorySearch(params: object, success: any, fail: any) {
-  instance.post('/blog', params).then(success).catch(fail);
+  return instance.post('/blog', params).then(success).catch(fail);
 }
 
-export { allBlog, cartegorySearch };
+function allYoutube() {
+  return instance.get('youtube');
+}
+
+export { allBlog, cartegorySearch, allYoutube };
