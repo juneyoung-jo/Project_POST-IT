@@ -86,16 +86,17 @@ function Blog() {
   const [blogId, setBlogId] = useState([]);
   useEffect(() => {
     async function setContent() {
-      // setBlog(await allBlog().then((res) => res.data.data));
+      // axios 요청
       const data = await allBlog();
       setBlog(data.data.data);
     }
     setContent();
+    console.log(blogId);
+
     return () => {
       // 해당 컴포넌트가 사라질 때
-      console.log('업데이트');
     };
-  }, []);
+  }, [blogId]);
 
   const company: any = {
     1: '카카오',
@@ -106,6 +107,15 @@ function Blog() {
     6: '넷플릭스',
     7: '구글플레이',
   };
+
+  function idAdd(data: any) {
+    setBlogId(blogId.concat(data));
+  }
+
+  function idRemove(data: any) {
+    setBlogId(blogId.filter((id) => data != id));
+  }
+
   const cardList = blog.map((res: any) => (
     <Grid item xs={12} md={4} sm={6}>
       <StyledCard
@@ -126,7 +136,11 @@ function Blog() {
           <div className="inner">
             <SubTitle>
               <a href={res.url}>{res.title}</a>
-              <CardButtonGroup></CardButtonGroup>
+              <CardButtonGroup
+                id={res.id}
+                idAdd={idAdd}
+                idRemove={idRemove}
+              ></CardButtonGroup>
             </SubTitle>
             <SubTitle style={{ backgroundColor: '#201d29', marginTop: 'auto' }}>
               <p>{company[res.category]}</p>
