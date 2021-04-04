@@ -1,0 +1,36 @@
+version: "1"
+servivces:
+  postit_configserver:
+    build: ./ConfigServer
+    expose:
+      - 8888
+    depends_on:
+      - postit_configserver
+
+  postit_eurekaserver:
+    build: ./EurekaServer
+    expose:
+      - 8761
+    depends_on:
+      - postit_configserver
+
+  postit_zuulserver:
+    build: ./ZuulServer
+    expose:
+      - 5555
+    depends_on:
+      - postit_configserver
+
+  postit_authserver:
+    bulid: ./AuthServer
+    expose:
+      - 8443
+    depends_on:
+      - postit_configserver
+
+  postit_reportserver:
+    build: ./ReportServer
+    expose:
+      - 8000
+    depends_on:
+      - postit_configserver
