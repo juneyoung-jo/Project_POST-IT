@@ -5,6 +5,7 @@ import com.ssafy.util.Adapter;
 import com.ssafy.payload.BlogRequest;
 import com.ssafy.payload.BlogResponse;
 import com.ssafy.repository.BlogRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

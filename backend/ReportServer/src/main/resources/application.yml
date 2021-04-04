@@ -12,6 +12,12 @@ spring:
       host: 3.34.182.63
       port: 27017
       database: postit
+  cache:
+    type: redis
+  redis:
+      host: j4c103.p.ssafy.io
+      port: 8999
+      password: ssafy103postit
 
 # openapi 3.0 설정
 springdoc:

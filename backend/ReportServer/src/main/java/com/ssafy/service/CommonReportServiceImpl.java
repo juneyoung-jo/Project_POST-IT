@@ -3,6 +3,7 @@ package com.ssafy.service;
 import com.ssafy.entity.Report;
 import com.ssafy.repository.BlogRepository;
 import com.ssafy.repository.CommonReportRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
