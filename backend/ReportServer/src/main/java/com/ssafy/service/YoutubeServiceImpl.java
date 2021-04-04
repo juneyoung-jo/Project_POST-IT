@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,15 @@ public class YoutubeServiceImpl implements YoutubeService {
         return youtubeRepository.findByIdIn(youtubeRequest.getId())
                 .stream()
                 .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Youtube> listCategoryYoutubeContents(List<Integer> categories) {
+        return youtubeRepository.findAll()
+                .stream()
+                .filter(o -> categories.stream().filter(Objects::nonNull).anyMatch(i -> i == o.getCategory()))
+                .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate()))
                 .collect(Collectors.toList());
     }
 

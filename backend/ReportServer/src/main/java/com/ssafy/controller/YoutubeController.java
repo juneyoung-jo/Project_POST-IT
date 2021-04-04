@@ -60,11 +60,17 @@ public class YoutubeController {
                 : ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "채널별 유튜브 컨텐츠 리턴", description = "채널별 유튜브 컨텐츠를 조회합니다.")
     @GetMapping("category")
-    public String listCategoryYoutubeContents(@RequestParam List<Integer> categorys){
+    public ResponseEntity<?> listCategoryYoutubeContents(@RequestParam List<Integer> categories) {
+        log.info("listCategoryYoutubeContents methods Start : return List<BlogDto>");
 
-        System.out.println(categorys);
+        List<Youtube> data = youtubeService.listCategoryYoutubeContents(categories);
 
-        return "hii";
+        YoutubeResponseList response = Adapter.toYoutubeResponseList(data);
+
+        log.info("listCategoryYoutubeContents methods End");
+        return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
     }
 }
