@@ -10,8 +10,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Tag(name = "Youtube", description = "Youtube API")
@@ -39,7 +42,7 @@ public class YoutubeController {
 
         log.info("listYoutubeContents methods End");
 
-        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+        return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
 
@@ -53,8 +56,15 @@ public class YoutubeController {
         YoutubeResponseList response = Adapter.toYoutubeResponseList(data);
 
         log.info("listInterestYoutubeContents methods End");
-        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+        return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
 
+    @GetMapping("category")
+    public String listCategoryYoutubeContents(@RequestParam List<Integer> categorys){
+
+        System.out.println(categorys);
+
+        return "hii";
+    }
 }

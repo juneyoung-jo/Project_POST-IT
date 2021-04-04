@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +47,7 @@ public class CommonReportController {
         ReportResponseList response = Adapter.toReportResponseList(data);
 
         log.info("listReports methods End");
-        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+        return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
 }

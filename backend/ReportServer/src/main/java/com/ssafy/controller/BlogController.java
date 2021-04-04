@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -38,7 +39,7 @@ public class BlogController {
         BlogResponseList response = Adapter.toBlogResponseList(data);
 
         log.info("listBlogContents methods End");
-        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+        return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
 
     }
@@ -53,23 +54,22 @@ public class BlogController {
         BlogResponseList response = Adapter.toBlogResponseList(data);
 
         log.info("listInterestBlogContents methods End");
-        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+        return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
 
     @Operation(summary = "기업별 블로그 글 컨텐츠 전체 리턴", description = "기업별 블로그 글 컨텐츠 전체를 조회합니다.")
     @GetMapping("category")
-    public ResponseEntity<?> listCategoryBlogContents(@RequestParam int category){
+    public ResponseEntity<?> listCategoryBlogContents(@RequestParam int category) {
         log.info("listCategoryBlogContents methods Start : return List<BlogDto>");
         List<Blog> data = blogService.listCategoryBlogContents(category);
 
         BlogResponseList response = Adapter.toBlogResponseList(data);
 
         log.info("listCategoryBlogContents methods End");
-        return response.getData().size() == 0 ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+        return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
 
 
-    
 }
