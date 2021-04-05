@@ -18,6 +18,7 @@ declare module 'styled-components' {
       first: string;
       second: string;
       mint: string;
+      purple: string;
       text: {
         first: string;
         second: string;

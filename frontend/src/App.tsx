@@ -27,6 +27,7 @@ import Home from 'pages/Home';
 import Report from 'pages/Report';
 import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
+import Profile from 'pages/Profile';
 
 AOS.init();
 
@@ -73,6 +74,7 @@ const App: React.FC = (): ReactElement => {
             <Route path="/" component={Home} exact={true} />
             <Route path="/report" component={Report} exact={true} />
             <Route path="/contents" component={Contents} exact={true} />
+            <Route path="/profile" component={Profile} exact={true} />
             <PrivateRoute
               path="/myfolder/:username"
               authenticated={authenticated}

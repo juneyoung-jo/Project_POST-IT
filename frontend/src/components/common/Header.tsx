@@ -98,6 +98,9 @@ function Header(props: PropsTypes) {
         <MenuItem to={'/contents'} item={'menus'}>
           일일 컨텐츠
         </MenuItem>
+        <MenuItem to={'/profile'} item={'menus'}>
+          프로필
+        </MenuItem>
         {props.authenticated ? (
           <MenuItem to={'/myfolder'} item={'menus'}>
             내 스크랩

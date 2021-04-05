@@ -16,6 +16,7 @@ import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { getCurrentUser } from 'api/user';
+import TopButton from 'components/common/TopButton';
 
 AOS.init();
 
@@ -39,6 +40,7 @@ const Home = () => {
 
   return (
     <Container>
+      <TopButton></TopButton>
       {/* 첫번째 section */}
       <Section>
         <Grid container>
