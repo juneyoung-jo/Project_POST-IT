@@ -1,13 +1,16 @@
-version: "1"
-servivces:
+version: "3"
+
+services:
   postit_configserver:
-    build: ./ConfigServer
+    container_name: postit-configserver
+    build:
+      context: ConfigServer
+      dockerfile: Dockerfile
     expose:
       - 8888
-    depends_on:
-      - postit_configserver
 
   postit_eurekaserver:
+    container_name: postit-eurekaserver
     build: ./EurekaServer
     expose:
       - 8761
@@ -15,6 +18,7 @@ servivces:
       - postit_configserver
 
   postit_zuulserver:
+    container_name: postit-zuulserver
     build: ./ZuulServer
     expose:
       - 5555
@@ -22,13 +26,15 @@ servivces:
       - postit_configserver
 
   postit_authserver:
-    bulid: ./AuthServer
+    container_name: postit-authserver
+    build: ./AuthServer
     expose:
       - 8443
     depends_on:
       - postit_configserver
 
   postit_reportserver:
+    container_name: postit-reportserver
     build: ./ReportServer
     expose:
       - 8000
