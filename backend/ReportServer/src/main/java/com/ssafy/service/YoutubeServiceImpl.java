@@ -5,6 +5,7 @@ import com.ssafy.util.Adapter;
 import com.ssafy.payload.YoutubeRequest;
 import com.ssafy.payload.YoutubeResponse;
 import com.ssafy.repository.YoutubeRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -23,6 +24,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     }
 
     @Override
+    @Cacheable(value = "listYoutube")
     public List<Youtube> listYoutubeContents() {
         /*
         1. findAll함수로 List<YoutubeDto>를 가져옴.
@@ -51,6 +53,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     }
 
     @Override
+    @Cacheable(value = "youtube",key = "#categories")
     public List<Youtube> listCategoryYoutubeContents(List<Integer> categories) {
         return youtubeRepository.findAll()
                 .stream()

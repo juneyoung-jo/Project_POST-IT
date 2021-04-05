@@ -1,8 +1,11 @@
 package com.ssafy.entity;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class Contents {
 
     private String id;

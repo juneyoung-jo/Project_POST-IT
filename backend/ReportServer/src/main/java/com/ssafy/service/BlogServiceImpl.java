@@ -24,6 +24,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(value = "listBlog")
     public List<Blog> listBlogContents() {
         /*
         1. findAll함수로 List<BlogDto>를 가져옴.
@@ -50,6 +51,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(value = "blog",key = "#category")
     public List<Blog> listCategoryBlogContents(int category) {
         return blogRepository.findAll()
                 .stream()
