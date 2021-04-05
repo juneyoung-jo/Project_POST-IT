@@ -13,6 +13,7 @@ interface IProps {
 }
 
 function ImageChart(props: IProps) {
+  console.log(props);
   useLayoutEffect(() => {
     // create chart
     let iconPath =

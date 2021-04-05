@@ -20,61 +20,91 @@ import {
   Section,
 } from './Report.styles';
 import TopButton from 'components/common/TopButton';
+import { castNumber, ColorSet, Dictionary } from '@amcharts/amcharts4/core';
+import { object } from 'prop-types';
 
 // 주차별 옵션
 const weeks: string[] = [];
+let weekIndex = new Map();
+let index = 0;
+const most_vote: Array<Array<object>> = [];
+const all_category_ratio: Array<Array<object>> = [];
+const category_report: Array<object> = [];
 
+function empty() {
+  weeks.length = 0;
+}
 const Report = () => {
   const classes = useStyles();
-  // const [data, setData] = useState([] as any[]);
 
   // 공통
-  const [allCategoryRatio, setAllCategoryRatio] = useState([]);
-  const [mostVote, setMostVote] = useState([]);
+  const [allCategoryRatio, setAllCategoryRatio] = useState<object[]>([]);
+  const [mostVote, setMostVote] = useState<object[]>([]);
 
   // 카테고리
-  const [categoryReport, setCategoryReport] = useState([{}]);
+  const [categoryReport, setCategoryReport] = useState<object>([]);
 
+  // 날짜
   const [date, setDate] = useState('');
 
   const handleChangeWeek = (e: React.ChangeEvent<{ value: unknown }>) => {
     setDate(e.target.value as string);
+    const idx = parseInt(weekIndex.get(e.target.value));
+    setMostVote(most_vote[idx]);
+    setAllCategoryRatio(all_category_ratio[idx]);
+    setCategoryReport(category_report[idx]);
+    // for (let i = 0; i < weeks.length; i++) {
+    //   if (weeks[i].includes(e.target.value as string)) {
+    //     setMostVote(most_vote[i]);
+    //     setAllCategoryRatio(all_category_ratio[i]);
+    //     setCategoryReport(category_report[i]);
+    //     console.log(category_report[i]);
+    //     console.log('hihihihi');
+    //     console.log(most_vote[i]);
+    //   }
+    // }
   };
 
   //axios작업
-  useLayoutEffect(() => {
-    let cancel = false;
-    const getData = async () => {
-      const response = await getReport();
-      const data = response.data.data;
-      // console.log(response, data);
-      setCategoryReport(data[0].category_report);
-      if (categoryReport && cancel) {
-        return;
-      }
+  useEffect(() => {
+    getReport()
+      .then((res) => {
+        empty();
+        for (const d in res.data.data) {
+          // weekIndex.set('쓰레기', d);
+          // weeks.push('쓰레기');
+          // most_vote.push([{ id: 123 }]);
+          // all_category_ratio.push([{ id: 123 }]);
+          weekIndex.set(res.data.data[d].date, d + 1);
+          weeks.push(res.data.data[d].date);
+          most_vote.push(res.data.data[d].common_report.most_vote);
+          all_category_ratio.push(
+            res.data.data[d].common_report.all_category_ratio,
+          );
+          category_report.push([{ id: 123 }]);
+          category_report.push(res.data.data[d].category_report);
+          // setMostVote(d.common_report.most_vote);
+          // setCategoryReport(d.category_report);
+          // setAllCategoryRatio(d.common_report.all_category_ratio);
+        }
 
-      setMostVote(data[0].common_report.most_vote);
-      setAllCategoryRatio(data[0].common_report.all_category_ratio);
-    };
-    getData();
-    // getReport()
-    //   .then((res) => {
-    //     setMostVote(res.data.data[0].common_report.most_vote);
-    //     setAllCategoryRatio(res.data.data[0].common_report.all_category_ratio);
-    //     setCategoryReport(res.data.data[0].category_report);
-    //   })
-    //   .catch((err) => console.log(err));
+        return res.data.data;
+      })
+      .then((res) => {
+        setCategoryReport(res[0].category_report);
+        setMostVote(res[0].common_report.most_vote);
+        setAllCategoryRatio(res[0].common_report.all_category_ratio);
+        setDate(res[0].date);
+      })
+      .catch((err) => console.log(err));
 
-    return () => {
-      cancel = true;
-      // setAllCategoryRatio([]);
-      // setCategoryReport([]);
-      // setMostVote([]);
-      // setDate('');
-    };
-  }, [setCategoryReport]);
-  console.log(categoryReport);
-
+    // return () => {
+    //   // setAllCategoryRatio([]);
+    //   // setCategoryReport([]);
+    //   // setMostVote([]);
+    //   // setDate('');
+    // };
+  }, []);
   return (
     <div>
       <Container>
@@ -89,8 +119,8 @@ const Report = () => {
                 value={date}
                 onChange={handleChangeWeek}
               >
-                {weeks.map((week) => (
-                  <MenuItem key={week} value={week}>
+                {weeks.map((week, index) => (
+                  <MenuItem key={index} value={week}>
                     {week}
                   </MenuItem>
                 ))}
@@ -104,8 +134,11 @@ const Report = () => {
             스택오버플로우에서 주간 vote수 top10을 가져왔어요.
           </Subtitle>
           <Section>
-            <SectionOne data={mostVote}></SectionOne>
+            <LazyLoad height={200} offset={100} once>
+              <SectionOne data={mostVote}></SectionOne>
+            </LazyLoad>
           </Section>
+
           {/* section 1-1 끝 */}
 
           {/* section 1-2 시작 */}
@@ -124,12 +157,11 @@ const Report = () => {
             프로그래밍 언어, 웹, 모바일, 백엔드 등 주간 카테고리별 보고서를
             가져왔어요.
           </Subtitle>
-          <LazyLoad height={200} offset={100} once>
-            <Section>
-              <SectionTwo data={categoryReport}></SectionTwo>;
-            </Section>
-          </LazyLoad>
-
+          <Section>
+            <LazyLoad height={200} offset={100} once>
+              <SectionTwo data={categoryReport}></SectionTwo>
+            </LazyLoad>
+          </Section>
           {/* section 2(카테고리별) 끝 */}
         </Wrapper>
       </Container>

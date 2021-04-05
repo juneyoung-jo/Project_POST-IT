@@ -62,7 +62,7 @@ function BarChart(props: ChartPropsType) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, [props.data]);
+  }, []);
 
   return (
     <div

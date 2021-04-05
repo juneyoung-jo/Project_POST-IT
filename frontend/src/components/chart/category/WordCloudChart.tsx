@@ -18,8 +18,6 @@ function WordCloudChart(props: ChartPropsType) {
       am4plugins_wordCloud.WordCloud,
     );
     let series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
-    series.randomness = 0.1;
-    series.rotationThreshold = 0.5;
 
     series.data = props.data;
 
@@ -41,9 +39,6 @@ function WordCloudChart(props: ChartPropsType) {
     let hoverState = series.labels.template.states.create('hover');
     hoverState.properties.fill = am4core.color('#7e0094');
 
-    // let subtitle = chart.titles.create();
-    // subtitle.text = '(click to open)';
-
     let title = chart.titles.create();
     title.text = `인기 키워드 빈도수별 단어`;
     title.fontSize = 20;
@@ -55,7 +50,7 @@ function WordCloudChart(props: ChartPropsType) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, [props]);
+  }, []);
 
   return (
     <div

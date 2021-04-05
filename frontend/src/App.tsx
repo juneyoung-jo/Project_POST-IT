@@ -35,20 +35,21 @@ const App: React.FC = (): ReactElement => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const loadCurrentlyLoggedInUser = () => {
-      setLoading(true);
+  function loadCurrentlyLoggedInUser() {
+    setLoading(true);
 
-      getCurrentUser()
-        .then((response) => {
-          setCurrentUser(response), setAuthenticated(true), setLoading(false);
-          console.log(response);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.log(error);
-        });
-    };
+    getCurrentUser()
+      .then((response) => {
+        setCurrentUser(response), setAuthenticated(true), setLoading(false);
+        console.log(response);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  }
+  useEffect(() => {
+    loadCurrentlyLoggedInUser();
     return () => {};
   }, []);
 
