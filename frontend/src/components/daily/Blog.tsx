@@ -33,9 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
     formControl: {
       marginTop: '25px',
       minWidth: 150,
-      backgroundColor: '#201d29',
       border: '1.5px solid #858090',
       borderRadius: '5px',
+      '&:hover': {
+        transform: 'translateY(-2px)',
+      },
     },
   }),
 );
@@ -44,37 +46,42 @@ function MySelect(props: any) {
   const classes = useStyles();
   const [category, setCategory] = React.useState('');
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    // props 함수 처리
+    props.change(event.target.value);
     setCategory(event.target.value as string);
   };
   return (
-    <div>
-      <FormControl variant="outlined" className={classes.formControl}>
+    <div style={{ paddingBottom: '25px' }}>
+      <FormControl variant="filled" className={classes.formControl}>
         <StyledSelect
+          native
           id="demo-simple-select-outlined"
           value={category}
           onChange={handleChange}
           label="회사"
           defaultValue={1}
         >
-          <MenuItem value={1}>카카오</MenuItem>
-          <MenuItem className="item" value={2}>
+          <option className="item" value={1}>
+            카카오
+          </option>
+          <option className="item" value={2}>
             우아한 형제들
-          </MenuItem>
-          <MenuItem className="item" value={3}>
+          </option>
+          <option className="item" value={3}>
             쿠팡
-          </MenuItem>
-          <MenuItem className="item" value={4}>
+          </option>
+          <option className="item" value={4}>
             라인
-          </MenuItem>
-          <MenuItem className="item" value={5}>
+          </option>
+          <option className="item" value={5}>
             페이스북
-          </MenuItem>
-          <MenuItem className="item" value={6}>
+          </option>
+          <option className="item" value={6}>
             넷플릭스
-          </MenuItem>
-          <MenuItem className="item" value={7}>
+          </option>
+          <option className="item" value={7}>
             구글플레이
-          </MenuItem>
+          </option>
         </StyledSelect>
       </FormControl>
     </div>
@@ -88,11 +95,12 @@ function Blog() {
   const [blog, setBlog] = useState([] as any);
   const [tmp, setTmp] = useState([] as any);
   const [blogId, setBlogId] = useState([] as any);
-
+  const [category, setCategory] = useState(1);
   useEffect(() => {
     async function setContent() {
       // axios 요청
-      const data = await allBlog();
+      const data = await cartegorySearch(category);
+      // console.log(data);
       setBlog(data.data.data);
       setTmp(data.data.data);
     }
@@ -103,7 +111,7 @@ function Blog() {
     return () => {
       // 해당 컴포넌트가 사라질 때
     };
-  }, []);
+  }, [category]);
 
   useEffect(() => {});
 
@@ -123,6 +131,10 @@ function Blog() {
 
   function idRemove(data: any) {
     setBlogId(blogId.filter((id: any) => data != id));
+  }
+
+  function change(data: number) {
+    setCategory(data);
   }
 
   const cardList = blog.map((res: any) => (
@@ -170,8 +182,10 @@ function Blog() {
   }
   return (
     <div>
-      <Title>최신 블로그 게시물</Title>
-      <MySelect></MySelect>
+      <Title>
+        최신 블로그 게시물들을 가져왔어요📌{' '}
+        <MySelect change={change}></MySelect>
+      </Title>
       <Title style={{ fontSize: '16px', float: 'right' }}>
         즐겨찾기 <Switch filterCard={filterCard}></Switch>
       </Title>
