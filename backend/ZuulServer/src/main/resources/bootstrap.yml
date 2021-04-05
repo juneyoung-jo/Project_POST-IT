@@ -1,12 +1,9 @@
 server:
-  port: 8443
+  port: 5555
 
 spring:
   application:
-    name: authserver
-
-  profiles:
-    active: dev
+    name: zuulserver
 
   cloud:
     config:
