@@ -38,13 +38,13 @@ function Youtube() {
     async function setContent() {
       const data = await allYoutube();
       setYoutube(data.data.data);
-      setTmp(data.data.dat);
+      setTmp(data.data.data);
     }
     setContent();
     console.log(youtubeId);
 
     return () => {};
-  }, [youtubeId]);
+  }, []);
 
   function idAdd(data: any) {
     setYoutubeId(youtubeId.concat(data));
@@ -54,7 +54,7 @@ function Youtube() {
     setYoutubeId(youtubeId.filter((id: any) => data != id));
   }
 
-  let cardList = youtube.map((res: any) => (
+  const cardList = youtube.map((res: any) => (
     <Grid item xs={12} md={4} sm={6}>
       <StyledCard
         style={{
@@ -98,6 +98,8 @@ function Youtube() {
       setYoutube(
         youtube.filter((res: any) => youtubeId.includes(res.id)) as any,
       );
+    } else {
+      setYoutube(tmp);
     }
   }
 
@@ -105,7 +107,7 @@ function Youtube() {
     <div>
       <Title> 유튜브 동영상</Title>
       <Title style={{ fontSize: '16px', float: 'right' }}>
-        내 관심 분야 <Switch filterCard={filterCard}></Switch>
+        즐겨찾기 <Switch filterCard={filterCard}></Switch>
       </Title>
       <br />
       <Grid spacing={4}>

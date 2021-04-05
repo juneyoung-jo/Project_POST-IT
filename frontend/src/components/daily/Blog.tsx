@@ -173,7 +173,7 @@ function Blog() {
       <Title>최신 블로그 게시물</Title>
       <MySelect></MySelect>
       <Title style={{ fontSize: '16px', float: 'right' }}>
-        내 관심 분야 <Switch filterCard={filterCard}></Switch>
+        즐겨찾기 <Switch filterCard={filterCard}></Switch>
       </Title>
       <br />
       <LazyLoad once>

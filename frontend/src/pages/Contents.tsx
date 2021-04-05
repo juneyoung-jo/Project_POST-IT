@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   margin: 1rem auto;
   display: block;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-family: 'Circular Std', 'Noto Sans', 'Open Sans', sans-serif;
   img {
     max-height: 250px;
