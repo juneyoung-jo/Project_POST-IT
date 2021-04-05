@@ -12,7 +12,7 @@ am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
 function NetworkMap(props: ChartPropsType) {
-  console.log(props.data);
+  // console.log(props.data);
   useLayoutEffect(() => {
     let chart = am4core.create(
       'networkmap',

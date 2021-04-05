@@ -35,7 +35,7 @@ function SectionTwo(props: ChartPropsType) {
   console.log(props.data);
   return (
     <div>
-      <CategorySelect>
+      {/* <CategorySelect>
         <FormControl className={classes.formControlB}>
           <Select
             variant="outlined"
@@ -73,7 +73,7 @@ function SectionTwo(props: ChartPropsType) {
         <Grid className={classes.grid} item xs={12}>
           <Typography>에러 TOP 3</Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
     </div>
   );
 }
