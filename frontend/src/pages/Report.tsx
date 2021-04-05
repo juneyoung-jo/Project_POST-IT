@@ -3,7 +3,7 @@ import LazyLoad from 'react-lazyload';
 import { RouteComponentProps } from 'react-router-dom';
 
 // axios
-import { instance } from 'api/index';
+import { getReport } from 'api/report';
 
 // components
 import ImageChart from 'components/chart/common/ImageChart';
@@ -22,53 +22,52 @@ import {
 import TopButton from 'components/common/TopButton';
 
 // 주차별 옵션
-const weeks = [
-  '현재',
-  '1주 전',
-  '2주 전',
-  '3주 전',
-  '4주 전',
-  '5주 전',
-  '6주 전',
-  '7주 전',
-  '8주 전',
-  '9주 전',
-];
+const weeks: string[] = [];
 
-const Report: React.FC<RouteComponentProps> = ({
-  match,
-  location,
-  history,
-}) => {
+const Report = () => {
   const classes = useStyles();
+  // const [data, setData] = useState([] as any[]);
 
   // 공통
-  const [commonCategoryRatio, setCommonCategoryRatio] = useState([]);
+  const [allCategoryRatio, setAllCategoryRatio] = useState([]);
   const [mostVote, setMostVote] = useState([]);
 
   // 카테고리
   const [categoryReport, setCategoryReport] = useState([]);
 
-  const [week, setWeek] = useState('현재');
+  const [date, setDate] = useState('');
 
   const handleChangeWeek = (e: React.ChangeEvent<{ value: unknown }>) => {
-    // console.log(e.target.value);
-    setWeek(e.target.value as string);
+    setDate(e.target.value as string);
   };
 
   //axios작업
-  useLayoutEffect(() => {
-    instance
-      .get('/report/common')
-      .then((res) => res.data.data)
+  useEffect(() => {
+    getReport()
+      .then((res) => {
+        // for (let i = 0; i < 10; i++) {
+        //   if (res.data.data[i] === undefined) break;
+        //   // weeks.push(res.data.data[i].date);
+        //   setData(res.data.data[i]);
+        //   weeks.push(data[i].date);
+        // }
+        return res.data.data;
+      })
       .then((res) => {
         setCategoryReport(res[0].category_report);
-        setCommonCategoryRatio(res[0].common_report.all_category_ratio);
-        // setMostVote(res[0].common_report.most_vote);
-        // setEditor(res[0].common_report.most_vote);
-        // setOs(res[0].common_report.most_vote);
+        setMostVote(res[0].common_report.most_vote);
+        setAllCategoryRatio(res[0].common_report.all_category_ratio);
+        // setDate(res[0].date);
+        // console.log(res[0]);
       })
       .catch((err) => console.log(err));
+
+    return () => {
+      setAllCategoryRatio([]);
+      setCategoryReport([]);
+      setMostVote([]);
+      // setDate('');
+    };
   }, []);
   return (
     <div>
@@ -81,7 +80,7 @@ const Report: React.FC<RouteComponentProps> = ({
                 variant="outlined"
                 id="week-select"
                 className={classes.select}
-                value={week}
+                value={date}
                 onChange={handleChangeWeek}
               >
                 {weeks.map((week) => (
@@ -99,7 +98,7 @@ const Report: React.FC<RouteComponentProps> = ({
             스택오버플로우에서 주간 vote수 top10을 가져왔어요.
           </Subtitle>
           <Section>
-            <SectionOne></SectionOne>
+            <SectionOne data={mostVote}></SectionOne>
           </Section>
           {/* section 1-1 끝 */}
 
@@ -108,7 +107,7 @@ const Report: React.FC<RouteComponentProps> = ({
           <Subtitle>키워드 별 빈도수의 비율을 계산했어요.</Subtitle>
           <Section>
             <LazyLoad height={200} offset={100} once>
-              <ImageChart data={commonCategoryRatio} />
+              <ImageChart data={allCategoryRatio} />
             </LazyLoad>
           </Section>
           {/* section 1-2 끝 */}
@@ -120,9 +119,7 @@ const Report: React.FC<RouteComponentProps> = ({
             가져왔어요.
           </Subtitle>
           <Section>
-            <LazyLoad height={200} offset={100} once>
-              <SectionTwo data={categoryReport}></SectionTwo>
-            </LazyLoad>
+            <SectionTwo data={categoryReport}></SectionTwo>
           </Section>
           {/* section 2(카테고리별) 끝 */}
         </Wrapper>

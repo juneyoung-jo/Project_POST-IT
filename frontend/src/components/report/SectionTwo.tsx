@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStyles } from './material.styles';
+import { ChartPropsType } from 'types/report/chartTypes';
 import {
   FormControl,
   Grid,
@@ -25,20 +26,21 @@ const options = [
   'database',
 ];
 
-interface IProps {
-  data?: any;
-  category_report?: any;
-}
-
-function SectionTwo(props: IProps) {
+function SectionTwo(props: ChartPropsType) {
   const classes = useStyles();
+
+  const [data, setData] = useState({});
   const [category, setCategory] = useState('language');
   const handleChangeCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
     setCategory(e.target.value as string);
   };
+  useEffect(() => {
+    props ? setData(props.data[category]) : null;
+  }, []);
+  console.log(props ? props.data[category] : undefined);
   return (
-    <div>
-      <CategorySelect>
+    <>
+      {/* <CategorySelect>
         <FormControl className={classes.formControlB}>
           <Select
             variant="outlined"
@@ -47,8 +49,8 @@ function SectionTwo(props: IProps) {
             value={category}
             onChange={handleChangeCategory}
           >
-            {options.map((option) => (
-              <MenuItem key={option} value={option}>
+            {options.map((option, index) => (
+              <MenuItem key={index} value={option}>
                 {option}
               </MenuItem>
             ))}
@@ -57,21 +59,27 @@ function SectionTwo(props: IProps) {
       </CategorySelect>
       <Grid container spacing={3}>
         <Grid className={classes.grid} item xs={12}>
-          <BarChart data={props.data.backend}></BarChart>
+          <BarChart data={props.data[category].most_hot_keyword}></BarChart>
         </Grid>
         <Grid container>
           <Grid className={classes.grid} item xs={12} md={6}>
-            <WordCloudChart category={category} />
+            <WordCloudChart
+              data={props.data[category].tag_wordcloud}
+              category={category}
+            />
           </Grid>
           <Grid className={classes.grid} item xs={12} md={6}>
-            <NetworkMap category={category} />
+            <NetworkMap
+              data={props.data[category].network_map}
+              category={category}
+            />
           </Grid>
         </Grid>
         <Grid className={classes.grid} item xs={12}>
           <Typography>에러 TOP 3</Typography>
         </Grid>
-      </Grid>
-    </div>
+      </Grid> */}
+    </>
   );
 }
 
