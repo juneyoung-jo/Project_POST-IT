@@ -1,5 +1,6 @@
 package com.ssafy.controller;
 
+import com.ssafy.entity.Report;
 import com.ssafy.payload.ReportResponse;
 import com.ssafy.payload.ReportResponseList;
 import com.ssafy.service.CommonReportService;
@@ -42,7 +43,7 @@ public class CommonReportController {
         // List<Report> to List<ReportResponse>
         // getWeekOfMonth(Date date) -> 해당월의 주차 ex) 4월 1주차.
         List<ReportResponse> data = commonReportService.listReports().stream()
-                .map(o -> Adapter.toReportResponse(o, DateFormat.getWeekOfMonth(o.getId().getDate())))
+                .map(o -> Adapter.toReportResponse(o, DateFormat.getWeekOfMonth(o.getCreation_date())))
                 .collect(Collectors.toList());
 
         ReportResponseList response = Adapter.toReportResponseList(data);
@@ -51,4 +52,5 @@ public class CommonReportController {
         return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
+
 }

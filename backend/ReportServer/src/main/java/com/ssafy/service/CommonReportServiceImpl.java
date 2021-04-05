@@ -22,7 +22,12 @@ public class CommonReportServiceImpl implements CommonReportService {
     public List<Report> listReports() {
         return commonReportRepository.findAll()
                 .stream()
-                .sorted((o1, o2) -> o2.getId().getDate().compareTo(o1.getId().getDate()))
+                .sorted((o1, o2) -> changeDate(o2.getCreation_date())-changeDate(o1.getCreation_date()))
                 .collect(Collectors.toList());
     }
+
+    public int changeDate(long data){
+        return (int)(data%1000000000)*1000000000;
+    }
+
 }
