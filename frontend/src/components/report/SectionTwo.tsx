@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStyles } from './material.styles';
 import { ChartPropsType } from 'types/report/chartTypes';
 import {
@@ -28,13 +28,18 @@ const options = [
 
 function SectionTwo(props: ChartPropsType) {
   const classes = useStyles();
+
+  const [data, setData] = useState({});
   const [category, setCategory] = useState('language');
   const handleChangeCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
     setCategory(e.target.value as string);
   };
-  console.log(props.data);
+  useEffect(() => {
+    props ? setData(props.data[category]) : null;
+  }, []);
+  console.log(props ? props.data[category] : undefined);
   return (
-    <div>
+    <>
       {/* <CategorySelect>
         <FormControl className={classes.formControlB}>
           <Select
@@ -74,7 +79,7 @@ function SectionTwo(props: ChartPropsType) {
           <Typography>에러 TOP 3</Typography>
         </Grid>
       </Grid> */}
-    </div>
+    </>
   );
 }
 

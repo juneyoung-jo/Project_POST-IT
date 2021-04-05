@@ -61,6 +61,7 @@ const Report = () => {
         // console.log(res[0]);
       })
       .catch((err) => console.log(err));
+
     return () => {
       setAllCategoryRatio([]);
       setCategoryReport([]);
@@ -118,9 +119,7 @@ const Report = () => {
             가져왔어요.
           </Subtitle>
           <Section>
-            <LazyLoad height={200} offset={100} once>
-              <SectionTwo data={categoryReport}></SectionTwo>
-            </LazyLoad>
+            <SectionTwo data={categoryReport}></SectionTwo>
           </Section>
           {/* section 2(카테고리별) 끝 */}
         </Wrapper>

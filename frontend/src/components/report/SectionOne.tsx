@@ -65,14 +65,18 @@ function SectionOne(props: ChartPropsType) {
       {/* Top 3 시작 */}
       <Grid container spacing={2} justify="space-between">
         {top3.map((content, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          <Grid item xs={12} md={4} key={content.contentId}>
             <Card className={classes.card}>
               <ListItemLink
                 href={`https://stackoverflow.com/questions/${content.contentId}`}
                 className={classes.top3Link}
               >
                 <CardContent className={classes.cardContent}>
-                  <Rate vote={content.count} rate={index} />
+                  <Rate
+                    vote={content.count}
+                    rate={index}
+                    key={content.contentId}
+                  />
                   <Divider style={{ marginBottom: '8px' }} />
                   <Typography variant="h5" style={{ margin: '8px 0' }}>
                     {content.title}
@@ -91,12 +95,12 @@ function SectionOne(props: ChartPropsType) {
         ))}
       </Grid>
       {/* Top3 끝 */}
-      <List component="nav" aria-label="top 4 to 10">
+      <List component="ul" aria-label="top 4 to 10">
         {top10.map((content, index) => (
-          <>
+          <li key={content.contentId}>
             <ListItemLink
               className={classes.top10Link}
-              key={index}
+              key={content.contentId}
               href={`https://stackoverflow.com/questions/${content.contentId}`}
             >
               <Top10Votes>
@@ -109,7 +113,7 @@ function SectionOne(props: ChartPropsType) {
               </Top10Inner>
             </ListItemLink>
             <Divider className={classes.divider} />
-          </>
+          </li>
         ))}
       </List>
     </>

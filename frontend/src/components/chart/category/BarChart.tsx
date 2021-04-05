@@ -12,7 +12,7 @@ am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
 function BarChart(props: ChartPropsType) {
-  // console.log(props);
+  console.log(props);
   useLayoutEffect(() => {
     // create chart
     let chart = am4core.create('bar-chart', am4charts.XYChart);

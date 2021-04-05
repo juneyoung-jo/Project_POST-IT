@@ -36,7 +36,7 @@ const App: React.FC = (): ReactElement => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    (function loadCurrentlyLoggedInUser() {
+    const loadCurrentlyLoggedInUser = () => {
       setLoading(true);
 
       getCurrentUser()
@@ -48,7 +48,7 @@ const App: React.FC = (): ReactElement => {
           setLoading(false);
           console.log(error);
         });
-    })();
+    };
     return () => {};
   }, []);
 
