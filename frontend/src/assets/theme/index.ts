@@ -16,12 +16,8 @@ const fontSizes = {
 const colors = {
   first: '#2d2839',
   second: '#312c40',
-<<<<<<< HEAD
-  mint: '#23bd80',
-=======
   mint: '#4dcb99',
   purple: '#6a59a3',
->>>>>>> e68ece1b288cf75f67724b729d0a2578083b607a
   text: {
     first: '#e2e3e6',
     second: '#acabb4',

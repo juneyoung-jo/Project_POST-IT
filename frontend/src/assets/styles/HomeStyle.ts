@@ -25,13 +25,13 @@ export const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   .go-report {
-    color: #fff;
+    color: white;
     display: flex;
     justify-content: center;
     margin-top: 50px;
     font-size: 1.3em;
     &:hover {
-      color: ${({ theme }) => theme.colors.mint};
+      color: #a9a9a9;
     }
   }
 
