@@ -45,9 +45,9 @@ fi'''
 
         stage('ZuulServer') {
           steps {
-            sh '''cd ./backend/zuul-server
+            sh '''cd ./backend/ZuulServer
 ./gradlew clean build'''
-            sh '''cd ./backend/zuul-server
+            sh '''cd ./backend/ZuulServer
 docker build -t postit/zuulserver .'''
             sh '''#!/bin/bash
 VAR1=`docker ps -q --filter="name=postit-zuulserver"`
