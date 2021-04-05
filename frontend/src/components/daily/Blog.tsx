@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Card from '@material-ui/core/Card';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import { Block, ContactSupportOutlined, TurnedIn } from '@material-ui/icons';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { SliderSwitch } from './Daily.styles';
+import { TurnedIn } from '@material-ui/icons';
+import { StyledCard, StyledSelect } from './Daily.styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { allBlog, cartegorySearch } from 'api/daily';
+import LazyLoad from 'react-lazyload';
+import { CardButtonGroup, Switch } from './Common';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 // import { withStyles } from '@material-ui/core/styles';
 
 // Base title
@@ -25,122 +28,163 @@ const SubTitle = styled.div`
   justify-content: space-between;
 `;
 
-const CardButtonWrapper = styled.div`
-  display: flex;
-  /* align-items: center; */
-`;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    formControl: {
+      marginTop: '25px',
+      minWidth: 150,
+      backgroundColor: '#201d29',
+      border: '1.5px solid #858090',
+      borderRadius: '5px',
+    },
+  }),
+);
 
-const StyledCard = styled(Card)`
-  -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-  overflow: hidden;
-  .MuiCard-rounded {
-    border-radius: 16px;
-    border: 0.3px solid #2e2e2e;
-  }
-  &:hover {
-    transform: scale(1.02);
-  }
-` as typeof Card;
-
-function CardButtonGroup() {
-  const [checked, setChecked] = useState(false);
+function MySelect(props: any) {
+  const classes = useStyles();
+  const [category, setCategory] = React.useState('');
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCategory(event.target.value as string);
+  };
   return (
-    <CardButtonWrapper color="green">
-      <span>
-        <Checkbox
-          icon={<TurnedIn />}
-          checkedIcon={<TurnedIn />}
-          checked={checked}
-          onChange={() => {
-            setChecked(!checked);
-            // 체크 하면 즐겨찾기 api 추가 or 빼기
-            console.log(checked);
-          }}
-          color="primary"
-        />
-      </span>
-    </CardButtonWrapper>
+    <div>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <StyledSelect
+          id="demo-simple-select-outlined"
+          value={category}
+          onChange={handleChange}
+          label="회사"
+          defaultValue={1}
+        >
+          <MenuItem value={1}>카카오</MenuItem>
+          <MenuItem className="item" value={2}>
+            우아한 형제들
+          </MenuItem>
+          <MenuItem className="item" value={3}>
+            쿠팡
+          </MenuItem>
+          <MenuItem className="item" value={4}>
+            라인
+          </MenuItem>
+          <MenuItem className="item" value={5}>
+            페이스북
+          </MenuItem>
+          <MenuItem className="item" value={6}>
+            넷플릭스
+          </MenuItem>
+          <MenuItem className="item" value={7}>
+            구글플레이
+          </MenuItem>
+        </StyledSelect>
+      </FormControl>
+    </div>
   );
 }
 
-function Switch() {
-  return (
-    <SliderSwitch>
-      <input type="checkbox" onChange={() => console.log('hello')}></input>
-      <span></span>
-    </SliderSwitch>
-  );
-}
-
+// Blog 컴포넌트
 function Blog() {
-  // console.log('hello');
+  // blog : 전체 블로그를 저장할 array
+  // blogId : 북마크된 id array
+  const [blog, setBlog] = useState([] as any);
+  const [tmp, setTmp] = useState([] as any);
+  const [blogId, setBlogId] = useState([] as any);
+
   useEffect(() => {
-    console.log('랜더링 완료');
-    allBlog().then((res) => {
-      console.log(res);
-    });
+    async function setContent() {
+      // axios 요청
+      const data = await allBlog();
+      setBlog(data.data.data);
+      setTmp(data.data.data);
+    }
+    setContent();
+
+    // console.log(blogId);
+
     return () => {
       // 해당 컴포넌트가 사라질 때
-      console.log('컴포넌트 업데이트');
     };
   }, []);
 
+  useEffect(() => {});
+
+  const company: any = {
+    1: '카카오',
+    2: '우아한 형제들',
+    3: '쿠팡',
+    4: '라인',
+    5: '페이스북',
+    6: '넷플릭스',
+    7: '구글플레이',
+  };
+
+  function idAdd(data: any) {
+    setBlogId(blogId.concat(data));
+  }
+
+  function idRemove(data: any) {
+    setBlogId(blogId.filter((id: any) => data != id));
+  }
+
+  const cardList = blog.map((res: any) => (
+    <Grid item xs={12} md={4} sm={6}>
+      <StyledCard
+        style={{
+          borderRadius: '20px',
+          height: '450px',
+          backgroundColor: '#2e2e2e',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <img
+          src={res.image}
+          alt="content image"
+          style={{ objectFit: 'fill' }}
+        />
+        <div className="content">
+          <div className="inner">
+            <SubTitle>
+              <a href={res.url}>{res.title}</a>
+              <CardButtonGroup
+                checked={blogId}
+                id={res.id}
+                idAdd={idAdd}
+                idRemove={idRemove}
+              ></CardButtonGroup>
+            </SubTitle>
+            <SubTitle style={{ backgroundColor: '#201d29', marginTop: 'auto' }}>
+              <p>{company[res.category]}</p>
+              <p>{res.date}</p>
+            </SubTitle>
+          </div>
+        </div>
+      </StyledCard>
+    </Grid>
+  ));
+  function filterCard(data: boolean) {
+    if (data == true) {
+      setBlog(blog.filter((res: any) => blogId.includes(res.id)) as any);
+    } else {
+      setBlog(tmp);
+    }
+  }
   return (
     <div>
       <Title>최신 블로그 게시물</Title>
-      <button onClick={() => allBlog()}>asdasd</button>
+      <MySelect></MySelect>
       <Title style={{ fontSize: '16px', float: 'right' }}>
-        내 관심 분야 <Switch></Switch>
+        내 관심 분야 <Switch filterCard={filterCard}></Switch>
       </Title>
       <br />
-      <Grid spacing={4}>
-        <Grid item xs={12}>
-          <Grid container spacing={4}>
-            {[4, 4, 4].map((value) => (
-              <Grid item xs={12} md={4} sm={6}>
-                <StyledCard style={{ borderRadius: '20px' }}>
-                  <a
-                    href="https://www.instagram.com/p/CG2jk9HgNLq/"
-                    style={{ backgroundColor: '#2e2e2e', display: 'block' }}
-                  >
-                    <img
-                      src="https://storage.surfit.io/env/landing/RwDpw/img-8789728795fd9e37337f16.jpg"
-                      alt="random image"
-                    />
-                  </a>
-                  <div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        backgroundColor: '#2e2e2e',
-                        color: '#b6b7b8',
-                        marginTop: '0',
-                      }}
-                    >
-                      <SubTitle>
-                        <a href="https://www.instagram.com/p/CG2jk9HgNLq/">
-                          Big Data is very good skill. but I don't like it. I
-                          want frontend Big Data is very good skill. but I don't
-                          like it. I want frontend
-                        </a>
-                      </SubTitle>
-                      <CardButtonGroup></CardButtonGroup>
-                    </div>
-                    <SubTitle
-                      style={{ backgroundColor: '#2e2e2e', margin: '0' }}
-                    >
-                      <p style={{ margin: '10px' }}>naver</p>
-                      <p style={{ margin: '10px' }}>2021-01-03</p>
-                    </SubTitle>
-                  </div>
-                </StyledCard>
-              </Grid>
-            ))}
+      <LazyLoad once>
+        <Grid spacing={4}>
+          <Grid item xs={12}>
+            <Grid container spacing={4}>
+              {cardList}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </LazyLoad>
     </div>
   );
 }

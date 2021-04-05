@@ -5,6 +5,7 @@ import { TurnedIn, MoreVert } from '@material-ui/icons';
 import Blog from 'components/daily/Blog';
 import Youtube from 'components/daily/Youtube';
 import Job from 'components/daily/Job';
+import LazyLoad from 'react-lazyload';
 
 //랩퍼
 const Wrapper = styled.div`
