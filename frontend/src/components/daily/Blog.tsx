@@ -81,22 +81,31 @@ function MySelect(props: any) {
   );
 }
 
+// Blog 컴포넌트
 function Blog() {
-  const [blog, setBlog] = useState([]);
-  const [blogId, setBlogId] = useState([]);
+  // blog : 전체 블로그를 저장할 array
+  // blogId : 북마크된 id array
+  const [blog, setBlog] = useState([] as any);
+  const [tmp, setTmp] = useState([] as any);
+  const [blogId, setBlogId] = useState([] as any);
+
   useEffect(() => {
     async function setContent() {
       // axios 요청
       const data = await allBlog();
       setBlog(data.data.data);
+      setTmp(data.data.data);
     }
     setContent();
-    console.log(blogId);
+
+    // console.log(blogId);
 
     return () => {
       // 해당 컴포넌트가 사라질 때
     };
-  }, [blogId]);
+  }, []);
+
+  useEffect(() => {});
 
   const company: any = {
     1: '카카오',
@@ -113,7 +122,7 @@ function Blog() {
   }
 
   function idRemove(data: any) {
-    setBlogId(blogId.filter((id) => data != id));
+    setBlogId(blogId.filter((id: any) => data != id));
   }
 
   const cardList = blog.map((res: any) => (
@@ -137,6 +146,7 @@ function Blog() {
             <SubTitle>
               <a href={res.url}>{res.title}</a>
               <CardButtonGroup
+                checked={blogId}
                 id={res.id}
                 idAdd={idAdd}
                 idRemove={idRemove}
@@ -151,13 +161,19 @@ function Blog() {
       </StyledCard>
     </Grid>
   ));
-
+  function filterCard(data: boolean) {
+    if (data == true) {
+      setBlog(blog.filter((res: any) => blogId.includes(res.id)) as any);
+    } else {
+      setBlog(tmp);
+    }
+  }
   return (
     <div>
       <Title>최신 블로그 게시물</Title>
       <MySelect></MySelect>
       <Title style={{ fontSize: '16px', float: 'right' }}>
-        내 관심 분야 <Switch></Switch>
+        내 관심 분야 <Switch filterCard={filterCard}></Switch>
       </Title>
       <br />
       <LazyLoad once>

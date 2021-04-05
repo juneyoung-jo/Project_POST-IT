@@ -11,9 +11,10 @@ const CardButtonWrapper = styled.div`
 
 export function CardButtonGroup(props: any) {
   const [checked, setChecked] = useState(false);
-
+  // props.id 와 저장된 id 찾기
+  // (...)
   function handleChange(e: any) {
-    e.preventDefault();
+    // e.preventDefault();
     setChecked(!checked);
     if (checked !== true) {
       props.idAdd(props.id);
@@ -22,19 +23,28 @@ export function CardButtonGroup(props: any) {
     }
   }
   return (
-    <CardButtonWrapper color="green">
-      <button className={checked ? 'bookmark' : 'null'} onClick={handleChange}>
-        {<TurnedIn />}{' '}
+    <CardButtonWrapper>
+      <button
+        className={props.checked.includes(props.id) ? 'bookmark' : 'null'}
+        onClick={handleChange}
+      >
+        {<TurnedIn />}
       </button>
     </CardButtonWrapper>
   );
 }
 
 // Switch 버튼 컴포넌트
-export function Switch() {
+export function Switch(props: any) {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = async () => {
+    setChecked(!checked);
+    props.filterCard(!checked);
+  };
   return (
     <SliderSwitch>
-      <input type="checkbox" onChange={() => console.log('hello')}></input>
+      <input type="checkbox" onChange={handleChange}></input>
       <span></span>
     </SliderSwitch>
   );
