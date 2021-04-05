@@ -5,38 +5,46 @@ services:
     container_name: postit-configserver
     build:
       context: ConfigServer
-      dockerfile: Dockerfile
-    expose:
-      - 8888
+      dockerfile: Dockerfile-local
+    ports:
+      - 8888:8888
 
   postit_eurekaserver:
     container_name: postit-eurekaserver
-    build: ./EurekaServer
-    expose:
-      - 8761
+    build:
+      context: EurekaServer
+      dockerfile: Dockerfile-local
+    ports:
+      - 8761:8761
     depends_on:
       - postit_configserver
 
   postit_zuulserver:
     container_name: postit-zuulserver
-    build: ./ZuulServer
-    expose:
-      - 5555
+    build:
+      context: ZuulServer
+      dockerfile: Dockerfile-local
+    ports:
+      - 5555:5555
     depends_on:
       - postit_configserver
 
   postit_authserver:
     container_name: postit-authserver
-    build: ./AuthServer
-    expose:
-      - 8443
+    build:
+      context: AuthServer
+      dockerfile: Dockerfile-local
+    ports:
+      - 8443:8443
     depends_on:
       - postit_configserver
 
   postit_reportserver:
     container_name: postit-reportserver
-    build: ./ReportServer
-    expose:
-      - 8000
+    build:
+      context: ReportServer
+      dockerfile: Dockerfile-local
+    ports:
+      - 8000:8000
     depends_on:
       - postit_configserver

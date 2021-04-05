@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8-jdk-alpine
 EXPOSE 8443
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -8,4 +8,4 @@ RUN apt-get install -y tzdata
 
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=local", "/app.jar"]

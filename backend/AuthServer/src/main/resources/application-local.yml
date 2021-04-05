@@ -1,5 +1,3 @@
-#spring.profiles.include=auth
-#
 server:
   port: 8443
 
@@ -8,8 +6,7 @@ spring:
     name: authserver
   data:
     mongodb:
-#      host: j4c103.p.ssafy.io
-      host: 3.34.182.63
+      host: j4c103.p.ssafy.io
       port: 27017
       authentication-database: user
       database: user

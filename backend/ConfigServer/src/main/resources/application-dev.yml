@@ -5,12 +5,11 @@ spring:
         encrypt.enabled: false
         git:
           uri: https://lab.ssafy.com/gkswogml23/configtest.git
-          search-paths : EurekaServer, ZuulServer, AuthServer, ReportServer
+          search-paths: EurekaServer, ZuulServer, AuthServer, ReportServer
           timeout: 10
           username: ENC(uhAztr7N3t9QwLq63pJ2EPJt3naB+wpG)
           password: ENC(qeanC1CyU62L1ppJWR16Ikdkjur7uNg6)
           skip-ssl-validation: true
-
 
 eureka:
   instance:
