@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from './material.styles';
 import { ChartPropsType } from 'types/report/chartTypes';
 import {
@@ -29,15 +30,10 @@ const options = [
 function SectionTwo(props: ChartPropsType) {
   const classes = useStyles();
 
-  const [data, setData] = useState({});
   const [category, setCategory] = useState('language');
   const handleChangeCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
     setCategory(e.target.value as string);
   };
-  useEffect(() => {
-    props ? setData(props.data[category]) : null;
-  }, []);
-  console.log(props ? props.data[category] : undefined);
   return (
     <>
       {/* <CategorySelect>

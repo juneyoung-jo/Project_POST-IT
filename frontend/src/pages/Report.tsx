@@ -33,7 +33,7 @@ const Report = () => {
   const [mostVote, setMostVote] = useState([]);
 
   // 카테고리
-  const [categoryReport, setCategoryReport] = useState([]);
+  const [categoryReport, setCategoryReport] = useState([{}]);
 
   const [date, setDate] = useState('');
 
@@ -42,33 +42,39 @@ const Report = () => {
   };
 
   //axios작업
-  useEffect(() => {
-    getReport()
-      .then((res) => {
-        // for (let i = 0; i < 10; i++) {
-        //   if (res.data.data[i] === undefined) break;
-        //   // weeks.push(res.data.data[i].date);
-        //   setData(res.data.data[i]);
-        //   weeks.push(data[i].date);
-        // }
-        return res.data.data;
-      })
-      .then((res) => {
-        setCategoryReport(res[0].category_report);
-        setMostVote(res[0].common_report.most_vote);
-        setAllCategoryRatio(res[0].common_report.all_category_ratio);
-        // setDate(res[0].date);
-        // console.log(res[0]);
-      })
-      .catch((err) => console.log(err));
+  useLayoutEffect(() => {
+    let cancel = false;
+    const getData = async () => {
+      const response = await getReport();
+      const data = response.data.data;
+      // console.log(response, data);
+      setCategoryReport(data[0].category_report);
+      if (categoryReport && cancel) {
+        return;
+      }
+
+      setMostVote(data[0].common_report.most_vote);
+      setAllCategoryRatio(data[0].common_report.all_category_ratio);
+    };
+    getData();
+    // getReport()
+    //   .then((res) => {
+    //     setMostVote(res.data.data[0].common_report.most_vote);
+    //     setAllCategoryRatio(res.data.data[0].common_report.all_category_ratio);
+    //     setCategoryReport(res.data.data[0].category_report);
+    //   })
+    //   .catch((err) => console.log(err));
 
     return () => {
-      setAllCategoryRatio([]);
-      setCategoryReport([]);
-      setMostVote([]);
+      cancel = true;
+      // setAllCategoryRatio([]);
+      // setCategoryReport([]);
+      // setMostVote([]);
       // setDate('');
     };
-  }, []);
+  }, [setCategoryReport]);
+  console.log(categoryReport);
+
   return (
     <div>
       <Container>
@@ -118,9 +124,12 @@ const Report = () => {
             프로그래밍 언어, 웹, 모바일, 백엔드 등 주간 카테고리별 보고서를
             가져왔어요.
           </Subtitle>
-          <Section>
-            <SectionTwo data={categoryReport}></SectionTwo>
-          </Section>
+          <LazyLoad height={200} offset={100} once>
+            <Section>
+              <SectionTwo data={categoryReport}></SectionTwo>;
+            </Section>
+          </LazyLoad>
+
           {/* section 2(카테고리별) 끝 */}
         </Wrapper>
       </Container>
