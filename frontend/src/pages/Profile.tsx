@@ -115,35 +115,6 @@ const Profile = () => {
         <Profileimg></Profileimg>
         <div className="user-info">사용자</div>
         <div className="user-info">user@user.com</div>
-        <Line></Line>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item className="info-text">
-            사용자님은
-          </Grid>
-          <Grid item className="category info-text">
-            웹
-          </Grid>
-          <Grid item className="category info-text">
-            프론트
-          </Grid>
-          <Grid item className="category info-text">
-            빅데이터
-          </Grid>
-          <Grid item className="info-text">
-            에 관심이 있고,
-          </Grid>
-        </Grid>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item className="category info-text">
-            신입
-          </Grid>
-          <Grid item className="info-text">
-            채용을 원하고 있어요.
-          </Grid>
-        </Grid>
-        <Button>
-          <Link to="/">관심분야 설정</Link>
-        </Button>
       </ProfileBox>
     </Container>
   );
