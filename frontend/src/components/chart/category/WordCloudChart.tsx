@@ -50,7 +50,7 @@ function WordCloudChart(props: ChartPropsType) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, []);
+  }, [props]);
 
   return (
     <div

@@ -1,13 +1,12 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import LazyLoad from 'react-lazyload';
-import { RouteComponentProps } from 'react-router-dom';
 
 // axios
 import { getReport } from 'api/report';
 
 // components
 import ImageChart from 'components/chart/common/ImageChart';
-import { useStyles } from 'components/report/material.styles';
+import { useStyles } from 'components/report/Section.styles';
 import { SectionOne, SectionTwo } from 'components/report/Wrapper';
 
 // styles
@@ -20,13 +19,10 @@ import {
   Section,
 } from './Report.styles';
 import TopButton from 'components/common/TopButton';
-import { castNumber, ColorSet, Dictionary } from '@amcharts/amcharts4/core';
-import { object } from 'prop-types';
 
 // 주차별 옵션
 const weeks: string[] = [];
 let weekIndex = new Map();
-let index = 0;
 const most_vote: Array<Array<object>> = [];
 const all_category_ratio: Array<Array<object>> = [];
 const category_report: Array<object> = [];
@@ -53,16 +49,6 @@ const Report = () => {
     setMostVote(most_vote[idx]);
     setAllCategoryRatio(all_category_ratio[idx]);
     setCategoryReport(category_report[idx]);
-    // for (let i = 0; i < weeks.length; i++) {
-    //   if (weeks[i].includes(e.target.value as string)) {
-    //     setMostVote(most_vote[i]);
-    //     setAllCategoryRatio(all_category_ratio[i]);
-    //     setCategoryReport(category_report[i]);
-    //     console.log(category_report[i]);
-    //     console.log('hihihihi');
-    //     console.log(most_vote[i]);
-    //   }
-    // }
   };
 
   //axios작업
@@ -71,21 +57,13 @@ const Report = () => {
       .then((res) => {
         empty();
         for (const d in res.data.data) {
-          // weekIndex.set('쓰레기', d);
-          // weeks.push('쓰레기');
-          // most_vote.push([{ id: 123 }]);
-          // all_category_ratio.push([{ id: 123 }]);
-          weekIndex.set(res.data.data[d].date, d + 1);
+          weekIndex.set(res.data.data[d].date, d);
           weeks.push(res.data.data[d].date);
           most_vote.push(res.data.data[d].common_report.most_vote);
           all_category_ratio.push(
             res.data.data[d].common_report.all_category_ratio,
           );
-          category_report.push([{ id: 123 }]);
           category_report.push(res.data.data[d].category_report);
-          // setMostVote(d.common_report.most_vote);
-          // setCategoryReport(d.category_report);
-          // setAllCategoryRatio(d.common_report.all_category_ratio);
         }
 
         return res.data.data;
@@ -98,12 +76,12 @@ const Report = () => {
       })
       .catch((err) => console.log(err));
 
-    // return () => {
-    //   // setAllCategoryRatio([]);
-    //   // setCategoryReport([]);
-    //   // setMostVote([]);
-    //   // setDate('');
-    // };
+    return () => {
+      setAllCategoryRatio([]);
+      setCategoryReport([]);
+      setMostVote([]);
+      setDate('');
+    };
   }, []);
   return (
     <div>

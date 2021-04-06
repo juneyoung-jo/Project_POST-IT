@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useStyles } from './material.styles';
+import { useStyles } from './Section.styles';
 import { ChartPropsType } from 'types/report/chartTypes';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   FormControl,
   Grid,
+  Divider,
   Select,
   MenuItem,
-  Typography,
 } from '@material-ui/core';
 import {
   BarChart,
@@ -15,6 +15,13 @@ import {
   WordCloudChart,
 } from 'components/chart/category/ChartWrapper';
 import { CategorySelect } from 'pages/Report.styles';
+import {
+  Top10Inner,
+  Top10Counts,
+  Title,
+  SubTitle,
+  ListItemLink,
+} from './Section.styles';
 
 // 카테고리 옵션
 const options = [
@@ -27,21 +34,8 @@ const options = [
   'database',
 ];
 
-// let data: { [key: string]: any } = {
-//   backend: [{}],
-//   'bigdata-ai-ml': [{}],
-//   'cloud-devops': [{}],
-//   database: [{}],
-//   language: { most_hot_keyword: 'gigi' },
-//   mobile: [{}],
-//   web: [{}],
-// };
-
 function SectionTwo(props: ChartPropsType) {
   const classes = useStyles();
-
-  // console.log(props.data['language']);
-  // console.log(data['language'].most_hot_keyword);
 
   const [category, setCategory] = useState('language');
   const handleChangeCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
@@ -52,14 +46,12 @@ function SectionTwo(props: ChartPropsType) {
     props.data[category].most_hot_keyword === undefined ||
     props.data[category].tag_wordcloud === undefined
   ) {
-    console.log('없음');
     return (
       <>
         <CircularProgress />;
       </>
     );
   } else {
-    console.log('있음');
     return (
       <>
         <CategorySelect>
@@ -83,22 +75,42 @@ function SectionTwo(props: ChartPropsType) {
           <Grid className={classes.grid} item xs={12}>
             <BarChart data={props.data[category].most_hot_keyword}></BarChart>
           </Grid>
-          <Grid container>
-            <Grid className={classes.grid} item xs={12} md={6}>
-              <WordCloudChart
-                data={props.data[category].tag_wordcloud}
-                category={category}
-              />
-            </Grid>
-            <Grid className={classes.grid} item xs={12} md={6}>
-              <NetworkMap
-                data={props.data[category].network_map}
-                category={category}
-              />
-            </Grid>
+          <Grid className={classes.grid} item xs={12}>
+            <WordCloudChart
+              data={props.data[category].tag_wordcloud}
+              category={category}
+            />
           </Grid>
           <Grid className={classes.grid} item xs={12}>
-            <Typography>에러 TOP 3</Typography>
+            <NetworkMap
+              data={props.data[category].network_map}
+              category={category}
+            />
+          </Grid>
+          <Grid className={classes.grid} item xs={12}>
+            <Title>에러 TOP 10</Title>
+            <SubTitle>카테고리 별 에러 TOP 10개를 뽑아왔어요.</SubTitle>
+            <ul>
+              {props.data[category].most_error.map(
+                (value: any, index: number) => (
+                  <li key={index}>
+                    <ListItemLink
+                      href={`https://stackoverflow.com/questions/${value.contentId}`}
+                    >
+                      <Top10Counts>
+                        <span>{value.count}</span>
+                        <span>views</span>
+                      </Top10Counts>
+                      <Top10Inner>
+                        <span>{value.title}</span>
+                        <span>{value.creation_date.slice(0, 10)}</span>
+                      </Top10Inner>
+                    </ListItemLink>
+                    <Divider className={classes.divider} />
+                  </li>
+                ),
+              )}
+            </ul>
           </Grid>
         </Grid>
       </>

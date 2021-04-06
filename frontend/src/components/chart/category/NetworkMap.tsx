@@ -36,10 +36,9 @@ function NetworkMap(props: ChartPropsType) {
     // 노드 사이 거리
     networkSeries.links.template.distance = 1.5;
     networkSeries.links.template.strokeWidth = 1;
-
     // 노드 크기 비율
-    networkSeries.minRadius = 15;
-    networkSeries.maxRadius = 55;
+    networkSeries.minRadius = 20;
+    networkSeries.maxRadius = 45;
 
     // 연결 링크 두께, 선명도
     let hoverState = networkSeries.links.template.states.create('hover');
@@ -76,7 +75,7 @@ function NetworkMap(props: ChartPropsType) {
       // https://www.amcharts.com/docs/v4/tutorials/chart-was-not-disposed/#React
       chart.dispose();
     };
-  }, []);
+  }, [props]);
 
   return <div id="networkmap" style={{ width: '100%', height: '500px' }}></div>;
 }

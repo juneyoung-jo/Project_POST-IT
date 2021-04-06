@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-import { useStyles } from './material.styles';
+import { useStyles } from './Section.styles';
 import { ChartPropsType } from 'types/report/chartTypes';
 import {
   Card,
@@ -15,10 +13,10 @@ import {
 
 import {
   Top10Inner,
-  Top10Votes,
+  Top10Counts,
   RateWrapper,
   RateInner,
-} from './SectionOne.styles';
+} from './Section.styles';
 
 function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
   return <ListItem button component="a" {...props} />;
@@ -59,7 +57,6 @@ function SectionOne(props: ChartPropsType) {
 
   let top3 = [...props.data].slice(0, 3);
   let top10 = [...props.data].slice(3);
-  console.log(props.data);
 
   return (
     <>
@@ -101,10 +98,10 @@ function SectionOne(props: ChartPropsType) {
               className={classes.top10Link}
               href={`https://stackoverflow.com/questions/${content.contentId}`}
             >
-              <Top10Votes>
+              <Top10Counts>
                 <span>{content.count}</span>
                 <span>votes</span>
-              </Top10Votes>
+              </Top10Counts>
               <Top10Inner>
                 <span>{content.title}</span>
                 <span>{content.creation_date.slice(0, 10)}</span>

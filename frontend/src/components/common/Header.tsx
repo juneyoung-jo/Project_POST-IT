@@ -27,7 +27,7 @@ const MenuItem = ({ to, item, children }: MenuTypes) => (
 );
 
 function Header(props: PropsTypes) {
-  console.log(props);
+  // console.log(props);
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);
