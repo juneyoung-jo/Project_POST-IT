@@ -8,6 +8,9 @@ import com.ssafy.authsvr.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -38,10 +41,10 @@ public class UserServiceImpl implements UserService {
                         .name(user.getName())
                         .email(user.getEmail())
                         .imageUrl(user.getImageUrl())
-                        .blogList(user.getBlogList())
-                        .categoryList(user.getCategoryList())
-                        .youtubeList(user.getYoutubeList())
-                        .jobList(user.getJobList())
+                        .blogList(Optional.ofNullable(user.getBlogList()).orElse(Collections.emptyList()))
+                        .categoryList(Optional.ofNullable(user.getCategoryList()).orElse(Collections.emptyList()))
+                        .youtubeList(Optional.ofNullable(user.getYoutubeList()).orElse(Collections.emptyList()))
+                        .jobList(Optional.ofNullable(user.getJobList()).orElse(Collections.emptyList()))
                         .build()
                 ;
     }

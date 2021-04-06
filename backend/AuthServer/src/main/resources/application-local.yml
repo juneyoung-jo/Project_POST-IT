@@ -1,9 +1,4 @@
-server:
-  port: 8443
-
 spring:
-  application:
-    name: authserver
   data:
     mongodb:
       host: j4c103.p.ssafy.io
@@ -36,7 +31,8 @@ spring:
           naver:
             clientId: T5C4l4_XGy7vi8hIiDyL
             clientSecret: YGFLDz1va1
-            redirectUri: "http://localhost:5555/api/auth/oauth2/callback/{registrationId}"
+#            redirectUri: "http://localhost:5555/api/auth/oauth2/callback/{registrationId}"
+            redirectUri: "http://localhost:8443/oauth2/callback/{registrationId}"
             authorization_grant_type: authorization_code
             scope:
               - name

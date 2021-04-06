@@ -6,7 +6,7 @@ spring:
     name: authserver
 
   profiles:
-    active: dev
+    active: local
 
   cloud:
     config:
