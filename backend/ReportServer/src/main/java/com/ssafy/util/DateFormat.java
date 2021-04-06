@@ -7,7 +7,8 @@ import java.util.Date;
 
 public class DateFormat {
 
-    public static String getWeekOfMonth(Date d) {
+    public static String getWeekOfMonth(long d)
+    {
         String date = DateFormatUtils.format(d, "yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         String[] dates = date.split("-");
