@@ -4,10 +4,9 @@ function allBlog() {
   return instance.get('blog');
 }
 
-function cartegorySearch(params: object, success: any, fail: any) {
-  return instance.post('/blog', params).then(success).catch(fail);
+function cartegorySearch(category: number) {
+  return instance.get(`blog/category?category=${category}`);
 }
-
 function allYoutube() {
   return instance.get('youtube');
 }

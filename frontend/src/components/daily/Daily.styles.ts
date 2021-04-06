@@ -99,10 +99,11 @@ export const StyledCard = styled(Card)`
 
 export const StyledSelect = styled(Select)`
   .MuiSelect-root {
-    color: #858090;
-    border: none;
+    color: #e2e3e6;
+    padding: 10px;
   }
   .item {
-    color: 'red';
+    background-color: #2d2839 !important;
+    padding: 5px;
   }
 ` as typeof Select;
