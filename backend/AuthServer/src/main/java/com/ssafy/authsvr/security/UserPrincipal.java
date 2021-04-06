@@ -22,10 +22,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private String email;
     private String password;
 
-    private List<Integer> blogList;
-    private List<Integer> youtubeList;
-    private List<Integer> jobList;
-    private List<Integer> categoryList;
+    private List<String> blogList;
+    private List<String> youtubeList;
+    private List<String> jobList;
+    private List<String> categoryList;
 
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
@@ -42,7 +42,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
     public UserPrincipal(String id, String name, String email, String password, Collection<? extends GrantedAuthority> authorities
-                         ,List<Integer> blogList, List<Integer> youtubeList, List<Integer> jobList) {
+                         ,List<String> blogList, List<String> youtubeList, List<String> jobList) {
         this.id = id;
         this.name = name;
         this.email = email;
