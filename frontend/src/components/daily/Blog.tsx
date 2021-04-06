@@ -7,6 +7,7 @@ import { allBlog, cartegorySearch } from 'api/daily';
 import LazyLoad from 'react-lazyload';
 import { CardButtonGroup, Switch } from './Common';
 import FormControl from '@material-ui/core/FormControl';
+import { setCurrentUser } from 'api/user';
 import Select from '@material-ui/core/Select';
 // import { withStyles } from '@material-ui/core/styles';
 import {
@@ -18,6 +19,8 @@ import {
   CardCompany,
   CardDate,
 } from './Daily.styles';
+import { array } from '@amcharts/amcharts4/core';
+import { ContactsOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+// const [user, setUser] = React.useState({
+//   name: localStorage.getItem('name') as any,
+//   blogList: localStorage.getItem('blogList') as any,
+//   youtubeList: localStorage.getItem('youtubeList') as any,
+// });
+const list: string[] = [];
 
 function MySelect(props: any) {
   const classes = useStyles();
@@ -94,10 +104,14 @@ function Blog() {
       // console.log(data);
       setBlog(data.data.data);
       setTmp(data.data.data);
+      const blogList = localStorage.getItem('blogList');
+
+      if (blogList) {
+        console.log('---------------');
+        setBlogId(blogList);
+      }
     }
     setContent();
-
-    // console.log(blogId);
 
     return () => {
       // 해당 컴포넌트가 사라질 때
@@ -106,7 +120,21 @@ function Blog() {
     };
   }, [category]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    const name = localStorage.getItem('name');
+    const youtubeList = localStorage.getItem('youtubeList');
+    console.log('useEff : ' + blogId);
+    if (blogId.length == 0) return;
+
+    if (blogId !== 'flag') localStorage.setItem('blogList', blogId);
+    else localStorage.removeItem('blogList');
+    const user: object = {
+      name: name as any,
+      blogList: blogId == 'flag' ? [] : (blogId?.split(',') as any),
+      youtubeList: youtubeList == null ? [] : (youtubeList?.split(',') as any),
+    };
+    setCurrentUser(user);
+  }, [blogId]);
 
   const company: any = {
     1: '카카오',
@@ -118,12 +146,59 @@ function Blog() {
     7: '구글플레이',
   };
 
-  function idAdd(data: any) {
-    setBlogId(blogId.concat(data));
+  let clickTab = (data: any) => {
+    return new Promise((resolve, reject) => {
+      const blogList = localStorage.getItem('blogList');
+      let methods = blogId.concat(',' + data);
+      let size = blogList === null ? 0 : 1;
+      if (size == 0) {
+        methods = blogId.concat(data);
+      }
+      // setBlogId(methods, () => {
+    });
+  };
+
+  async function idAdd(data: any) {
+    // clickTab(data);
+    // await clickTab(data);
+    if (blogId == 'flag') setBlogId('');
+    const blogList = localStorage.getItem('blogList');
+    // const name = localStorage.getItem('name');
+    // const youtubeList = localStorage.getItem('youtubeList');
+    let methods = blogId.concat(',' + data);
+    console.log(methods);
+    let size = blogList === null ? 0 : 1;
+    if (size == 0) {
+      methods = data;
+    }
+    setBlogId(methods);
+    console.log(blogId);
+    // localStorage.setItem('blogList', blogId);
+    // const user: object = {
+    //   name: name as any,
+    //   blogList: blogList === '' ? [] : (blogList?.split(',') as any),
+    //   youtubeList: youtubeList === '' ? [] : (youtubeList?.split(',') as any),
+    // };
+    // setCurrentUser(user).then((res) => {
+    //   console.log(res);
+    //   console.log('11111111111111');
+    // });
   }
 
   function idRemove(data: any) {
-    setBlogId(blogId.filter((id: any) => data != id));
+    let idx = blogId.indexOf(data);
+    // console.log(blogId.substring(data.length + 1));
+    if (idx == 0) {
+      if (blogId.length == data.length) {
+        setBlogId('flag');
+      } else {
+        setBlogId(blogId.replace(data + ',', ''));
+      }
+      // console.log(blogId.substring(data.length + 1));
+    } else {
+      setBlogId(blogId.replace(',' + data, ''));
+      // console.log(blogId.replace(',' + data, ''));
+    }
   }
 
   function change(data: number) {
@@ -166,7 +241,7 @@ function Blog() {
           <div>
             <CardTitle href={res.url}>{res.title}</CardTitle>
             <CardButtonGroup
-              checked={blogId}
+              checked={blogId.indexOf(res.id) >= 0 ? true : false}
               id={res.id}
               idAdd={idAdd}
               idRemove={idRemove}
