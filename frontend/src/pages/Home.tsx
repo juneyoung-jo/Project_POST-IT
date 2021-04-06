@@ -188,6 +188,7 @@ const Home = () => {
               data-aos="fade-in"
               data-aos-delay="200"
               className="go-report"
+              onClick={() => window.scrollTo(0, 0)}
             >
               IT 트렌드 확인하러 가기
             </Link>

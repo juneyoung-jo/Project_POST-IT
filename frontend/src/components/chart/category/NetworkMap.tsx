@@ -36,33 +36,32 @@ function NetworkMap(props: ChartPropsType) {
     // 노드 사이 거리
     networkSeries.links.template.distance = 1.5;
     networkSeries.links.template.strokeWidth = 1;
-
     // 노드 크기 비율
-    networkSeries.minRadius = 15;
-    networkSeries.maxRadius = 55;
+    networkSeries.minRadius = 20;
+    networkSeries.maxRadius = 45;
 
     // 연결 링크 두께, 선명도
     let hoverState = networkSeries.links.template.states.create('hover');
     hoverState.properties.strokeWidth = 3;
     hoverState.properties.strokeOpacity = 1;
 
-    networkSeries.nodes.template.events.on('over', function (event) {
-      event.target.dataItem.childLinks.each(function (link) {
-        link.isHover = true;
-      });
-      if (event.target.dataItem.parentLink) {
-        event.target.dataItem.parentLink.isHover = true;
-      }
-    });
+    // networkSeries.nodes.template.events.on('over', function (event) {
+    //   event.target.dataItem.childLinks.each(function (link) {
+    //     link.isHover = true;
+    //   });
+    //   if (event.target.dataItem.parentLink) {
+    //     event.target.dataItem.parentLink.isHover = true;
+    //   }
+    // });
 
-    networkSeries.nodes.template.events.on('out', function (event) {
-      event.target.dataItem.childLinks.each(function (link) {
-        link.isHover = false;
-      });
-      if (event.target.dataItem.parentLink) {
-        event.target.dataItem.parentLink.isHover = false;
-      }
-    });
+    // networkSeries.nodes.template.events.on('out', function (event) {
+    //   event.target.dataItem.childLinks.each(function (link) {
+    //     link.isHover = false;
+    //   });
+    //   if (event.target.dataItem.parentLink) {
+    //     event.target.dataItem.parentLink.isHover = false;
+    //   }
+    // });
 
     let title = chart.titles.create();
     title.text = `키워드 네트워크 맵`;

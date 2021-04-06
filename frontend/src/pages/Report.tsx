@@ -1,13 +1,12 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import LazyLoad from 'react-lazyload';
-import { RouteComponentProps } from 'react-router-dom';
 
 // axios
 import { getReport } from 'api/report';
 
 // components
 import ImageChart from 'components/chart/common/ImageChart';
-import { useStyles } from 'components/report/material.styles';
+import { useStyles } from 'components/report/Section.styles';
 import { SectionOne, SectionTwo } from 'components/report/Wrapper';
 
 // styles
@@ -23,58 +22,67 @@ import TopButton from 'components/common/TopButton';
 
 // 주차별 옵션
 const weeks: string[] = [];
+let weekIndex = new Map();
+const most_vote: Array<Array<object>> = [];
+const all_category_ratio: Array<Array<object>> = [];
+const category_report: Array<object> = [];
 
+function empty() {
+  weeks.length = 0;
+}
 const Report = () => {
   const classes = useStyles();
-  // const [data, setData] = useState([] as any[]);
 
   // 공통
-  const [allCategoryRatio, setAllCategoryRatio] = useState([]);
-  const [mostVote, setMostVote] = useState([]);
+  const [allCategoryRatio, setAllCategoryRatio] = useState<object[]>([]);
+  const [mostVote, setMostVote] = useState<object[]>([]);
 
   // 카테고리
-  const [categoryReport, setCategoryReport] = useState([{}]);
+  const [categoryReport, setCategoryReport] = useState<object>([]);
 
+  // 날짜
   const [date, setDate] = useState('');
 
   const handleChangeWeek = (e: React.ChangeEvent<{ value: unknown }>) => {
     setDate(e.target.value as string);
+    const idx = parseInt(weekIndex.get(e.target.value));
+    setMostVote(most_vote[idx]);
+    setAllCategoryRatio(all_category_ratio[idx]);
+    setCategoryReport(category_report[idx]);
   };
 
   //axios작업
-  useLayoutEffect(() => {
-    let cancel = false;
-    const getData = async () => {
-      const response = await getReport();
-      const data = response.data.data;
-      // console.log(response, data);
-      setCategoryReport(data[0].category_report);
-      if (categoryReport && cancel) {
-        return;
-      }
+  useEffect(() => {
+    getReport()
+      .then((res) => {
+        empty();
+        for (const d in res.data.data) {
+          weekIndex.set(res.data.data[d].date, d);
+          weeks.push(res.data.data[d].date);
+          most_vote.push(res.data.data[d].common_report.most_vote);
+          all_category_ratio.push(
+            res.data.data[d].common_report.all_category_ratio,
+          );
+          category_report.push(res.data.data[d].category_report);
+        }
 
-      setMostVote(data[0].common_report.most_vote);
-      setAllCategoryRatio(data[0].common_report.all_category_ratio);
-    };
-    getData();
-    // getReport()
-    //   .then((res) => {
-    //     setMostVote(res.data.data[0].common_report.most_vote);
-    //     setAllCategoryRatio(res.data.data[0].common_report.all_category_ratio);
-    //     setCategoryReport(res.data.data[0].category_report);
-    //   })
-    //   .catch((err) => console.log(err));
+        return res.data.data;
+      })
+      .then((res) => {
+        setCategoryReport(res[0].category_report);
+        setMostVote(res[0].common_report.most_vote);
+        setAllCategoryRatio(res[0].common_report.all_category_ratio);
+        setDate(res[0].date);
+      })
+      .catch((err) => console.log(err));
 
     return () => {
-      cancel = true;
-      // setAllCategoryRatio([]);
-      // setCategoryReport([]);
-      // setMostVote([]);
-      // setDate('');
+      setAllCategoryRatio([]);
+      setCategoryReport([]);
+      setMostVote([]);
+      setDate('');
     };
-  }, [setCategoryReport]);
-  console.log(categoryReport);
-
+  }, []);
   return (
     <div>
       <Container>
@@ -89,8 +97,8 @@ const Report = () => {
                 value={date}
                 onChange={handleChangeWeek}
               >
-                {weeks.map((week) => (
-                  <MenuItem key={week} value={week}>
+                {weeks.map((week, index) => (
+                  <MenuItem key={index} value={week}>
                     {week}
                   </MenuItem>
                 ))}
@@ -104,8 +112,11 @@ const Report = () => {
             스택오버플로우에서 주간 vote수 top10을 가져왔어요.
           </Subtitle>
           <Section>
-            <SectionOne data={mostVote}></SectionOne>
+            <LazyLoad height={200} offset={100} once>
+              <SectionOne data={mostVote}></SectionOne>
+            </LazyLoad>
           </Section>
+
           {/* section 1-1 끝 */}
 
           {/* section 1-2 시작 */}
@@ -124,12 +135,11 @@ const Report = () => {
             프로그래밍 언어, 웹, 모바일, 백엔드 등 주간 카테고리별 보고서를
             가져왔어요.
           </Subtitle>
-          <LazyLoad height={200} offset={100} once>
-            <Section>
-              <SectionTwo data={categoryReport}></SectionTwo>;
-            </Section>
-          </LazyLoad>
-
+          <Section>
+            <LazyLoad height={200} offset={100} once>
+              <SectionTwo data={categoryReport}></SectionTwo>
+            </LazyLoad>
+          </Section>
           {/* section 2(카테고리별) 끝 */}
         </Wrapper>
       </Container>

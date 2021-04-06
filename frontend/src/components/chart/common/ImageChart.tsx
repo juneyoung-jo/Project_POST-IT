@@ -13,6 +13,9 @@ interface IProps {
 }
 
 function ImageChart(props: IProps) {
+  let data = props.data.sort((a: any, b: any) =>
+    a.value > b.value ? -1 : a.value < b.value ? 1 : 0,
+  );
   useLayoutEffect(() => {
     // create chart
     let iconPath =
@@ -21,7 +24,7 @@ function ImageChart(props: IProps) {
     let chart = am4core.create('image-chart', am4charts.SlicedChart);
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
 
-    chart.data = props.data;
+    chart.data = data;
 
     let series = chart.series.push(new am4charts.PictorialStackedSeries());
     series.dataFields.value = 'value';
@@ -48,7 +51,7 @@ function ImageChart(props: IProps) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, [props.data]);
+  }, [data]);
 
   return (
     <div id="image-chart" style={{ width: '100%', height: '500px' }}></div>

@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-import { useStyles } from './material.styles';
+import { useStyles } from './Section.styles';
 import { ChartPropsType } from 'types/report/chartTypes';
 import {
   Card,
@@ -15,10 +13,10 @@ import {
 
 import {
   Top10Inner,
-  Top10Votes,
+  Top10Counts,
   RateWrapper,
   RateInner,
-} from './SectionOne.styles';
+} from './Section.styles';
 
 function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
   return <ListItem button component="a" {...props} />;
@@ -65,19 +63,17 @@ function SectionOne(props: ChartPropsType) {
       {/* Top 3 시작 */}
       <Grid container spacing={2} justify="space-between">
         {top3.map((content, index) => (
-          <Grid item xs={12} md={4} key={content.contentId}>
+          <Grid item xs={12} md={4} key={index}>
             <Card className={classes.card}>
               <ListItemLink
                 href={`https://stackoverflow.com/questions/${content.contentId}`}
                 className={classes.top3Link}
               >
                 <CardContent className={classes.cardContent}>
-                  <Rate
-                    vote={content.count}
-                    rate={index}
-                    key={content.contentId}
-                  />
-                  <Divider style={{ marginBottom: '8px' }} />
+                  <div>
+                    <Rate vote={content.count} rate={index} />
+                    <Divider style={{ marginBottom: '8px' }} />
+                  </div>
                   <Typography variant="h5" style={{ margin: '8px 0' }}>
                     {content.title}
                   </Typography>
@@ -97,16 +93,15 @@ function SectionOne(props: ChartPropsType) {
       {/* Top3 끝 */}
       <List component="ul" aria-label="top 4 to 10">
         {top10.map((content, index) => (
-          <li key={content.contentId}>
+          <li key={index}>
             <ListItemLink
               className={classes.top10Link}
-              key={content.contentId}
               href={`https://stackoverflow.com/questions/${content.contentId}`}
             >
-              <Top10Votes>
+              <Top10Counts>
                 <span>{content.count}</span>
                 <span>votes</span>
-              </Top10Votes>
+              </Top10Counts>
               <Top10Inner>
                 <span>{content.title}</span>
                 <span>{content.creation_date.slice(0, 10)}</span>
