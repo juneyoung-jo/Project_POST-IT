@@ -6,22 +6,15 @@ import { SliderSwitch, StyledCard } from './Daily.styles';
 import { allYoutube } from 'api/daily';
 import LazyLoad from 'react-lazyload';
 import { CardButtonGroup, Switch } from './Common';
-
-// Base title
-const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  color: ${({ theme }) => theme.colors.text.first};
-  display: flex;
-  align-items: center;
-`;
-
-const SubTitle = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  color: ${({ theme }) => theme.colors.card.content};
-  margin: 10px;
-  display: flex;
-  justify-content: space-between;
-`;
+import {
+  Title,
+  SubTitle,
+  CardWrapper,
+  CardInnerWrapper,
+  CardTitle,
+  CardCompany,
+  CardDate,
+} from './Daily.styles';
 
 const CardButtonWrapper = styled.div`
   display: flex;
@@ -58,35 +51,35 @@ function Youtube() {
     <Grid item xs={12} md={4} sm={6}>
       <StyledCard
         style={{
-          borderRadius: '20px',
-          height: '450px',
-          backgroundColor: '#2e2e2e',
           display: 'flex',
           flexDirection: 'column',
+          borderRadius: '20px',
+          height: '400px',
+          backgroundColor: '#201d29',
         }}
       >
         <img
           src={`https://img.youtube.com/vi/${res.youtubeId}/maxresdefault.jpg`}
           alt="content image"
-          style={{ objectFit: 'fill' }}
+          style={{ objectFit: 'cover', minHeight: '200px' }}
         />
-        <div className="content">
-          <div className="inner">
-            <SubTitle>
-              <a href={res.url}>{res.title}</a>
-              <CardButtonGroup
-                checked={youtubeId}
-                id={res.id}
-                idAdd={idAdd}
-                idRemove={idRemove}
-              ></CardButtonGroup>
-            </SubTitle>
-            <SubTitle style={{ backgroundColor: '#201d29', marginTop: 'auto' }}>
-              <p></p>
-              <p>{res.date}</p>
-            </SubTitle>
+        <CardWrapper>
+          <div>
+            <CardTitle href={res.url}>{res.title}</CardTitle>
+            <CardButtonGroup
+              checked={youtubeId}
+              id={res.id}
+              idAdd={idAdd}
+              idRemove={idRemove}
+            ></CardButtonGroup>
           </div>
-        </div>
+          <CardInnerWrapper
+            style={{ backgroundColor: '#201d29', marginTop: 'auto' }}
+          >
+            <CardDate></CardDate>
+            <CardDate>{res.date}</CardDate>
+          </CardInnerWrapper>
+        </CardWrapper>
       </StyledCard>
     </Grid>
   ));
@@ -106,9 +99,12 @@ function Youtube() {
   return (
     <div>
       <Title> 유튜브 동영상</Title>
-      <Title style={{ fontSize: '16px', float: 'right' }}>
-        즐겨찾기 <Switch filterCard={filterCard}></Switch>
-      </Title>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <SubTitle>즐겨찾기</SubTitle>
+          <Switch filterCard={filterCard}></Switch>
+        </div>
+      </div>
       <br />
       <Grid spacing={4}>
         <Grid item xs={12}>

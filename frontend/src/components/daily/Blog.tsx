@@ -1,32 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
-import { TurnedIn } from '@material-ui/icons';
 import { StyledCard, StyledSelect } from './Daily.styles';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { allBlog, cartegorySearch } from 'api/daily';
 import LazyLoad from 'react-lazyload';
 import { CardButtonGroup, Switch } from './Common';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 // import { withStyles } from '@material-ui/core/styles';
-
-// Base title
-const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  color: ${({ theme }) => theme.colors.text.first};
-  display: flex;
-  align-items: center;
-`;
-
-const SubTitle = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  color: ${({ theme }) => theme.colors.card.content};
-  margin: 10px;
-  display: flex;
-  justify-content: space-between;
-`;
+import {
+  Title,
+  SubTitle,
+  CardWrapper,
+  CardInnerWrapper,
+  CardTitle,
+  CardCompany,
+  CardDate,
+} from './Daily.styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -141,35 +132,50 @@ function Blog() {
     <Grid item xs={12} md={4} sm={6}>
       <StyledCard
         style={{
-          borderRadius: '20px',
-          height: '450px',
-          backgroundColor: '#2e2e2e',
           display: 'flex',
           flexDirection: 'column',
+          borderRadius: '20px',
+          height: '400px',
+          backgroundColor: '#201d29',
         }}
       >
-        <img
-          src={res.image}
-          alt="content image"
-          style={{ objectFit: 'fill' }}
-        />
-        <div className="content">
-          <div className="inner">
-            <SubTitle>
-              <a href={res.url}>{res.title}</a>
-              <CardButtonGroup
-                checked={blogId}
-                id={res.id}
-                idAdd={idAdd}
-                idRemove={idRemove}
-              ></CardButtonGroup>
-            </SubTitle>
-            <SubTitle style={{ backgroundColor: '#201d29', marginTop: 'auto' }}>
-              <p>{company[res.category]}</p>
-              <p>{res.date}</p>
-            </SubTitle>
+        {/* 카드 이미지 시작 */}
+        <div className="cardimg-wrapper">
+          <div className="cardimg-inner">
+            <img
+              className="cardimg"
+              src={
+                res.image ===
+                  'https://www.woowahan.com/img/pc/common-logo.png' ||
+                res.image ===
+                  'https://line.me/static/940874c48d2369be137d812b15491843/f2838/icon-title-pc.png'
+                  ? `/images/logo_${res.category}.png`
+                  : res.image
+              }
+              alt="content image"
+              style={{ objectFit: 'cover' }}
+            />
           </div>
         </div>
+        {/* 카드 이미지 끝 */}
+
+        {/* 카드 내용 시작 */}
+        <CardWrapper>
+          <div>
+            <CardTitle href={res.url}>{res.title}</CardTitle>
+            <CardButtonGroup
+              checked={blogId}
+              id={res.id}
+              idAdd={idAdd}
+              idRemove={idRemove}
+            ></CardButtonGroup>
+          </div>
+          <CardInnerWrapper>
+            <CardDate>{res.date}</CardDate>
+            <CardCompany>{company[res.category]}</CardCompany>
+          </CardInnerWrapper>
+        </CardWrapper>
+        {/* 카드 내용 끝 */}
       </StyledCard>
     </Grid>
   ));
@@ -182,18 +188,31 @@ function Blog() {
   }
   return (
     <div>
-      <Title>
-        최신 블로그 게시물들을 가져왔어요📌{' '}
+      <Title>최신 블로그 게시물들을 가져왔어요📌 </Title>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
         <MySelect change={change}></MySelect>
-      </Title>
-      <Title style={{ fontSize: '16px', float: 'right' }}>
-        즐겨찾기 <Switch filterCard={filterCard}></Switch>
-      </Title>
-      <br />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            color: '#e2e2e2',
+          }}
+        >
+          <SubTitle>내 관심분야</SubTitle>
+          <Switch filterCard={filterCard}></Switch>
+        </div>
+      </div>
       <LazyLoad once>
-        <Grid spacing={4}>
+        <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Grid container spacing={4}>
+            <Grid container spacing={6}>
               {cardList}
             </Grid>
           </Grid>

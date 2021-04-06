@@ -5,8 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 //슬라이드 토글 스위치
 export const SliderSwitch = styled.label`
-  margin-left: 5px;
-  margin-bottom: 10px;
+  margin-left: 8px;
+  margin-bottom: 3.5px;
   position: relative;
   display: inline-block;
   width: 60px;
@@ -61,13 +61,35 @@ export const StyledCard = styled(Card)`
   -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   &:hover {
+    & .cardimg {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+    transition: 0.2s all;
     transform: scale(1.02);
   }
-  img {
-    object-fit: fill;
-    min-height: 300px;
-    height: 300px;
+  .cardimg-wrapper {
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
   }
+
+  .cardimg-inner {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cardimg {
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+  }
+
   .content {
     height: 100%;
     display: 'flex';
@@ -75,22 +97,13 @@ export const StyledCard = styled(Card)`
   }
   .inner {
     display: flex;
+    height: 100%;
     flex-direction: column;
     align-items: space-between;
     background-color: #201d29;
     color: #b6b7b8;
-    margin-top: 0;
-    height: inherit;
   }
-  p {
-    margin: 10px;
-  }
-  button {
-    background: none;
-    border: none;
-    margin-left: 3px;
-    color: #858090;
-  }
+
   // 북마크 체크시 색
   .bookmark {
     color: #804bd8;
@@ -98,7 +111,11 @@ export const StyledCard = styled(Card)`
 ` as typeof Card;
 
 export const StyledSelect = styled(Select)`
+  svg {
+    fill: #f2f3f6;
+  }
   .MuiSelect-root {
+    background-color: #332c40;
     color: #e2e3e6;
     padding: 10px;
   }
@@ -107,3 +124,80 @@ export const StyledSelect = styled(Select)`
     padding: 5px;
   }
 ` as typeof Select;
+
+// 타이틀 & 카드 내부 속성들
+const Title = styled.h1`
+  color: ${({ theme }) => theme.colors.text.first};
+  display: flex;
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.xxl};
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  line-height: 24px;
+`;
+
+const SubTitle = styled.span`
+  color: ${({ theme }) => theme.colors.text.second};
+  display: flex;
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  padding: 0 0.5rem;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+`;
+
+const CardWrapper = styled.div`
+  font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background: #201d29;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+`;
+
+const CardInnerWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+`;
+
+const CardTitle = styled.a`
+  color: ${({ theme }) => theme.colors.text.second};
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  padding-right: 1rem;
+  letter-spacing: 1px;
+  line-height: 24px;
+`;
+const CardCompany = styled.p`
+  color: ${({ theme }) => theme.colors.text.second};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: bold;
+`;
+
+const CardDate = styled.p`
+  display: flex;
+  justify-content: flex-end;
+  color: ${({ theme }) => theme.colors.text.third};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+`;
+
+export {
+  Title,
+  SubTitle,
+  CardWrapper,
+  CardInnerWrapper,
+  CardTitle,
+  CardCompany,
+  CardDate,
+};
