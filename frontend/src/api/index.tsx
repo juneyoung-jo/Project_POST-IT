@@ -25,7 +25,7 @@ instance.interceptors.response.use(
   },
   function (error) {
     console.log(error);
-    if (error.response.status == '401' && '400') {
+    if (error.response.status == '401') {
       alert('로그인 만료');
     } else if (error.response.status == '403') {
       // 토큰이 있으면 권한이 없으면
