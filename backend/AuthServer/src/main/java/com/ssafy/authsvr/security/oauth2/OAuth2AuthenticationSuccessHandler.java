@@ -61,7 +61,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         refresh.setHttpOnly(true);
         refresh.setPath("/");
         response.addCookie(refresh);
+//        response.setHeader("Set-Cookie", "Refresh="+tokenProvider.createToken(authentication, 1));
         // 유저 아이디와 리프레시 토큰 레디스 저장
+        logger.info("set-cookie : " + response.getHeader("Set-Cookie"));
+
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
