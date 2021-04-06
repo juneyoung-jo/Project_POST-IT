@@ -20,9 +20,7 @@ public class TokenProvider {
         this.appProperties = appProperties;
     }
 
-    public String createToken(Authentication authentication, int type) {
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
+    public String createToken(String userId, int type){
         Date now = new Date();
         Date expiryDate;
         if(type == 0)
@@ -31,12 +29,17 @@ public class TokenProvider {
             expiryDate = new Date(now.getTime() + appProperties.getAuth().getRefreshTokenExpirationMesc());
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getId())
+                .setSubject(userId)
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
                 .compact();
     }
+    public String createToken(Authentication authentication, int type) {
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        return createToken(userPrincipal.getId(), type);
+    }
+
 
     public String getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
@@ -44,6 +47,26 @@ public class TokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+    }
+
+    public boolean validateForExpiredToken(String authToken){
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(appProperties.getAuth().getTokenSecret())
+                    .parseClaimsJws(authToken)
+                    .getBody();
+
+//            if (claims.getExpiration().after(new Date()))  // 토큰만료기한이 오늘보다 뒤임
+//                return false;
+
+        }catch(SignatureException ex){
+            return false;
+        }catch(MalformedJwtException ex){
+            return false;
+        }
+        return true;
+//        return Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret())
+//                .isSigned(authToken);
     }
 
     public boolean validateToken(String authToken) {

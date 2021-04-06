@@ -1,10 +1,14 @@
 package com.ssafy.authsvr.controller;
 
+import com.ssafy.authsvr.config.AppProperties;
 import com.ssafy.authsvr.payload.InfoUpdateRequest;
+import com.ssafy.authsvr.payload.TokenResponse;
 import com.ssafy.authsvr.payload.UserResponse;
 import com.ssafy.authsvr.security.CurrentUser;
+import com.ssafy.authsvr.security.TokenProvider;
 import com.ssafy.authsvr.security.UserPrincipal;
 import com.ssafy.authsvr.service.UserService;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +22,9 @@ public class UserController {
 
     private final UserService userService;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
+    private final TokenProvider tokenProvider;
     // feat 1. 로그인 성공 -> 리턴값 : nickName, profile, category, blogId, youtubeId, jobId
+
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
@@ -54,6 +59,33 @@ public class UserController {
 
         return response.getData() != null ?
                 ResponseEntity.ok(response) : ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/refresh")
+    public ResponseEntity<?> refreshToken(@RequestParam String token, @RequestParam String refreshToken){
+        String newToken = null;
+        if(tokenProvider.validateToken(refreshToken) && tokenProvider.validateForExpiredToken(token)){
+            String userId = tokenProvider.getUserIdFromToken(token);
+            newToken = tokenProvider.createToken(userId, 0);
+        }
+
+        return newToken != null ?
+                ResponseEntity.ok(
+                        TokenResponse
+                            .builder()
+                            .msg("success")
+                            .token(newToken)
+                            .build()
+                ) :
+                ResponseEntity.status(403)
+                        .body(
+                                TokenResponse
+                                    .builder()
+                                    .msg("Invalid Token")
+                                    .token("")
+                                    .build()
+                        )
+                ;
     }
 
 
