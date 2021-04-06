@@ -10,8 +10,8 @@ import java.util.List;
 public class InfoUpdateRequest {
 
     private String name;
-    private List<Integer> categoryList;
-    private List<Integer> blogList;
-    private List<Integer> youtubeList;
-    private List<Integer> jobList;
+    private List<String> categoryList;
+    private List<String> blogList;
+    private List<String> youtubeList;
+    private List<String> jobList;
 }

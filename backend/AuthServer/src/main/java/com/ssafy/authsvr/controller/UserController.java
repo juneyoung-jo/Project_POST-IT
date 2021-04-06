@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -23,6 +25,7 @@ public class UserController {
     private final UserService userService;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final TokenProvider tokenProvider;
+    private final String REFRESH_TOKEN_NAME = "RefreshToken";
     // feat 1. 로그인 성공 -> 리턴값 : nickName, profile, category, blogId, youtubeId, jobId
 
     @GetMapping("/user/me")
@@ -62,10 +65,13 @@ public class UserController {
     }
 
     @GetMapping("/refresh")
-    public ResponseEntity<?> refreshToken(@RequestParam String token, @RequestParam String refreshToken){
+    public ResponseEntity<?> refreshToken(@CookieValue(value=REFRESH_TOKEN_NAME) Cookie refreshTokenCookie){
         String newToken = null;
-        if(tokenProvider.validateToken(refreshToken) && tokenProvider.validateForExpiredToken(token)){
-            String userId = tokenProvider.getUserIdFromToken(token);
+        String refreshToken = refreshTokenCookie.getValue();
+        logger.info("Refresh Token : " + refreshToken);
+
+        if(tokenProvider.validateToken(refreshToken)){
+            String userId = tokenProvider.getUserIdFromToken(refreshToken);
             newToken = tokenProvider.createToken(userId, 0);
         }
 

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.ssafy.authsvr.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
@@ -30,6 +32,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
+    private final int REFRESH_EXPIRED_TIME = 60*60*24*90;
+
+    private final String ACCESS_TOKEN_NAME = "token";
+    private final String REFRESH_TOKEN_NAME = "RefreshToken";
 
     @Autowired
     OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties appProperties,
@@ -49,6 +55,13 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
 
         clearAuthenticationAttributes(request, response);
+
+        Cookie refresh = new Cookie(REFRESH_TOKEN_NAME, tokenProvider.createToken(authentication, 1));
+        refresh.setMaxAge(REFRESH_EXPIRED_TIME); // int형으로만 받아야함
+        refresh.setHttpOnly(true);
+        refresh.setPath("/");
+        response.addCookie(refresh);
+        // 유저 아이디와 리프레시 토큰 레디스 저장
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
@@ -63,11 +76,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
         String accessToken = tokenProvider.createToken(authentication, 0);
-        String refreshToken = tokenProvider.createToken(authentication, 1);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("token", accessToken)
-                .queryParam("refreshToken", refreshToken) // 리프레시 토큰 추가
+                .queryParam(ACCESS_TOKEN_NAME, accessToken)
                 .build().toUriString();
     }
 
