@@ -9,7 +9,7 @@ services:
     # container_name: postit-reportserver
     build:
       context: ReportServer
-      dockerfile: Dockerfile-local
+      dockerfile: Dockerfile
     expose:
       - 8000
     depends_on:
@@ -37,7 +37,7 @@ services:
     container_name: postit-configserver
     build:
       context: ConfigServer
-      dockerfile: Dockerfile-local
+      dockerfile: Dockerfile
     expose:
       - 8888
     networks:
@@ -61,7 +61,7 @@ services:
     container_name: postit-eurekaserver
     build:
       context: EurekaServer
-      dockerfile: Dockerfile-local
+      dockerfile: Dockerfile
     ports:
       - 8761:8761
     # expose:
@@ -89,7 +89,7 @@ services:
     container_name: postit-zuulserver
     build:
       context: ZuulServer
-      dockerfile: Dockerfile-local
+      dockerfile: Dockerfile
     ports:
       - 5555:5555
     depends_on:
@@ -118,7 +118,7 @@ services:
     container_name: postit-authserver
     build:
       context: AuthServer
-      dockerfile: Dockerfile-local
+      dockerfile: Dockerfile
     expose:
       - 8443
     depends_on:

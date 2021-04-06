@@ -6,33 +6,37 @@ import io.jsonwebtoken.*;
 import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
-
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Component
 public class TokenFilter extends ZuulFilter {
 
+    private static final int FILTER_ORDER = 2;
+    private static final boolean SHOULD_FILTER = true;
+    private static final boolean IS_OAUTH2_REQUEST = false;
     private final Logger logger = LoggerFactory.getLogger(TokenFilter.class);
 
-    @Value("${jwt.access.expiration}")
-    private int access_expiration;
+    private final FilterUtils filterUtils;
 
-    @Value("${jwt.refresh.expiration}")
-    private int refresh_expiration;
+    public TokenFilter(FilterUtils filterUtils){
+        this.filterUtils = filterUtils;
+    }
 
-    @Value("${jwt.secret}")
-    private String secret;
+//    @Value("${jwt.secret}")
+//    String secret;
 
     @Override
     public Object run(){
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest req = ctx.getRequest();
 
-        logger.debug("Request Method : " + req.getMethod());
-        logger.debug("Reqeust URL : " + req.getRequestURL().toString());
+        logger.info("=============TokenFilter start ==================");
+        logger.info("Request Method : " + req.getMethod());
+        logger.info("Reqeust URL : " + req.getRequestURL().toString());
 
         String authorizationHeader = req.getHeader(HttpHeaders.AUTHORIZATION);
         if(!validateToken(getJwtFromRequest(authorizationHeader))){
@@ -77,12 +81,16 @@ public class TokenFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 0;
+        return FILTER_ORDER;
     }
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        RequestContext ctx = RequestContext.getCurrentContext();
+        if(ctx.getRequest().getRequestURI().contains("/api/auth/oauth2")){
+            return IS_OAUTH2_REQUEST;
+        }
+        return SHOULD_FILTER;
     }
 
 }
