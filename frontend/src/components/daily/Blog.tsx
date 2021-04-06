@@ -50,7 +50,7 @@ function MySelect(props: any) {
           value={category}
           onChange={handleChange}
           label="회사"
-          defaultValue={1}
+          // defaultValue={1}
         >
           <option className="item" value={1}>
             카카오
@@ -101,6 +101,8 @@ function Blog() {
 
     return () => {
       // 해당 컴포넌트가 사라질 때
+      setBlog([]);
+      setTmp([]);
     };
   }, [category]);
 
@@ -127,9 +129,8 @@ function Blog() {
   function change(data: number) {
     setCategory(data);
   }
-
   const cardList = blog.map((res: any) => (
-    <Grid item xs={12} md={4} sm={6}>
+    <Grid key={res.id} item xs={12} md={4} sm={6}>
       <StyledCard
         style={{
           display: 'flex',
@@ -148,7 +149,8 @@ function Blog() {
                 res.image ===
                   'https://www.woowahan.com/img/pc/common-logo.png' ||
                 res.image ===
-                  'https://line.me/static/940874c48d2369be137d812b15491843/f2838/icon-title-pc.png'
+                  'https://line.me/static/940874c48d2369be137d812b15491843/f2838/icon-title-pc.png' ||
+                res.image === 'null'
                   ? `/images/logo_${res.category}.png`
                   : res.image
               }

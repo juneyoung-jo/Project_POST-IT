@@ -176,7 +176,7 @@ const CardTitle = styled.a`
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.md};
   padding-right: 1rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   line-height: 24px;
 `;
 const CardCompany = styled.p`

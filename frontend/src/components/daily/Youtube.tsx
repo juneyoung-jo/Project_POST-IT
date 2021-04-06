@@ -15,6 +15,7 @@ import {
   CardCompany,
   CardDate,
 } from './Daily.styles';
+import { AxiosResponse } from 'axios';
 
 const CardButtonWrapper = styled.div`
   display: flex;
@@ -25,6 +26,11 @@ function Youtube() {
   const [youtube, setYoutube] = useState([] as any);
   const [tmp, setTmp] = useState([] as any);
 
+  const [status, setStatus] = useState({
+    imageStatus: 'Loading',
+    error: false,
+  });
+
   const [youtubeId, setYoutubeId] = useState([] as any);
 
   useEffect(() => {
@@ -34,11 +40,10 @@ function Youtube() {
       setTmp(data.data.data);
     }
     setContent();
-    console.log(youtubeId);
+    // console.log(youtubeId);
 
     return () => {};
   }, []);
-
   function idAdd(data: any) {
     setYoutubeId(youtubeId.concat(data));
   }
@@ -48,7 +53,7 @@ function Youtube() {
   }
 
   const cardList = youtube.map((res: any) => (
-    <Grid item xs={12} md={4} sm={6}>
+    <Grid key={res.id} item xs={12} md={4} sm={6}>
       <StyledCard
         style={{
           display: 'flex',
@@ -106,7 +111,7 @@ function Youtube() {
         </div>
       </div>
       <br />
-      <Grid spacing={4}>
+      <Grid container spacing={4}>
         <Grid item xs={12}>
           <Grid container spacing={4}>
             {cardList}
