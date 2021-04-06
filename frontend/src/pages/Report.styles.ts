@@ -32,7 +32,5 @@ const Section = styled.div`
   padding: 1.5rem;
   background: ${({ theme }) => theme.colors.second};
 `;
-/* const SectionTwo = styled.div``;
-const SectionThree = styled.div``; */
 
 export { Wrapper, Title, Subtitle, CategorySelect, Section };

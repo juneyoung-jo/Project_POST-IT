@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import OAuth2RedirectHandler from 'api/oauth2';
 import { getCurrentUser } from 'api/user';
 import { ACCESS_TOKEN } from 'config/config';
+import AOS from 'aos';
 
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
@@ -26,37 +27,36 @@ import Home from 'pages/Home';
 import Report from 'pages/Report';
 import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
+import Profile from 'pages/Profile';
+
+AOS.init();
 
 const App: React.FC = (): ReactElement => {
   const [authenticated, setAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  function loadCurrentlyLoggedInUser() {
-    setLoading(true);
+  useEffect(() => {
+    const loadCurrentlyLoggedInUser = () => {
+      setLoading(true);
 
-    getCurrentUser()
-      .then((response) => {
-        setCurrentUser(response), setAuthenticated(true), setLoading(false);
-        console.log(response);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
-  }
+      getCurrentUser()
+        .then((response) => {
+          setCurrentUser(response), setAuthenticated(true), setLoading(false);
+          console.log(response);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error);
+        });
+    };
+    return () => {};
+  }, []);
+
   function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false), setCurrentUser(null);
   }
-
-  useEffect(() => {
-    console.log('랜더링 완료');
-    loadCurrentlyLoggedInUser();
-    return () => {
-      console.log('컴포넌트 업데이트');
-    };
-  }, []);
 
   if (loading) {
     return <CircularProgress />;
@@ -74,6 +74,7 @@ const App: React.FC = (): ReactElement => {
             <Route path="/" component={Home} exact={true} />
             <Route path="/report" component={Report} exact={true} />
             <Route path="/contents" component={Contents} exact={true} />
+            <Route path="/profile" component={Profile} exact={true} />
             <PrivateRoute
               path="/myfolder/:username"
               authenticated={authenticated}
@@ -87,7 +88,7 @@ const App: React.FC = (): ReactElement => {
             <Route component={NotFound}></Route>
           </Switch>
         </Suspense>
-        <Footer />
+        <Footer data-aos="fade-in" data-aos-duration="2000" />
       </BrowserRouter>
     </ThemeProvider>
   );

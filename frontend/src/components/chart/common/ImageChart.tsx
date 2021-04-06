@@ -5,13 +5,14 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4themes_dark from '@amcharts/amcharts4/themes/dark';
 
-// types
-import { Iprops } from 'types/report/chartTypes';
-
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 
-function ImageChart(props: Iprops) {
+interface IProps {
+  data: any;
+}
+
+function ImageChart(props: IProps) {
   useLayoutEffect(() => {
     // create chart
     let iconPath =
@@ -20,36 +21,7 @@ function ImageChart(props: Iprops) {
     let chart = am4core.create('image-chart', am4charts.SlicedChart);
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
 
-    chart.data = [
-      {
-        name: '프로그래밍 언어',
-        value: 354,
-      },
-      {
-        name: '웹/앱',
-        value: 245,
-      },
-      {
-        name: '백엔드',
-        value: 187,
-      },
-      {
-        name: '블록체인',
-        value: 123,
-      },
-      {
-        name: '클라우드 / devops',
-        value: 87,
-      },
-      {
-        name: '빅데이터',
-        value: 45,
-      },
-      {
-        name: 'AI',
-        value: 23,
-      },
-    ];
+    chart.data = props.data;
 
     let series = chart.series.push(new am4charts.PictorialStackedSeries());
     series.dataFields.value = 'value';
@@ -61,17 +33,13 @@ function ImageChart(props: Iprops) {
     series.ticks.template.locationX = 1;
     series.ticks.template.locationY = 0.5;
 
-    let chartBox = document.querySelector('#image-chart');
-    chartBox?.addEventListener('fullscreenchange', function (e) {
-      console.log(e.target);
-    });
     series.labelsContainer.width = 150;
     series.labelsContainer.fontSize = 12;
     series.labelsContainer.fontWeight = '700';
     series.labelsContainer.fontFamily = 'Noto Sans KR';
 
     let title = chart.titles.create();
-    title.text = `"${props.category}" 카테고리 인기 키워드 비율`;
+    title.text = `카테고리 별 인기 키워드 비율`;
     title.fontSize = 20;
     title.fontWeight = '700';
     title.marginBottom = 40;
@@ -80,7 +48,7 @@ function ImageChart(props: Iprops) {
       // dispose를 안해주면 warning뜹니다.
       chart.dispose();
     };
-  }, [props]);
+  }, [props.data]);
 
   return (
     <div id="image-chart" style={{ width: '100%', height: '500px' }}></div>

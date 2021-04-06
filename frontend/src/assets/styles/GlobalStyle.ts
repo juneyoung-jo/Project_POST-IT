@@ -35,13 +35,15 @@ const GlobalStyle = createGlobalStyle`
     }
 
     ::-webkit-scrollbar {
-        width: 4px;
+        width: 8px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #434343;        
+        background: #6a59a3;
+        border-radius: 10px;
     }
     ::-webkit-scrollbar-track {
-        background-color: #e2e2e2;
+        background-color: #434343;
+        border-radius: 10px;
     }
 `;
 

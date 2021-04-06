@@ -13,7 +13,7 @@ function Login() {
     <Wrapper>
       <TitleWrapper>
         <h1>로그인</h1>
-        <p>로그인을 통해 딱 맞는 IT 트렌드 분석 결과를 확인하세요.</p>
+        <p>로그인을 통해 IT 트렌드 분석 결과를 확인하세요.</p>
       </TitleWrapper>
       <ButtonWrapper>
         <a href={GOOGLE_AUTH_URL} className="btn google">
