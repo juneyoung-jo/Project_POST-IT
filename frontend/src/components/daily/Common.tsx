@@ -4,9 +4,10 @@ import { ControlPointSharp, TurnedIn } from '@material-ui/icons';
 import { SliderSwitch } from './Daily.styles';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-const CardButtonWrapper = styled.div`
-  display: flex;
-  /* align-items: center; */
+const Button = styled.button`
+  background: none;
+  border: none;
+  color: #858090;
 `;
 
 export function CardButtonGroup(props: any) {
@@ -23,14 +24,12 @@ export function CardButtonGroup(props: any) {
     }
   }
   return (
-    <CardButtonWrapper>
-      <button
-        className={props.checked.includes(props.id) ? 'bookmark' : 'null'}
-        onClick={handleChange}
-      >
-        {<TurnedIn />}
-      </button>
-    </CardButtonWrapper>
+    <Button
+      className={props.checked.includes(props.id) ? 'bookmark' : 'null'}
+      onClick={handleChange}
+    >
+      {<TurnedIn />}
+    </Button>
   );
 }
 
