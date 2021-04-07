@@ -96,8 +96,7 @@ function Blog() {
       setTmp(data.data.data);
     }
     setContent();
-
-    // console.log(blogId);
+    console.log(blogId);
 
     return () => {
       // 해당 컴포넌트가 사라질 때
