@@ -52,7 +52,13 @@ function Header(props: PropsTypes) {
           일일 컨텐츠
         </MenuItem>
         {props.authenticated ? (
-          <MenuItem to={'/profile'} item={'menus'}>
+          <MenuItem
+            to={'/profile'}
+            item={'menus'}
+            // name={props.name}
+            // email={props.email}
+            // img={props.email}
+          >
             프로필
           </MenuItem>
         ) : null}
