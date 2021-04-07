@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, NavLinkProps } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { getCurrentUser } from 'api/user';
 
@@ -33,6 +33,11 @@ function Header(props: PropsTypes) {
   const openModal = () => {
     setShowModal((prev) => !prev);
   };
+  let history = useHistory();
+
+  function goHome() {
+    history.push('/');
+  }
 
   return (
     <Wrapper>
@@ -46,14 +51,14 @@ function Header(props: PropsTypes) {
         <MenuItem to={'/contents'} item={'menus'}>
           일일 컨텐츠
         </MenuItem>
-        <MenuItem to={'/profile'} item={'menus'}>
-          프로필
-        </MenuItem>
         {props.authenticated ? (
-          <MenuItem to={'/myfolder'} item={'menus'}>
-            내 스크랩
+          <MenuItem to={'/profile'} item={'menus'}>
+            프로필
           </MenuItem>
         ) : null}
+        {/* <MenuItem to={'/myfolder'} item={'menus'}>
+          내 스크랩
+        </MenuItem> */}
       </div>
       <button
         onClick={() => {
@@ -81,9 +86,14 @@ function Header(props: PropsTypes) {
       >
         getUser
       </button>
+
       {props.authenticated ? (
         <div>
-          <Button onClick={props.onLogout}>
+          <Button
+            onClick={() => {
+              props.onLogout(), goHome();
+            }}
+          >
             <span>로그아웃</span>
           </Button>
         </div>

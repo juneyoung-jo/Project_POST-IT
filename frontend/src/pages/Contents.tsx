@@ -61,11 +61,12 @@ function Contents() {
       setBlog(false);
       setYoutube(true);
       setJob(false);
-    } else {
-      setBlog(false);
-      setYoutube(false);
-      setJob(true);
     }
+    // else {
+    //   setBlog(false);
+    //   setYoutube(false);
+    //   setJob(true);
+    // }
     setActivate(v);
   };
   return (
@@ -87,18 +88,18 @@ function Contents() {
           >
             유튜브 동영상
           </MyButton>
-          <Bar> | </Bar>
+          {/* <Bar> | </Bar>
           <MyButton
             onClick={() => clickHandler(2)}
             style={{ filter: isJob ? 'brightness(1.5)' : 'brightness(0.75)' }}
           >
             채용
-          </MyButton>
+          </MyButton> */}
         </Tab>
         {(function () {
           if (active == 0) return <Blog></Blog>;
           if (active == 1) return <Youtube></Youtube>;
-          if (active == 2) return <Job></Job>;
+          // if (active == 2) return <Job></Job>;
         })()}
       </Container>
     </Wrapper>
