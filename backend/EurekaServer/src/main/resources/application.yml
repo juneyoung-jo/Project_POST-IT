@@ -1,3 +1,6 @@
+server:
+  port: 8761
+
 eureka:
   client:
     registerWithEureka: false # 유레카 서비스에 서버 자신은 등록하지 않음

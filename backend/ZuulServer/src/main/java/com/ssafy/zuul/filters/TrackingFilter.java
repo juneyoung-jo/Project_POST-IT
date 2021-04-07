@@ -54,7 +54,7 @@ public class TrackingFilter extends ZuulFilter {
     }
 
     @Override
-    public Object run() throws ZuulException {
+    public Object run() {
         // 서비스가 필터를 통과할때 실행되는 코드 , tmx-correlation-id 존재여부 확인, 없으면 생성
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest req = ctx.getRequest();

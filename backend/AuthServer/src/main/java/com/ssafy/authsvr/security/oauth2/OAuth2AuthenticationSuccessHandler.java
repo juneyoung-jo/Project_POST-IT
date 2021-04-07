@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -60,10 +61,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         refresh.setMaxAge(REFRESH_EXPIRED_TIME); // int형으로만 받아야함
         refresh.setHttpOnly(true);
         refresh.setPath("/");
-        response.addCookie(refresh);
-//        response.setHeader("Set-Cookie", "Refresh="+tokenProvider.createToken(authentication, 1));
+        response.addCookie(refresh); // 여기
+
         // 유저 아이디와 리프레시 토큰 레디스 저장
-        logger.info("set-cookie : " + response.getHeader("Set-Cookie"));
+        logger.warn("set-cookie : " + response.getHeader("Set-Cookie"));
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }

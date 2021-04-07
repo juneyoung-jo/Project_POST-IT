@@ -5,9 +5,6 @@ spring:
   application:
     name: eurekaserver
 
-  profiles:
-    active: dev
-
   cloud:
     config:
       uri: http://j4c103.p.ssafy.io:8888

@@ -1,12 +1,12 @@
 !#/bin/sh
 
 echo "+++ AuthServer"
-cd /Users/hindsight/Desktop/dockertest/backend/AuthServer && ./gradlew clean build
+cd ./AuthServer && ./gradlew clean build
 echo "+++ ConfigServer"
-cd /Users/hindsight/Desktop/dockertest/backend/ConfigServer && ./gradlew clean build
+cd ../ConfigServer && ./gradlew clean build
 echo "+++ EurekaServer"
-cd /Users/hindsight/Desktop/dockertest/backend/EurekaServer && ./gradlew clean build
+cd ../EurekaServer && ./gradlew clean build
 echo "+++ ZuulServer"
-cd /Users/hindsight/Desktop/dockertest/backend/ZuulServer && ./gradlew clean build
+cd ../ZuulServer && ./gradlew clean build
 echo "+++ ReportServer"
-cd /Users/hindsight/Desktop/dockertest/backend/ReportServer && ./gradlew clean build
+cd ../ReportServer && ./gradlew clean build
