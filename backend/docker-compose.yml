@@ -16,6 +16,7 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+        delay: 5s
         max_attempts: 3
         window: 120s
       update_config:
@@ -36,6 +37,7 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+        delay: 5s
         max_attempts: 3
         window: 120s
       update_config:
@@ -59,6 +61,7 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+        delay: 5s
         max_attempts: 3
         window: 120s
       update_config:
@@ -80,15 +83,13 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+        delay: 5s
         max_attempts: 3
         window: 120s
       update_config:
         parallelism: 1
         order: stop-first
         failure_action: rollback
-    # deploy:
-    #   mode: replicated
-    #   replicas: 2
 
   postit_authserver:
     container_name: postit-authserver
@@ -104,6 +105,7 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+        delay: 5s
         max_attempts: 3
         window: 120s
       update_config:
