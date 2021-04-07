@@ -23,7 +23,7 @@ export function CardButtonGroup(props: any) {
   // props.id 와 저장된 id 찾기
   // (...)
   function handleChange(e: any) {
-    if (!localStorage.getItem('accessToken')) return;
+    if (!localStorage.getItem('name')) return;
 
     setChecked(!checked);
     // e.preventDefault();

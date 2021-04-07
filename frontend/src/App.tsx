@@ -5,10 +5,11 @@ import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Container } from '@material-ui/core';
 import OAuth2RedirectHandler from 'api/oauth2';
-import { getCurrentUser } from 'api/user';
+// import { getCurrentUser } from 'api/user';
 import { ACCESS_TOKEN } from 'config/config';
 import AOS from 'aos';
 import axios from 'axios';
+import { API_BASE_URL } from 'config/config';
 
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
@@ -32,13 +33,7 @@ import MyFolder from 'pages/MyFolder';
 import Profile from 'pages/Profile';
 
 // recoil
-import {
-  RecoilRoot,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-  atom,
-} from 'recoil';
+import { RecoilRoot, useRecoilState } from 'recoil';
 import { tokenState } from 'index';
 
 AOS.init();
@@ -49,12 +44,43 @@ const App: React.FC = (): ReactElement => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useRecoilState(tokenState);
 
+  const request = (options: any) => {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    if (token) {
+      headers.append('Authorization', 'Bearer ' + token);
+    }
+
+    const defaults = { headers: headers };
+    options = Object.assign({}, defaults, options);
+    return fetch(options.url, options).then((response) =>
+      response.json().then((json) => {
+        if (!response.ok) {
+          return Promise.reject(json);
+        }
+        return json;
+      }),
+    );
+  };
+
+  function getCurrentUser() {
+    if (!token) {
+      return Promise.reject('No access token set.');
+    }
+    return request({
+      url: API_BASE_URL + '/user/me',
+      method: 'GET',
+    });
+  }
+
   function loadCurrentlyLoggedInUser() {
     setLoading(true);
+    // getCurrent request
     getCurrentUser()
       .then((response) => {
         setCurrentUser(response), setAuthenticated(true), setLoading(false);
-        console.log(response);
 
         localStorage.setItem('name', response.data.name);
         if (response.data.youtubeList.length != 0) {
@@ -71,17 +97,18 @@ const App: React.FC = (): ReactElement => {
   }
 
   useEffect(() => {
+    setToken(1); // 토큰 생성
+    console.log(token);
     loadCurrentlyLoggedInUser();
-    setToken(1);
-
     return () => {};
-  }, []);
+  }, [token]);
 
   function handleLogout() {
-    localStorage.removeItem(ACCESS_TOKEN);
+    // localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem('name');
     localStorage.removeItem('blogList');
     localStorage.removeItem('youtubeList');
+    localStorage.removeItem('isLogin');
     setAuthenticated(false), setCurrentUser(null);
   }
 

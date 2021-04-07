@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 import { StyledCard, StyledSelect } from './Daily.styles';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -11,8 +10,9 @@ import { setCurrentUser } from 'api/user';
 import Select from '@material-ui/core/Select';
 // import { tokenState } from 'index';
 import { tokenState } from 'index';
-
-// import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import { API_BASE_URL } from 'config/config';
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import {
   Title,
   SubTitle,
@@ -22,10 +22,6 @@ import {
   CardCompany,
   CardDate,
 } from './Daily.styles';
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
-
-import { array } from '@amcharts/amcharts4/core';
-import { ContactsOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,11 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-// const [user, setUser] = React.useState({
-//   name: localStorage.getItem('name') as any,
-//   blogList: localStorage.getItem('blogList') as any,
-//   youtubeList: localStorage.getItem('youtubeList') as any,
-// });
 const list: string[] = [];
 
 function MySelect(props: any) {
@@ -105,6 +96,38 @@ function Blog() {
   const [category, setCategory] = useState(1);
   const token = useRecoilValue(tokenState);
 
+  const request = (options: any) => {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    if (token) {
+      headers.append('Authorization', 'Bearer ' + token);
+    }
+
+    const defaults = { headers: headers };
+    options = Object.assign({}, defaults, options);
+    return fetch(options.url, options).then((response) =>
+      response.json().then((json) => {
+        if (!response.ok) {
+          return Promise.reject(json);
+        }
+        return json;
+      }),
+    );
+  };
+
+  function setCurrentUser(user: any) {
+    if (!token) {
+      return Promise.reject('No access token set.');
+    }
+    return request({
+      url: API_BASE_URL + '/user/me',
+      method: 'post',
+      body: JSON.stringify(user),
+    });
+  }
+
   useEffect(() => {
     async function setContent() {
       // axios 요청
@@ -112,7 +135,6 @@ function Blog() {
       setBlog(data.data.data);
       setTmp(data.data.data);
       const blogList = localStorage.getItem('blogList');
-      // refetchToken();
 
       if (blogList) {
         setBlogId(blogList);
