@@ -1,7 +1,14 @@
 // Fragment는 불필요한 DOM node의 생성을 막기때문에 메모리를 적게사용한다.
 // css 메커니즘에서 특별한 부모 자식관계를 가지고 있는 flexbox나 gridbox관계에 있는 엘리먼트 사이에 <div>를 추가하게 되면 레이아웃을 유지하기 어려워지므로 fragment를 사용하면 된다.
 import React, { ReactElement, Suspense, useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  useHistory,
+  Redirect,
+  Link,
+} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Container } from '@material-ui/core';
 import OAuth2RedirectHandler from 'api/oauth2';
@@ -43,6 +50,7 @@ const App: React.FC = (): ReactElement => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useRecoilState(tokenState);
+  let history = useHistory();
 
   const request = (options: any) => {
     const headers = new Headers({

@@ -70,8 +70,12 @@ function Youtube() {
       body: JSON.stringify(user),
     });
   }
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      setAuthenticated(true);
+    }
     async function setContent() {
       const data = await allYoutube();
       setYoutube(data.data.data);
@@ -145,19 +149,23 @@ function Youtube() {
         }}
       >
         <img
-          src={`https://img.youtube.com/vi/${res.youtubeId}/maxresdefault.jpg`}
+          src={`https://img.youtube.com/vi/${res.youtubeId}/0.jpg`}
           alt="content image"
           style={{ objectFit: 'cover', minHeight: '200px' }}
         />
         <CardWrapper>
           <div>
             <CardTitle href={res.url}>{res.title}</CardTitle>
-            <CardButtonGroup
-              checked={youtubeId.indexOf(res.id) >= 0 ? true : false}
-              id={res.id}
-              idAdd={idAdd}
-              idRemove={idRemove}
-            ></CardButtonGroup>
+            {authenticated ? (
+              <>
+                <CardButtonGroup
+                  checked={youtubeId.indexOf(res.id) >= 0 ? true : false}
+                  id={res.id}
+                  idAdd={idAdd}
+                  idRemove={idRemove}
+                ></CardButtonGroup>
+              </>
+            ) : null}
           </div>
           <CardInnerWrapper
             style={{ backgroundColor: '#201d29', marginTop: 'auto' }}
@@ -172,7 +180,7 @@ function Youtube() {
 
   // 토글 스위치 함수
   function filterCard(data: boolean) {
-    console.log(data);
+    // console.log(data);
     if (data == true) {
       setYoutube(
         youtube.filter((res: any) => youtubeId.includes(res.id)) as any,
@@ -187,8 +195,12 @@ function Youtube() {
       <Title> 유튜브 동영상</Title>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <SubTitle>즐겨찾기</SubTitle>
-          <Switch filterCard={filterCard}></Switch>
+          {authenticated ? (
+            <>
+              <SubTitle>즐겨찾기</SubTitle>
+              <Switch filterCard={filterCard}></Switch>
+            </>
+          ) : null}
         </div>
       </div>
       <br />
