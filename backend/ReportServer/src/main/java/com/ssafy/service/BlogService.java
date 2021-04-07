@@ -11,4 +11,6 @@ public interface BlogService {
     List<Blog> listBlogContents();
 
     List<Blog> listInterestBlogContents(BlogRequest blogRequest);
+
+    List<Blog> listCategoryBlogContents(int category);
 }

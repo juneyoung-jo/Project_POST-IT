@@ -10,7 +10,9 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public abstract class ApiResponse<T> {
 
-    @NonNull private T data;
-    @NonNull private String msg;
+    @NonNull
+    private T data;
+    @NonNull
+    private String msg;
 
 }

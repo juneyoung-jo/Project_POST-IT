@@ -25,6 +25,18 @@ const request = (options: any) => {
   );
 };
 
+export function setCurrentUser(user: any) {
+  if (!localStorage.getItem(ACCESS_TOKEN)) {
+    return Promise.reject('No access token set.');
+  }
+
+  return request({
+    url: API_BASE_URL + '/user/me',
+    method: 'post',
+    body: JSON.stringify(user),
+  });
+}
+
 export function getCurrentUser() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
     return Promise.reject('No access token set.');

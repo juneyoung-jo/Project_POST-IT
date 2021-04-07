@@ -22,6 +22,9 @@ AOS.init();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      overflowX: 'hidden',
+    },
     grid: {
       display: 'flex',
       flexDirection: 'column',
@@ -39,7 +42,7 @@ const Home = () => {
   // }
 
   return (
-    <Container>
+    <Container className={classes.container}>
       <TopButton></TopButton>
       {/* 첫번째 section */}
       <Section>
@@ -188,6 +191,7 @@ const Home = () => {
               data-aos="fade-in"
               data-aos-delay="200"
               className="go-report"
+              onClick={() => window.scrollTo(0, 0)}
             >
               IT 트렌드 확인하러 가기
             </Link>

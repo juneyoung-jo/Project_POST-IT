@@ -1,7 +1,14 @@
 // Fragment는 불필요한 DOM node의 생성을 막기때문에 메모리를 적게사용한다.
 // css 메커니즘에서 특별한 부모 자식관계를 가지고 있는 flexbox나 gridbox관계에 있는 엘리먼트 사이에 <div>를 추가하게 되면 레이아웃을 유지하기 어려워지므로 fragment를 사용하면 된다.
 import React, { ReactElement, Suspense, useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  useHistory,
+  Redirect,
+  Link,
+} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import OAuth2RedirectHandler from 'api/oauth2';
 import { getCurrentUser } from 'api/user';
@@ -39,31 +46,63 @@ const App: React.FC = (): ReactElement => {
   // const [email, setEmail] = useState('');
   // const [img, setImg] = useState('');
 
-  useEffect(() => {
-    function loadCurrentlyLoggedInUser() {
-      setLoading(true);
+  let history = useHistory();
 
-      getCurrentUser()
-        .then((response) => {
-          setCurrentUser(response), setAuthenticated(true), setLoading(false);
-          // setName(response.data.name), setEmail(response.data.email), setImg(response.data.imageUrl);
-          console.log(response);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.log(error);
-        });
-    }
+  function loadCurrentlyLoggedInUser() {
+    setLoading(true);
+
+    getCurrentUser()
+      .then((response) => {
+        setCurrentUser(response), setAuthenticated(true), setLoading(false);
+        // console.log(response);
+
+        localStorage.setItem('name', response.data.name);
+        if (response.data.youtubeList.length != 0) {
+          localStorage.setItem('youtubeList', response.data.youtubeList);
+        }
+        if (response.data.blogList.length != 0) {
+          localStorage.setItem('blogList', response.data.blogList);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  }
+  useEffect(() => {
+    loadCurrentlyLoggedInUser();
     return () => {};
   }, []);
 
   function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem('name');
+    localStorage.removeItem('blogList');
+    localStorage.removeItem('youtubeList');
     setAuthenticated(false), setCurrentUser(null);
   }
 
   if (loading) {
-    return <CircularProgress />;
+    return (
+      <ThemeProvider theme={theme}>
+        {/* css 초기화 */}
+        <BrowserRouter>
+          <GlobalFonts />
+          <GlobalStyle />
+          <Header authenticated={authenticated} onLogout={handleLogout} />
+          <div
+            style={{
+              height: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress />
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+    );
   }
   return (
     <ThemeProvider theme={theme}>

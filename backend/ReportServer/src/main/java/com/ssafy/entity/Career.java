@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Schema(description = "채용정보")
 @Data
-public class Career extends Contents{
+public class Career extends Contents {
 
     private int jobid;
 

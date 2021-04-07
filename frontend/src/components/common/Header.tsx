@@ -1,68 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, NavLinkProps } from 'react-router-dom';
-import styled from 'styled-components';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { getCurrentUser } from 'api/user';
 
 import Login from 'pages/Login';
 import theme from 'assets/theme';
 import { Modal } from './Modal';
+import { Wrapper, Button } from './Header.styles';
+import { PropsTypes, MenuTypes } from 'types/common/headerTypes';
+import axios from 'axios';
 
-const Wrapper = styled.header`
-  font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
-  top: 0;
-  display: flex;
-  position: sticky;
-  width: 100%;
-  height: 48px;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${({ theme }) => theme.colors.second};
-  z-index: 100;
-  .header-logo {
-    margin: auto 1rem;
-    font-size: 20px;
-    color: ${({ theme }) => theme.colors.text.first};
-  }
-  .header-menus {
-    font-size: 15px;
-    font-weight: 700;
-    padding: 0 1rem;
-    color: ${({ theme }) => theme.colors.text.third};
-    &:hover {
-      transition: all 0.1s ease-in-out;
-      color: ${({ theme }) => theme.colors.text.first};
-    }
-  }
-`;
-
-const Button = styled.button`
-  font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  background: none;
-  border: none;
-  margin: auto 1rem;
-  padding-top: 5px;
-  color: ${({ theme }) => theme.colors.text.second};
-  &:hover {
-    color: ${({ theme }) => theme.colors.text.first};
-  }
-`;
-
-interface PropsTypes {
-  authenticated: boolean;
-  onLogout: any;
-}
-
-interface MenuTypes {
-  to: string;
-  item: string;
-  children?: string;
-  onClick?: any;
-}
-
-const MenuItem = ({ to, item, children, onClick }: MenuTypes) => (
+const MenuItem = ({ to, item, children }: MenuTypes) => (
   <NavLink
     to={to}
     className={`header-${item}`}
@@ -73,23 +21,28 @@ const MenuItem = ({ to, item, children, onClick }: MenuTypes) => (
       }
       return match.isExact;
     }}
-    onClick={onClick}
+    onClick={() => window.scrollTo(0, 0)}
   >
     {children}
   </NavLink>
 );
 
 function Header(props: PropsTypes) {
-  // 모달
+  // console.log(props);
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);
   };
+  let history = useHistory();
+
+  function goHome() {
+    history.push('/');
+  }
 
   return (
     <Wrapper>
       <div>
-        <MenuItem to={'/'} item={'logo'}>
+        <MenuItem to={'/'} item={'logo'} onClick={() => window.scrollTo(0, 0)}>
           POST-IT
         </MenuItem>
         <MenuItem to={'/report'} item={'menus'}>
@@ -98,15 +51,32 @@ function Header(props: PropsTypes) {
         <MenuItem to={'/contents'} item={'menus'}>
           일일 컨텐츠
         </MenuItem>
-        <MenuItem to={'/profile'} item={'menus'}>
-          프로필
-        </MenuItem>
         {props.authenticated ? (
-          <MenuItem to={'/myfolder'} item={'menus'}>
-            내 스크랩
+          <MenuItem to={'/profile'} item={'menus'}>
+            프로필
           </MenuItem>
         ) : null}
+        {/* <MenuItem to={'/myfolder'} item={'menus'}>
+          내 스크랩
+        </MenuItem> */}
       </div>
+      <button
+        onClick={() => {
+          // axios.get('http://j4c103.p.ssafy.io:5555/api/auth/refresh%27,%7BwithCredentials:true%7D).then((res)=%3E%7B
+          axios
+            .get('http://j4c103.p.ssafy.io:8443/refresh', {
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
+      >
+        토큰 리프레시
+      </button>
       <button
         onClick={() => {
           getCurrentUser()
@@ -116,9 +86,14 @@ function Header(props: PropsTypes) {
       >
         getUser
       </button>
+
       {props.authenticated ? (
         <div>
-          <Button onClick={props.onLogout}>
+          <Button
+            onClick={() => {
+              props.onLogout(), goHome();
+            }}
+          >
             <span>로그아웃</span>
           </Button>
         </div>

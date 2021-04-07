@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://j4c103.p.ssafy.io:5555/api/report',
   headers: {
     'Content-type': 'application/json',
   },
 });
+
 //request처리
 instance.interceptors.request.use(
   function (config) {

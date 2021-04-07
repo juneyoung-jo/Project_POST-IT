@@ -7,7 +7,7 @@ import lombok.Builder;
 public class YoutubeResponse extends ApiResponse<Youtube> {
 
     @Builder
-    public YoutubeResponse(final Youtube youtube,final String msg) {
-        super(youtube,msg);
+    public YoutubeResponse(final Youtube youtube, final String msg) {
+        super(youtube, msg);
     }
 }
