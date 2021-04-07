@@ -1,8 +1,9 @@
 import { Container, Grid } from '@material-ui/core';
 import TopButton from 'components/common/TopButton';
 import { Link } from 'react-router-dom';
-import React from 'react';
 import styled from 'styled-components';
+import React, { ReactElement, Suspense, useState, useEffect } from 'react';
+import { getCurrentUser } from 'api/user';
 
 const customMediaQuery = (maxWidth: number) =>
   `@media (max-width: ${maxWidth}px)`;
@@ -21,7 +22,8 @@ const ProfileBox = styled.div`
   padding: 100px;
 
   ${media.sm} {
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   display: flex;
   flex-direction: column;
@@ -58,11 +60,12 @@ const Title = styled.div`
   text-align: center;
   line-height: 1.3;
   word-break: keep-all;
+  margin-bottom: 50px;
 `;
 
-const Profileimg = styled.div`
-  width: 300px;
-  height: 300px;
+const Profileimg = styled.img`
+  width: 250px;
+  height: 250px;
   background-color: ${({ theme }) => theme.colors.first};
   border-radius: 200px;
   margin-top: 30px;
@@ -107,43 +110,31 @@ const Button = styled.button`
 `;
 
 const Profile = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [img, setImg] = useState('');
+
+  useEffect(() => {
+    getCurrentUser()
+      .then((response) => {
+        setName(response.data.name),
+          setEmail(response.data.email),
+          setImg(response.data.imageUrl);
+        // console.log(response);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  }, []);
+
   return (
     <Container>
       <TopButton></TopButton>
       <ProfileBox>
-        <Title>사용자님의 프로필</Title>
-        <Profileimg></Profileimg>
-        <div className="user-info">사용자</div>
-        <div className="user-info">user@user.com</div>
-        <Line></Line>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item className="info-text">
-            사용자님은
-          </Grid>
-          <Grid item className="category info-text">
-            웹
-          </Grid>
-          <Grid item className="category info-text">
-            프론트
-          </Grid>
-          <Grid item className="category info-text">
-            빅데이터
-          </Grid>
-          <Grid item className="info-text">
-            에 관심이 있고,
-          </Grid>
-        </Grid>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item className="category info-text">
-            신입
-          </Grid>
-          <Grid item className="info-text">
-            채용을 원하고 있어요.
-          </Grid>
-        </Grid>
-        <Button>
-          <Link to="/">관심분야 설정</Link>
-        </Button>
+        <Title>{name}님의 프로필</Title>
+        <Profileimg src={img}></Profileimg>
+        <div className="user-info">{name}</div>
+        <div className="user-info">{email}</div>
       </ProfileBox>
     </Container>
   );
