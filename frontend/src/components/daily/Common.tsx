@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ControlPointSharp, TurnedIn } from '@material-ui/icons';
+import {
+  ContactsOutlined,
+  ControlPointSharp,
+  TurnedIn,
+} from '@material-ui/icons';
 import { SliderSwitch } from './Daily.styles';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -11,12 +15,16 @@ const Button = styled.button`
 `;
 
 export function CardButtonGroup(props: any) {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(props.checked);
+
+  useEffect(() => {
+    setChecked(props.checked);
+  }, [props.checked]);
   // props.id 와 저장된 id 찾기
   // (...)
   function handleChange(e: any) {
-    // e.preventDefault();
     setChecked(!checked);
+    // e.preventDefault();
     if (checked !== true) {
       props.idAdd(props.id);
     } else {
@@ -24,10 +32,7 @@ export function CardButtonGroup(props: any) {
     }
   }
   return (
-    <Button
-      className={props.checked.includes(props.id) ? 'bookmark' : 'null'}
-      onClick={handleChange}
-    >
+    <Button className={checked ? 'bookmark' : 'null'} onClick={handleChange}>
       {<TurnedIn />}
     </Button>
   );

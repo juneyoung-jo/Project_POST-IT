@@ -1,5 +1,7 @@
 // export const API_BASE_URL = 'http://3.34.182.63:8443';
+// export const API_BASE_URL = 'http://j4c103.p.ssafy.io:8443';
 export const API_BASE_URL = 'http://j4c103.p.ssafy.io:5555/api/auth';
+// export const API_BASE_URL = 'http://localhost:5555/api/auth';
 
 export const ACCESS_TOKEN = 'accessToken';
 
