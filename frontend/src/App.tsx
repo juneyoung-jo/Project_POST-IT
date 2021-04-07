@@ -80,7 +80,26 @@ const App: React.FC = (): ReactElement => {
   }
 
   if (loading) {
-    return <CircularProgress />;
+    return (
+      <ThemeProvider theme={theme}>
+        {/* css 초기화 */}
+        <BrowserRouter>
+          <GlobalFonts />
+          <GlobalStyle />
+          <Header authenticated={authenticated} onLogout={handleLogout} />
+          <div
+            style={{
+              height: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress />
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+    );
   }
   return (
     <ThemeProvider theme={theme}>
