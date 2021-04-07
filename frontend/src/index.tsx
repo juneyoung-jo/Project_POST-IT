@@ -4,6 +4,7 @@ import { RecoilRoot, selector, atom, useRecoilValue } from 'recoil';
 import axios from 'axios';
 import React from 'react';
 import { REFRESH_TOKEN } from 'config/config';
+import { CircularProgress } from '@material-ui/core';
 
 export const getTokenTrigger = atom({
   key: 'getTokenTrigger', // unique ID (with respect to other atoms/selectors)
@@ -37,7 +38,22 @@ export const tokenState = selector({
 
 ReactDOM.render(
   <RecoilRoot>
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense
+      fallback={
+        <div
+          style={{
+            height: '100vh',
+            width: '100vw',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: '#2d2839',
+          }}
+        >
+          <CircularProgress />
+        </div>
+      }
+    >
       <App />
     </React.Suspense>
   </RecoilRoot>,
