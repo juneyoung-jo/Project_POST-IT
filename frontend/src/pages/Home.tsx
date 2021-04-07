@@ -22,6 +22,9 @@ AOS.init();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      overflowX: 'hidden',
+    },
     grid: {
       display: 'flex',
       flexDirection: 'column',
@@ -39,7 +42,7 @@ const Home = () => {
   // }
 
   return (
-    <Container>
+    <Container className={classes.container}>
       <TopButton></TopButton>
       {/* 첫번째 section */}
       <Section>
