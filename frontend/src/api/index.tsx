@@ -6,6 +6,7 @@ export const instance = axios.create({
     'Content-type': 'application/json',
   },
 });
+
 //request처리
 instance.interceptors.request.use(
   function (config) {

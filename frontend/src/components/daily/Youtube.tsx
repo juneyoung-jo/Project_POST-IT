@@ -6,15 +6,17 @@ import { SliderSwitch, StyledCard } from './Daily.styles';
 import { allYoutube } from 'api/daily';
 import LazyLoad from 'react-lazyload';
 import { CardButtonGroup, Switch } from './Common';
+import { setCurrentUser } from 'api/user';
+
 import {
   Title,
   SubTitle,
   CardWrapper,
   CardInnerWrapper,
   CardTitle,
-  CardCompany,
   CardDate,
 } from './Daily.styles';
+import { AxiosResponse } from 'axios';
 
 const CardButtonWrapper = styled.div`
   display: flex;
@@ -25,6 +27,11 @@ function Youtube() {
   const [youtube, setYoutube] = useState([] as any);
   const [tmp, setTmp] = useState([] as any);
 
+  const [status, setStatus] = useState({
+    imageStatus: 'Loading',
+    error: false,
+  });
+
   const [youtubeId, setYoutubeId] = useState([] as any);
 
   useEffect(() => {
@@ -32,23 +39,65 @@ function Youtube() {
       const data = await allYoutube();
       setYoutube(data.data.data);
       setTmp(data.data.data);
+      const youtubeList = localStorage.getItem('youtubeList');
+
+      if (youtubeList) {
+        setYoutubeId(youtubeList);
+      }
     }
     setContent();
-    console.log(youtubeId);
+    // console.log(youtubeId);
 
     return () => {};
   }, []);
 
+  useEffect(() => {
+    if (youtubeId.length == 0) return;
+
+    const name = localStorage.getItem('name');
+    const blogList = localStorage.getItem('blogList');
+    if (youtubeId === 'flag') localStorage.removeItem('youtubeList');
+    else localStorage.setItem('youtubeList', youtubeId);
+
+    const user: object = {
+      name: name as any,
+      blogList: blogList == null ? [] : (blogList?.split(',') as any),
+      youtubeList: youtubeId === 'flag' ? [] : (youtubeId?.split(',') as any),
+    };
+    setCurrentUser(user);
+  }, [youtubeId]);
+
   function idAdd(data: any) {
-    setYoutubeId(youtubeId.concat(data));
+    if (youtubeId === 'flag') setYoutubeId('');
+
+    const ylFromStroage = localStorage.getItem('youtubeList');
+
+    let ylString = youtubeId.concat(',' + data);
+
+    let size = ylFromStroage === null ? 0 : 1;
+
+    if (size == 0) {
+      ylString = data;
+    }
+    setYoutubeId(ylString);
   }
 
   function idRemove(data: any) {
-    setYoutubeId(youtubeId.filter((id: any) => data != id));
+    let idx = youtubeId.indexOf(data);
+
+    if (idx == 0) {
+      if (youtubeId.length == data.length) {
+        setYoutubeId('flag');
+      } else {
+        setYoutubeId(youtubeId.replace(data + ',', ''));
+      }
+    } else {
+      setYoutubeId(youtubeId.replace(',' + data, ''));
+    }
   }
 
   const cardList = youtube.map((res: any) => (
-    <Grid item xs={12} md={4} sm={6}>
+    <Grid key={res.id} item xs={12} md={4} sm={6}>
       <StyledCard
         style={{
           display: 'flex',
@@ -67,7 +116,7 @@ function Youtube() {
           <div>
             <CardTitle href={res.url}>{res.title}</CardTitle>
             <CardButtonGroup
-              checked={youtubeId}
+              checked={youtubeId.indexOf(res.id) >= 0 ? true : false}
               id={res.id}
               idAdd={idAdd}
               idRemove={idRemove}
@@ -106,7 +155,7 @@ function Youtube() {
         </div>
       </div>
       <br />
-      <Grid spacing={4}>
+      <Grid container spacing={4}>
         <Grid item xs={12}>
           <Grid container spacing={4}>
             {cardList}

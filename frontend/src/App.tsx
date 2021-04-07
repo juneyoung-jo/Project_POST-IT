@@ -43,6 +43,14 @@ const App: React.FC = (): ReactElement => {
       .then((response) => {
         setCurrentUser(response), setAuthenticated(true), setLoading(false);
         console.log(response);
+
+        localStorage.setItem('name', response.data.name);
+        if (response.data.youtubeList.length != 0) {
+          localStorage.setItem('youtubeList', response.data.youtubeList);
+        }
+        if (response.data.blogList.length != 0) {
+          localStorage.setItem('blogList', response.data.blogList);
+        }
       })
       .catch((error) => {
         setLoading(false);
@@ -56,6 +64,9 @@ const App: React.FC = (): ReactElement => {
 
   function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem('name');
+    localStorage.removeItem('blogList');
+    localStorage.removeItem('youtubeList');
     setAuthenticated(false), setCurrentUser(null);
   }
 
