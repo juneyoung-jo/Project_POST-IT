@@ -97,7 +97,13 @@ function Blog() {
   const [tmp, setTmp] = useState([] as any);
   const [blogId, setBlogId] = useState([] as any);
   const [category, setCategory] = useState(1);
+  const [authenticated, setAuthenticated] = useState(false);
+
   useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      setAuthenticated(true);
+    }
+
     async function setContent() {
       // axios 요청
       const data = await cartegorySearch(category);
@@ -107,7 +113,7 @@ function Blog() {
       const blogList = localStorage.getItem('blogList');
 
       if (blogList) {
-        console.log('---------------');
+        // console.log('---------------');
         setBlogId(blogList);
       }
     }
@@ -117,6 +123,7 @@ function Blog() {
       // 해당 컴포넌트가 사라질 때
       setBlog([]);
       setTmp([]);
+      setAuthenticated(false);
     };
   }, [category]);
 
@@ -125,7 +132,7 @@ function Blog() {
     // point2. 블로그 리스트 하나일 경우, remove하면 blogId는 flag만 남음 => 맞음
     // point3. 블로그 리스트가 하나일 경우, idAdd에서 blogId를 ''로 세팅 => 실행안됨
     //
-    console.log('useEff : ' + blogId);
+    // console.log('useEff : ' + blogId);
     if (blogId.length == 0) return;
 
     const name = localStorage.getItem('name');
@@ -139,8 +146,8 @@ function Blog() {
       youtubeList: youtubeList == null ? [] : (youtubeList?.split(',') as any),
     };
     setCurrentUser(user);
-    console.log('after axios');
-    console.log(user);
+    // console.log('after axios');
+    // console.log(user);
   }, [blogId]);
 
   const company: any = {
@@ -163,7 +170,7 @@ function Blog() {
     // 2. 1번이 실행 안되어서, blogId가 flag인 상태에서 concat data됨
     // 3. blString에는 flag, blogId가 들어가있음
     // 4. blogId가 flag이면, localStorage는 반드시 null임
-    console.log('idAdd ' + blogId);
+    // console.log('idAdd ' + blogId);
     let size = blFromStorage === null ? 0 : 1;
     // 5. size가 무조건 0으로 됨
     if (size == 0) {
@@ -171,7 +178,7 @@ function Blog() {
       blString = data;
     }
     setBlogId(blString); // 7. blogId 하나로 setBlogId가 호출되어서 하나의 값만 잘 들어감
-    console.log('idAdd after ' + blogId); // 비동기라 setblogid 반영되기 전에 호출됨
+    // console.log('idAdd after ' + blogId); // 비동기라 setblogid 반영되기 전에 호출됨
     // 그래서 이때 blogId는 flag지만, 173 line의 setblogId가 완료되고 나면,
     // 변경될거라 무시해도됨.
   }
@@ -207,13 +214,6 @@ function Blog() {
         }}
       >
         {/* 카드 이미지 시작 */}
-        <button
-          onClick={() => {
-            console.log(blogId);
-          }}
-        >
-          getBlogId
-        </button>
         <div className="cardimg-wrapper">
           <div className="cardimg-inner">
             <img
@@ -238,12 +238,16 @@ function Blog() {
         <CardWrapper>
           <div>
             <CardTitle href={res.url}>{res.title}</CardTitle>
-            <CardButtonGroup
-              checked={blogId.indexOf(res.id) >= 0 ? true : false}
-              id={res.id}
-              idAdd={idAdd}
-              idRemove={idRemove}
-            ></CardButtonGroup>
+            {authenticated ? (
+              <>
+                <CardButtonGroup
+                  checked={blogId.indexOf(res.id) >= 0 ? true : false}
+                  id={res.id}
+                  idAdd={idAdd}
+                  idRemove={idRemove}
+                ></CardButtonGroup>
+              </>
+            ) : null}
           </div>
           <CardInnerWrapper>
             <CardDate>{res.date}</CardDate>
@@ -280,8 +284,12 @@ function Blog() {
             color: '#e2e2e2',
           }}
         >
-          <SubTitle>내 관심분야</SubTitle>
-          <Switch filterCard={filterCard}></Switch>
+          {authenticated ? (
+            <>
+              <SubTitle>내 관심분야</SubTitle>
+              <Switch filterCard={filterCard}></Switch>
+            </>
+          ) : null}
         </div>
       </div>
       <LazyLoad once>
