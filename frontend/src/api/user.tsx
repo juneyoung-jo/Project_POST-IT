@@ -1,4 +1,8 @@
 import { API_BASE_URL, ACCESS_TOKEN } from 'config/config';
+import { tokenState } from 'index';
+import { useRecoilValue } from 'recoil';
+
+const token = useRecoilValue(tokenState);
 
 const request = (options: any) => {
   const headers = new Headers({
@@ -6,10 +10,7 @@ const request = (options: any) => {
   });
 
   if (localStorage.getItem(ACCESS_TOKEN)) {
-    headers.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem(ACCESS_TOKEN),
-    );
+    headers.append('Authorization', 'Bearer ' + token);
   }
 
   const defaults = { headers: headers };

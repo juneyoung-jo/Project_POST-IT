@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-
 class OAuth2RedirectHandler extends Component<{ location?: Location }> {
   getUrlParameter(name: any) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -18,7 +17,7 @@ class OAuth2RedirectHandler extends Component<{ location?: Location }> {
     const error = this.getUrlParameter('error');
 
     if (token) {
-      localStorage.setItem('accessToken', token);
+      // localStorage.setItem('accessToken', token);
       //   localStorage.setItem('refreshToken', token);
       return (
         <Redirect

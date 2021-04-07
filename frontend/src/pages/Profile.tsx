@@ -3,6 +3,8 @@ import TopButton from 'components/common/TopButton';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
+import { RecoilRoot, selector, useRecoilState, useRecoilValue } from 'recoil';
+// import { getToken } from 'App';
 
 const customMediaQuery = (maxWidth: number) =>
   `@media (max-width: ${maxWidth}px)`;
@@ -107,6 +109,8 @@ const Button = styled.button`
 `;
 
 const Profile = () => {
+  // const [tokenLoadable, refetchToken] = useRecoilState(getToken);
+  // const token = useRecoVi
   return (
     <Container>
       <TopButton></TopButton>
