@@ -1,4 +1,5 @@
 import { API_BASE_URL, ACCESS_TOKEN } from 'config/config';
+import { tokenState } from 'index';
 
 const request = (options: any) => {
   const headers = new Headers({

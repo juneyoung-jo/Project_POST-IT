@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 import { StyledCard, StyledSelect } from './Daily.styles';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -9,7 +8,11 @@ import { CardButtonGroup, Switch } from './Common';
 import FormControl from '@material-ui/core/FormControl';
 import { setCurrentUser } from 'api/user';
 import Select from '@material-ui/core/Select';
-// import { withStyles } from '@material-ui/core/styles';
+// import { tokenState } from 'index';
+import { tokenState } from 'index';
+import axios from 'axios';
+import { API_BASE_URL } from 'config/config';
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import {
   Title,
   SubTitle,
@@ -19,8 +22,6 @@ import {
   CardCompany,
   CardDate,
 } from './Daily.styles';
-import { array } from '@amcharts/amcharts4/core';
-import { ContactsOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,11 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-// const [user, setUser] = React.useState({
-//   name: localStorage.getItem('name') as any,
-//   blogList: localStorage.getItem('blogList') as any,
-//   youtubeList: localStorage.getItem('youtubeList') as any,
-// });
 const list: string[] = [];
 
 function MySelect(props: any) {
@@ -93,11 +89,45 @@ function MySelect(props: any) {
 function Blog() {
   // blog : 전체 블로그를 저장할 array
   // blogId : 북마크된 id array
+  // const [tokenLoadable, refetchToken] = useRecoilLoadableState(getToken);
   const [blog, setBlog] = useState([] as any);
   const [tmp, setTmp] = useState([] as any);
   const [blogId, setBlogId] = useState([] as any);
   const [category, setCategory] = useState(1);
+  const token = useRecoilValue(tokenState);
   const [authenticated, setAuthenticated] = useState(false);
+
+  const request = (options: any) => {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    if (token) {
+      headers.append('Authorization', 'Bearer ' + token);
+    }
+
+    const defaults = { headers: headers };
+    options = Object.assign({}, defaults, options);
+    return fetch(options.url, options).then((response) =>
+      response.json().then((json) => {
+        if (!response.ok) {
+          return Promise.reject(json);
+        }
+        return json;
+      }),
+    );
+  };
+
+  function setCurrentUser(user: any) {
+    if (!token) {
+      return Promise.reject('No access token set.');
+    }
+    return request({
+      url: API_BASE_URL + '/user/me',
+      method: 'post',
+      body: JSON.stringify(user),
+    });
+  }
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
@@ -107,18 +137,15 @@ function Blog() {
     async function setContent() {
       // axios 요청
       const data = await cartegorySearch(category);
-      // console.log(data);
       setBlog(data.data.data);
       setTmp(data.data.data);
       const blogList = localStorage.getItem('blogList');
 
       if (blogList) {
-        // console.log('---------------');
         setBlogId(blogList);
       }
     }
     setContent();
-
     return () => {
       // 해당 컴포넌트가 사라질 때
       setBlog([]);
@@ -132,7 +159,6 @@ function Blog() {
     // point2. 블로그 리스트 하나일 경우, remove하면 blogId는 flag만 남음 => 맞음
     // point3. 블로그 리스트가 하나일 경우, idAdd에서 blogId를 ''로 세팅 => 실행안됨
     //
-    // console.log('useEff : ' + blogId);
     if (blogId.length == 0) return;
 
     const name = localStorage.getItem('name');
@@ -146,8 +172,6 @@ function Blog() {
       youtubeList: youtubeList == null ? [] : (youtubeList?.split(',') as any),
     };
     setCurrentUser(user);
-    // console.log('after axios');
-    // console.log(user);
   }, [blogId]);
 
   const company: any = {
@@ -267,7 +291,7 @@ function Blog() {
   }
   return (
     <div>
-      <Title>최신 블로그 게시물들을 가져왔어요📌 </Title>
+      <Title>최신 블로그 게시물들을 가져왔어요📌</Title>
       <div
         style={{
           display: 'flex',
