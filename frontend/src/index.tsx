@@ -10,6 +10,11 @@ export const getTokenTrigger = atom({
   default: 0, // default value (aka initial value)
 });
 
+export const toggleState = atom({
+  key: 'toggleState',
+  default: false,
+});
+
 export const tokenState = selector({
   key: 'tokenState',
   get: async ({ get }) => {

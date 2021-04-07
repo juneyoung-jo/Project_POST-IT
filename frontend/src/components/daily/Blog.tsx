@@ -12,6 +12,8 @@ import Select from '@material-ui/core/Select';
 import { tokenState } from 'index';
 import axios from 'axios';
 import { API_BASE_URL } from 'config/config';
+import { toggleState } from 'index';
+
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import {
   Title,
@@ -96,6 +98,7 @@ function Blog() {
   const [category, setCategory] = useState(1);
   const token = useRecoilValue(tokenState);
   const [authenticated, setAuthenticated] = useState(false);
+  const [toggle, setToggle] = useRecoilState(toggleState);
 
   const request = (options: any) => {
     const headers = new Headers({
@@ -130,7 +133,7 @@ function Blog() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
+    if (localStorage.getItem('name')) {
       setAuthenticated(true);
     }
 
@@ -174,6 +177,10 @@ function Blog() {
     setCurrentUser(user);
   }, [blogId]);
 
+  useEffect(() => {
+    console.log;
+  }, []);
+
   const company: any = {
     1: '카카오',
     2: '우아한 형제들',
@@ -209,22 +216,20 @@ function Blog() {
 
   function idRemove(data: any) {
     let idx = blogId.indexOf(data);
-    // console.log(blogId.substring(data.length + 1));
     if (idx == 0) {
       if (blogId.length == data.length) {
         setBlogId('flag');
       } else {
         setBlogId(blogId.replace(data + ',', ''));
       }
-      // console.log(blogId.substring(data.length + 1));
     } else {
       setBlogId(blogId.replace(',' + data, ''));
-      // console.log(blogId.replace(',' + data, ''));
     }
   }
 
   function change(data: number) {
     setCategory(data);
+    setToggle(!toggle);
   }
   const cardList = blog.map((res: any) => (
     <Grid key={res.id} item xs={12} md={4} sm={6}>
@@ -311,7 +316,7 @@ function Blog() {
           {authenticated ? (
             <>
               <SubTitle>내 관심분야</SubTitle>
-              <Switch filterCard={filterCard}></Switch>
+              <Switch filterCard={filterCard} checked={false}></Switch>
             </>
           ) : null}
         </div>
