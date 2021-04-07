@@ -47,7 +47,7 @@ spring:
           github:
             clientId: f94d66b82e2e9a0b300c
             clientSecret: 05db68d8b0ca77dff03f994ae98ae40c5a995ac4
-            redirectUri: "postit_zuulserver/api/auth/oauth2/callback/{registrationId}"
+            redirectUri: "http://localhost:8443/oauth2/callback/{registrationId}"
             scope:
               - user:email
               - read:user

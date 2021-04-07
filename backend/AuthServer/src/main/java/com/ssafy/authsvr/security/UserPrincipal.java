@@ -31,14 +31,11 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private Map<String, Object> attributes;
 
     public UserPrincipal(String id, String email, String password, Collection<? extends GrantedAuthority> authorities){
-//                         ,List<Integer> blogList, List<Integer> youtubeList, List<Integer> jobList) {
         this.id = id;
+        this.name = "hiyo";
         this.email = email;
         this.password = password;
         this.authorities = authorities;
-//        this.blogList = blogList;
-//        this.youtubeList = youtubeList;
-//        this.jobList = jobList;
     }
 
     public UserPrincipal(String id, String name, String email, String password, Collection<? extends GrantedAuthority> authorities
@@ -89,7 +86,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return name;
     }
 
     @Override
