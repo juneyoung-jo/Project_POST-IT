@@ -6,7 +6,6 @@ import {
   TurnedIn,
 } from '@material-ui/icons';
 import { SliderSwitch } from './Daily.styles';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import { toggleState } from 'index';
 
@@ -47,31 +46,33 @@ export function Switch(props: any) {
   // const [checked, setChecked] = useState(false);
   const [toggle, setToggle] = useRecoilState(toggleState);
   useEffect(() => {
-    alert();
-    // console.log('버튼이 렌더링 됐나여?');
+    console.log(props);
+    props.filterCard(toggle);
+    console.log('버튼이 렌더링 됐나여?');
   }, []);
 
-  const alert = () => {
-    props.filterCard(toggle);
+  // const alert = () => {
+  //   props.filterCard(toggle);
+  // };
+
+  // const change = async () => {
+  //   await setToggle((toggle) => {
+  //     return !toggle;
+  //   });
+  // };
+
+  const switchChange = async () => {
+    setToggle(!toggle);
+    props.filterCard(!toggle);
+    console.log(!toggle);
   };
 
-  const change = async () => {
-    await setToggle((toggle) => {
-      return !toggle;
-    });
-  };
-
-  const handleChange = async () => {
-    change();
-    props.filterCard(toggle);
-    console.log(toggle);
-  };
   return (
     <SliderSwitch>
       <input
         type="checkbox"
         defaultChecked={toggle}
-        onChange={handleChange}
+        onChange={switchChange}
       ></input>
       <span></span>
     </SliderSwitch>

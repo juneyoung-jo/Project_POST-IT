@@ -88,13 +88,6 @@ function Contents() {
           >
             유튜브 동영상
           </MyButton>
-          {/* <Bar> | </Bar>
-          <MyButton
-            onClick={() => clickHandler(2)}
-            style={{ filter: isJob ? 'brightness(1.5)' : 'brightness(0.75)' }}
-          >
-            채용
-          </MyButton> */}
         </Tab>
         {(function () {
           if (active == 0) return <Blog></Blog>;
