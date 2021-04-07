@@ -8,6 +8,7 @@ import theme from 'assets/theme';
 import { Modal } from './Modal';
 import { Wrapper, Button } from './Header.styles';
 import { PropsTypes, MenuTypes } from 'types/common/headerTypes';
+import axios from 'axios';
 
 const MenuItem = ({ to, item, children }: MenuTypes) => (
   <NavLink
@@ -54,6 +55,23 @@ function Header(props: PropsTypes) {
           </MenuItem>
         ) : null}
       </div>
+      <button
+        onClick={() => {
+          // axios.get('http://j4c103.p.ssafy.io:5555/api/auth/refresh%27,%7BwithCredentials:true%7D).then((res)=%3E%7B
+          axios
+            .get('http://j4c103.p.ssafy.io:8443/refresh', {
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
+      >
+        토큰 리프레시
+      </button>
       <button
         onClick={() => {
           getCurrentUser()
