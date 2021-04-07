@@ -35,6 +35,9 @@ const App: React.FC = (): ReactElement => {
   const [authenticated, setAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  // const [name, setName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [img, setImg] = useState('');
 
   useEffect(() => {
     function loadCurrentlyLoggedInUser() {
@@ -43,6 +46,7 @@ const App: React.FC = (): ReactElement => {
       getCurrentUser()
         .then((response) => {
           setCurrentUser(response), setAuthenticated(true), setLoading(false);
+          // setName(response.data.name), setEmail(response.data.email), setImg(response.data.imageUrl);
           console.log(response);
         })
         .catch((error) => {
