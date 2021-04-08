@@ -1,5 +1,6 @@
 package com.ssafy.controller;
 
+import com.ssafy.entity.Report;
 import com.ssafy.payload.ReportResponse;
 import com.ssafy.payload.ReportResponseList;
 import com.ssafy.service.CommonReportService;
@@ -8,6 +9,7 @@ import com.ssafy.util.DateFormat;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
@@ -41,7 +43,7 @@ public class CommonReportController {
         // List<Report> to List<ReportResponse>
         // getWeekOfMonth(Date date) -> 해당월의 주차 ex) 4월 1주차.
         List<ReportResponse> data = commonReportService.listReports().stream()
-                .map(o -> Adapter.toReportResponse(o, DateFormat.getWeekOfMonth(o.getId().getDate())))
+                .map(o -> Adapter.toReportResponse(o, DateFormat.getWeekOfMonth(o.getCreation_date())))
                 .collect(Collectors.toList());
 
         ReportResponseList response = Adapter.toReportResponseList(data);
@@ -50,4 +52,5 @@ public class CommonReportController {
         return CollectionUtils.isEmpty(response.getData()) ? ResponseEntity.status(HttpStatus.CREATED).body(response)
                 : ResponseEntity.ok(response);
     }
+
 }

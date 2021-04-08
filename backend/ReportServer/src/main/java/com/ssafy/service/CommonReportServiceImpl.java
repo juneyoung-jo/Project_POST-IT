@@ -3,6 +3,7 @@ package com.ssafy.service;
 import com.ssafy.entity.Report;
 import com.ssafy.repository.BlogRepository;
 import com.ssafy.repository.CommonReportRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,8 @@ public class CommonReportServiceImpl implements CommonReportService {
     public List<Report> listReports() {
         return commonReportRepository.findAll()
                 .stream()
-                .sorted((o1, o2) -> o2.getId().getDate().compareTo(o1.getId().getDate()))
+                .sorted((o1, o2) -> Long.compare(o2.getCreation_date(),o1.getCreation_date()))
                 .collect(Collectors.toList());
     }
+
 }

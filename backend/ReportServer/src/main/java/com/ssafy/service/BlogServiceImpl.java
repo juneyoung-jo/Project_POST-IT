@@ -5,6 +5,7 @@ import com.ssafy.util.Adapter;
 import com.ssafy.payload.BlogRequest;
 import com.ssafy.payload.BlogResponse;
 import com.ssafy.repository.BlogRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -23,6 +24,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(value = "listBlog")
     public List<Blog> listBlogContents() {
         /*
         1. findAll함수로 List<BlogDto>를 가져옴.
@@ -49,10 +51,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(value = "blog",key = "#category")
     public List<Blog> listCategoryBlogContents(int category) {
         return blogRepository.findAll()
                 .stream()
-                .filter(o->o.getCategory() == category)
+                .filter(o -> o.getCategory() == category)
                 .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate()))
                 .collect(Collectors.toList());
     }

@@ -1,0 +1,10 @@
+server:
+  port: 8443
+
+spring:
+  application:
+    name: authserver
+
+  cloud:
+    config:
+      uri: http://j4c103.p.ssafy.io:8888
