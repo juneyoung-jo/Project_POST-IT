@@ -1,4 +1,4 @@
-import React, { useRef, SyntheticEvent } from 'react';
+import { useRef, SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 
@@ -91,7 +91,7 @@ const Home = () => {
 
   const handleClick = (e: SyntheticEvent) => {
     // console.log(e.currentTarget.parentElement?.clientHeight);
-    let sectionHeight = sectionOne.current?.clientHeight;
+    const sectionHeight = sectionOne.current?.clientHeight;
 
     window.scrollTo(
       sectionHeight ? { top: sectionHeight, behavior: 'smooth' } : { top: 0 },
@@ -108,7 +108,7 @@ const Home = () => {
           </SlideButton>
         </ButtonWrapper>
       </Main>
-      <Box></Box>
+      <Box />
       <SectionOne ref={sectionOne}>
         <h1>section_1</h1>
       </SectionOne>

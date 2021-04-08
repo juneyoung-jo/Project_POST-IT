@@ -65,6 +65,7 @@ function Contents() {
   };
   return (
     <Wrapper>
+      <Button />
       <Container>
         <Tab>
           <MyButton
