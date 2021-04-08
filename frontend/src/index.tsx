@@ -6,6 +6,8 @@ import React from 'react';
 import { REFRESH_TOKEN } from 'config/config';
 import { CircularProgress } from '@material-ui/core';
 
+import GlobalStyle from 'assets/styles/GlobalStyle';
+
 export const getTokenTrigger = atom({
   key: 'getTokenTrigger', // unique ID (with respect to other atoms/selectors)
   default: 0, // default value (aka initial value)
@@ -50,6 +52,7 @@ ReactDOM.render(
             background: '#2d2839',
           }}
         >
+          <GlobalStyle />
           <CircularProgress />
         </div>
       }

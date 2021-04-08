@@ -114,66 +114,16 @@ const Button = styled.button`
 `;
 
 const Profile = () => {
-  const [token, setToken] = useRecoilState(tokenState);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [img, setImg] = useState('');
-
-  const request = (options: any) => {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-    });
-
-    if (token) {
-      headers.append('Authorization', 'Bearer ' + token);
-    }
-
-    const defaults = { headers: headers };
-    options = Object.assign({}, defaults, options);
-    return fetch(options.url, options).then((response) =>
-      response.json().then((json) => {
-        if (!response.ok) {
-          return Promise.reject(json);
-        }
-        return json;
-      }),
-    );
-  };
-
-  function getCurrentUser() {
-    if (!token) {
-      return Promise.reject('No access token set.');
-    }
-    return request({
-      url: API_BASE_URL + '/user/me',
-      method: 'GET',
-    });
-  }
-
-  function loadCurrentlyLoggedInUser() {
-    getCurrentUser()
-      .then((response) => {
-        setName(response.data.name),
-          setEmail(response.data.email),
-          setImg(response.data.imageUrl);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  useEffect(() => {
-    setToken(1); // 토큰 생성
-    loadCurrentlyLoggedInUser();
-    return () => {};
-  }, [token]);
+  const name = localStorage.getItem('name') as string;
+  const email = localStorage.getItem('email') as string;
+  const imageUrl = localStorage.getItem('imageUrl') as string;
 
   return (
     <Container>
       <TopButton></TopButton>
       <ProfileBox>
         <Title>{name}님의 프로필</Title>
-        <Profileimg src={img}></Profileimg>
+        <Profileimg src={imageUrl}></Profileimg>
         <div className="user-info">{name}</div>
         <div className="user-info">{email}</div>
       </ProfileBox>
