@@ -54,7 +54,13 @@ function Header(props: PropsTypes) {
           일일 컨텐츠
         </MenuItem>
         {props.authenticated ? (
-          <MenuItem to={'/profile'} item={'menus'}>
+          <MenuItem
+            to={'/profile'}
+            item={'menus'}
+            // name={props.name}
+            // email={props.email}
+            // img={props.email}
+          >
             프로필
           </MenuItem>
         ) : null}
@@ -62,34 +68,6 @@ function Header(props: PropsTypes) {
           내 스크랩
         </MenuItem> */}
       </div>
-      <button
-        onClick={() => {
-          // axios.get('http://j4c103.p.ssafy.io:5555/api/auth/refresh%27,%7BwithCredentials:true%7D).then((res)=%3E%7B
-          axios
-            .get('http://j4c103.p.ssafy.io:8443/refresh', {
-              withCredentials: true,
-            })
-            .then((res) => {
-              console.log(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }}
-      >
-        토큰 리프레시
-      </button>
-      <button
-        onClick={() => {
-          getCurrentUser()
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-        }}
-      >
-        getUser
-      </button>
-
-      {/* 로그아웃 버튼 */}
       {props.authenticated ? (
         <div className="header-menus">
           <Button
