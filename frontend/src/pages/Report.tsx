@@ -21,14 +21,17 @@ import {
 import TopButton from 'components/common/TopButton';
 
 // 주차별 옵션
-const weeks: string[] = [];
+let weeks: string[] = [];
 let weekIndex = new Map();
-const most_vote: Array<Array<object>> = [];
-const all_category_ratio: Array<Array<object>> = [];
-const category_report: Array<object> = [];
+let most_vote: Array<Array<object>> = [];
+let all_category_ratio: Array<Array<object>> = [];
+let category_report: Array<object> = [];
 
 function empty() {
   weeks.length = 0;
+  most_vote.length = 0;
+  all_category_ratio.length = 0;
+  category_report.length = 0;
 }
 const Report = () => {
   const classes = useStyles();
@@ -53,28 +56,48 @@ const Report = () => {
 
   //axios작업
   useEffect(() => {
-    getReport()
-      .then((res) => {
-        empty();
-        for (const d in res.data.data) {
-          weekIndex.set(res.data.data[d].date, d);
-          weeks.push(res.data.data[d].date);
-          most_vote.push(res.data.data[d].common_report.most_vote);
-          all_category_ratio.push(
-            res.data.data[d].common_report.all_category_ratio,
-          );
-          category_report.push(res.data.data[d].category_report);
-        }
+    async function insertReportData() {
+      let res = await getReport();
+      empty();
+      for (const d in res.data.data) {
+        weekIndex.set(res.data.data[d].date, d);
+        weeks.push(res.data.data[d].date);
+        most_vote.push(res.data.data[d].common_report.most_vote);
+        all_category_ratio.push(
+          res.data.data[d].common_report.all_category_ratio,
+        );
+        category_report.push(res.data.data[d].category_report);
+      }
 
-        return res.data.data;
-      })
-      .then((res) => {
-        setCategoryReport(res[0].category_report);
-        setMostVote(res[0].common_report.most_vote);
-        setAllCategoryRatio(res[0].common_report.all_category_ratio);
-        setDate(res[0].date);
-      })
-      .catch((err) => console.log(err));
+      let initData = res.data.data[0]; // index 0인 값들, 가장 최신 주차
+      setCategoryReport(initData.category_report);
+      setMostVote(initData.common_report.most_vote);
+      setAllCategoryRatio(initData.common_report.all_category_ratio);
+      setDate(initData.date);
+    }
+    insertReportData();
+    // getReport()
+    //   .then((res) => {
+    //     empty();
+    //     for (const d in res.data.data) {
+    //       weekIndex.set(res.data.data[d].date, d);
+    //       weeks.push(res.data.data[d].date);
+    //       most_vote.push(res.data.data[d].common_report.most_vote);
+    //       all_category_ratio.push(
+    //         res.data.data[d].common_report.all_category_ratio,
+    //       );
+    //       category_report.push(res.data.data[d].category_report);
+    //     }
+
+    //     return res.data.data;
+    //   })
+    //   .then((res) => {
+    //     setCategoryReport(res[0].category_report);
+    //     setMostVote(res[0].common_report.most_vote);
+    //     setAllCategoryRatio(res[0].common_report.all_category_ratio);
+    //     setDate(res[0].date);
+    //   })
+    //   .catch((err) => console.log(err));
 
     return () => {
       setAllCategoryRatio([]);

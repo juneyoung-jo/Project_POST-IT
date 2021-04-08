@@ -73,7 +73,7 @@ function Youtube() {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
+    if (localStorage.getItem('name')) {
       setAuthenticated(true);
     }
     async function setContent() {

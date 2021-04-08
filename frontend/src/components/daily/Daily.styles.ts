@@ -151,7 +151,7 @@ const CardWrapper = styled.div`
   font-family: 'Circular Std', 'Noto Sans KR', 'Open Sans', sans-serif;
   width: 100%;
   height: 100%;
-  padding: 1rem;
+  padding: 24px;
   background: #201d29;
   display: flex;
   flex-direction: column;
@@ -175,9 +175,9 @@ const CardTitle = styled.a`
   color: ${({ theme }) => theme.colors.text.second};
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.md};
-  padding-right: 1rem;
+  word-break: keep-all;
   letter-spacing: 0.5px;
-  line-height: 24px;
+  line-height: 32px;
 `;
 const CardCompany = styled.p`
   color: ${({ theme }) => theme.colors.text.second};
