@@ -16,6 +16,7 @@ function ImageChart(props: IProps) {
   let data = props.data.sort((a: any, b: any) =>
     a.value > b.value ? -1 : a.value < b.value ? 1 : 0,
   );
+  console.log(data);
   useLayoutEffect(() => {
     // create chart
     let iconPath =

@@ -7,6 +7,10 @@ import { allYoutube } from 'api/daily';
 import LazyLoad from 'react-lazyload';
 import { CardButtonGroup, Switch } from './Common';
 import { setCurrentUser } from 'api/user';
+import { API_BASE_URL } from 'config/config';
+
+import { RecoilRoot, useRecoilState } from 'recoil';
+import { tokenState } from 'index';
 
 import {
   Title,
@@ -26,18 +30,50 @@ const CardButtonWrapper = styled.div`
 function Youtube() {
   const [youtube, setYoutube] = useState([] as any);
   const [tmp, setTmp] = useState([] as any);
-
   const [status, setStatus] = useState({
     imageStatus: 'Loading',
     error: false,
   });
-
   const [youtubeId, setYoutubeId] = useState([] as any);
 
+  const [token, setToken] = useRecoilState(tokenState);
+
+  const request = (options: any) => {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    if (token) {
+      headers.append('Authorization', 'Bearer ' + token);
+    }
+
+    const defaults = { headers: headers };
+    options = Object.assign({}, defaults, options);
+    return fetch(options.url, options).then((response) =>
+      response.json().then((json) => {
+        if (!response.ok) {
+          return Promise.reject(json);
+        }
+        return json;
+      }),
+    );
+  };
+
+  function setCurrentUser(user: any) {
+    if (!token) {
+      return Promise.reject('No access token set.');
+    }
+
+    return request({
+      url: API_BASE_URL + '/user/me',
+      method: 'post',
+      body: JSON.stringify(user),
+    });
+  }
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
+    if (localStorage.getItem('name')) {
       setAuthenticated(true);
     }
     async function setContent() {

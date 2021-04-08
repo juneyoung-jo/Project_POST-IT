@@ -45,24 +45,6 @@ function NetworkMap(props: ChartPropsType) {
     hoverState.properties.strokeWidth = 3;
     hoverState.properties.strokeOpacity = 1;
 
-    // networkSeries.nodes.template.events.on('over', function (event) {
-    //   event.target.dataItem.childLinks.each(function (link) {
-    //     link.isHover = true;
-    //   });
-    //   if (event.target.dataItem.parentLink) {
-    //     event.target.dataItem.parentLink.isHover = true;
-    //   }
-    // });
-
-    // networkSeries.nodes.template.events.on('out', function (event) {
-    //   event.target.dataItem.childLinks.each(function (link) {
-    //     link.isHover = false;
-    //   });
-    //   if (event.target.dataItem.parentLink) {
-    //     event.target.dataItem.parentLink.isHover = false;
-    //   }
-    // });
-
     let title = chart.titles.create();
     title.text = `키워드 네트워크 맵`;
     title.fontSize = 20;

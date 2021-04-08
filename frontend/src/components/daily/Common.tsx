@@ -6,7 +6,8 @@ import {
   TurnedIn,
 } from '@material-ui/icons';
 import { SliderSwitch } from './Daily.styles';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
+import { toggleState } from 'index';
 
 const Button = styled.button`
   background: none;
@@ -23,7 +24,7 @@ export function CardButtonGroup(props: any) {
   // props.id 와 저장된 id 찾기
   // (...)
   function handleChange(e: any) {
-    if (!localStorage.getItem('accessToken')) return;
+    if (!localStorage.getItem('name')) return;
 
     setChecked(!checked);
     // e.preventDefault();
@@ -42,15 +43,37 @@ export function CardButtonGroup(props: any) {
 
 // Switch 버튼 컴포넌트
 export function Switch(props: any) {
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
+  const [toggle, setToggle] = useRecoilState(toggleState);
+  useEffect(() => {
+    console.log(props);
+    props.filterCard(toggle);
+    console.log('버튼이 렌더링 됐나여?');
+  }, []);
 
-  const handleChange = async () => {
-    setChecked(!checked);
-    props.filterCard(!checked);
+  // const alert = () => {
+  //   props.filterCard(toggle);
+  // };
+
+  // const change = async () => {
+  //   await setToggle((toggle) => {
+  //     return !toggle;
+  //   });
+  // };
+
+  const switchChange = async () => {
+    setToggle(!toggle);
+    props.filterCard(!toggle);
+    console.log(!toggle);
   };
+
   return (
     <SliderSwitch>
-      <input type="checkbox" onChange={handleChange}></input>
+      <input
+        type="checkbox"
+        defaultChecked={toggle}
+        onChange={switchChange}
+      ></input>
       <span></span>
     </SliderSwitch>
   );

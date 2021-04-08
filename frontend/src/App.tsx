@@ -10,10 +10,13 @@ import {
   Link,
 } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Container } from '@material-ui/core';
 import OAuth2RedirectHandler from 'api/oauth2';
-import { getCurrentUser } from 'api/user';
+// import { getCurrentUser } from 'api/user';
 import { ACCESS_TOKEN } from 'config/config';
 import AOS from 'aos';
+import axios from 'axios';
+import { API_BASE_URL } from 'config/config';
 
 // styles
 import GlobalStyle from 'assets/styles/GlobalStyle';
@@ -36,22 +39,65 @@ import Contents from 'pages/Contents';
 import MyFolder from 'pages/MyFolder';
 import Profile from 'pages/Profile';
 
+// recoil
+import { RecoilRoot, useRecoilState, selector } from 'recoil';
+import { tokenState } from 'index';
+import { setgid } from 'node:process';
+
 AOS.init();
 
 const App: React.FC = (): ReactElement => {
   const [authenticated, setAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [img, setImg] = useState('');
+  const [token, setToken] = useRecoilState(tokenState);
 
   let history = useHistory();
 
+  const request = (options: any) => {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    if (token) {
+      headers.append('Authorization', 'Bearer ' + token);
+    }
+
+    const defaults = { headers: headers };
+    options = Object.assign({}, defaults, options);
+    return fetch(options.url, options).then((response) =>
+      response.json().then((json) => {
+        if (!response.ok) {
+          return Promise.reject(json);
+        }
+        return json;
+      }),
+    );
+  };
+
+  function getCurrentUser() {
+    if (!token) {
+      return Promise.reject('No access token set.');
+    }
+    return request({
+      url: API_BASE_URL + '/user/me',
+      method: 'GET',
+    });
+  }
+
   function loadCurrentlyLoggedInUser() {
     setLoading(true);
-
+    // getCurrent request
     getCurrentUser()
       .then((response) => {
-        setCurrentUser(response), setAuthenticated(true), setLoading(false);
         // console.log(response);
+        setCurrentUser(response), setAuthenticated(true), setLoading(false);
+        setName(response.data.name),
+          setEmail(response.data.email),
+          setImg(response.data.imageUrl);
 
         localStorage.setItem('name', response.data.name);
         if (response.data.youtubeList.length != 0) {
@@ -66,52 +112,84 @@ const App: React.FC = (): ReactElement => {
         console.log(error);
       });
   }
+
   useEffect(() => {
+    setToken(1); // 토큰 생성
+    // console.log(token);
     loadCurrentlyLoggedInUser();
     return () => {};
-  }, []);
+  }, [token]);
 
   function handleLogout() {
-    localStorage.removeItem(ACCESS_TOKEN);
+    // localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem('name');
     localStorage.removeItem('blogList');
     localStorage.removeItem('youtubeList');
+    localStorage.removeItem('isLogin');
     setAuthenticated(false), setCurrentUser(null);
   }
 
   if (loading) {
-    return <CircularProgress />;
+    return (
+      <ThemeProvider theme={theme}>
+        {/* css 초기화 */}
+        <BrowserRouter>
+          <GlobalFonts />
+          <GlobalStyle />
+          <Header authenticated={authenticated} onLogout={handleLogout} />
+          <div
+            style={{
+              height: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress />
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+    );
   }
   return (
-    <ThemeProvider theme={theme}>
-      {/* css 초기화 */}
-      <BrowserRouter>
-        <GlobalFonts />
-        <GlobalStyle />
-        <Header authenticated={authenticated} onLogout={handleLogout} />
-        {/* Suspense는 페이지가 랜더링되기 전 event를 설정합니다. */}
-        <Suspense fallback={<CircularProgress />}>
-          <Switch>
-            <Route path="/" component={Home} exact={true} />
-            <Route path="/report" component={Report} exact={true} />
-            <Route path="/contents" component={Contents} exact={true} />
-            <Route path="/profile" component={Profile} exact={true} />
-            <PrivateRoute
-              path="/myfolder/:username"
-              authenticated={authenticated}
-              component={MyFolder}
-              currentUser={currentUser}
-            />
-            <Route
-              path="/oauth2/redirect"
-              component={OAuth2RedirectHandler}
-            ></Route>
-            <Route component={NotFound}></Route>
-          </Switch>
-        </Suspense>
-        <Footer data-aos="fade-in" data-aos-duration="2000" />
-      </BrowserRouter>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        {/* css 초기화 */}
+        <BrowserRouter>
+          <GlobalFonts />
+          <GlobalStyle />
+          <Header authenticated={authenticated} onLogout={handleLogout} />
+          {/* Suspense는 페이지가 랜더링되기 전 event를 설정합니다. */}
+          <Suspense fallback={<CircularProgress />}>
+            <Switch>
+              <Route path="/" component={Home} exact={true} />
+              <Route path="/report" component={Report} exact={true} />
+              <Route path="/contents" component={Contents} exact={true} />
+              <Route
+                path="/profile"
+                component={Profile}
+                exact={true}
+                // name={name}
+                // email={email}
+                // img={img}
+              />
+              <PrivateRoute
+                path="/myfolder/:username"
+                authenticated={authenticated}
+                component={MyFolder}
+                currentUser={currentUser}
+              />
+              <Route
+                path="/oauth2/redirect"
+                component={OAuth2RedirectHandler}
+              ></Route>
+              <Route component={NotFound}></Route>
+            </Switch>
+          </Suspense>
+          <Footer data-aos="fade-in" data-aos-duration="2000" />
+        </BrowserRouter>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 };
 
