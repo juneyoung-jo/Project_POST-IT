@@ -1,0 +1,33 @@
+#mongodb 설정
+spring:
+  data:
+    mongodb:
+      authentication-database: postit
+      username: ssafy103pi
+      password: postit123
+#      host: j4c103.p.ssafy.io
+      host: 3.34.182.63
+      port: 27017
+      database: postit
+
+# openapi 3.0 설정
+springdoc:
+  version: '@project.version@'
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+  # controller path 등록
+  paths-to-match:
+    - /api/v1/**
+    - /main/**
+    - /blog/**
+    - /youtube/**
+    - /report/**
+    - /job/**

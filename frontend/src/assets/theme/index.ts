@@ -17,6 +17,7 @@ const colors = {
   first: '#2d2839',
   second: '#312c40',
   mint: '#4dcb99',
+  purple: '#6a59a3',
   text: {
     first: '#e2e3e6',
     second: '#acabb4',
@@ -29,7 +30,7 @@ const colors = {
   },
 };
 const gradient = {
-  main: 'linear-gradient(45deg, #804bd8, #544ad8)',
+  main: 'linear-gradient(45deg, #2d2839, #312c40)',
 };
 
 const theme: DefaultTheme = {
