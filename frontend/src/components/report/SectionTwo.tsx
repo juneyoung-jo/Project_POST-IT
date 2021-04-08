@@ -88,8 +88,8 @@ function SectionTwo(props: ChartPropsType) {
             />
           </Grid>
           <Grid className={classes.grid} item xs={12}>
-            <Title>에러 TOP 10</Title>
-            <SubTitle>카테고리 별 에러 TOP 10개를 뽑아왔어요.</SubTitle>
+            <Title>에러 TOP N</Title>
+            <SubTitle>카테고리 별 에러 TOP N개를 뽑아왔어요.</SubTitle>
             <ul>
               {props.data[category].most_error.map(
                 (value: any, index: number) => (
