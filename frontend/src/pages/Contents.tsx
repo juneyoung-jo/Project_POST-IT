@@ -90,7 +90,13 @@ function Contents() {
           </MyButton>
         </Tab>
         {(function () {
-          if (active == 0) return <Blog></Blog>;
+          if (active == 0)
+            return(
+              <div>
+                <Title>최신 블로그 게시물</Title>
+                <Blog></Blog>
+              </div>
+            );
           if (active == 1) return <Youtube></Youtube>;
           // if (active == 2) return <Job></Job>;
         })()}
