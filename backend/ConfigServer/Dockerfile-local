@@ -1,0 +1,6 @@
+FROM arm64v8/openjdk
+EXPOSE 8888
+
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=local", "-Djasypt.encryptor.password=wogml23", "/app.jar"]

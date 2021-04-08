@@ -78,8 +78,8 @@ for idx, channel in enumerate(channels):
         channelId=channel,  # 유튜브 채널 ID
         order="date",  # 정렬 기준
         part="snippet",
-        publishedAfter=start.isoformat('T') + "Z",
-        publishedBefore=now.isoformat('T') + "Z",
+        # publishedAfter=start.isoformat('T') + "Z",
+        # publishedBefore=now.isoformat('T') + "Z",
         maxResults=10,  # 개수
         type='video'  # 데이터 타입 (video, channel, playlist 등등 api 문서 참조)
     ).execute()
@@ -98,6 +98,7 @@ file = open('youtube_result.json', 'w', -1, "utf-8")
 json.dump(data, file, ensure_ascii=False)
 file.close
 
-print(data)
+# print(data)
 # 디비에 insert
-# collection.insert_many(data)
+print(data)
+collection.insert_many(data)

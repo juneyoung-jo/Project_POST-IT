@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    config:
+      server:
+        encrypt.enabled: false
+        git:
+          uri: https://lab.ssafy.com/gkswogml23/configtest.git
+          search-paths: EurekaServer, ZuulServer, AuthServer, ReportServer
+          timeout: 10
+          username: ENC(uhAztr7N3t9QwLq63pJ2EPJt3naB+wpG)
+          password: ENC(qeanC1CyU62L1ppJWR16Ikdkjur7uNg6)
+          skip-ssl-validation: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true # 유레카 서비스에 자신을 등록
+    fetchRegistry: true # 레즈스트리의 로컬 복사본 가져오게 허용
+    serviceUrl: # 유레카 클러스터 구축
+      defaultZone: http://j4c103.p.ssafy.io:8761/eureka/

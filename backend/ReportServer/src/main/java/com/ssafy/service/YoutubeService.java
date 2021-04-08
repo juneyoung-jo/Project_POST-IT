@@ -10,4 +10,6 @@ public interface YoutubeService {
     List<Youtube> listYoutubeContents();
 
     List<Youtube> listInterestYoutubeContents(YoutubeRequest youtubeRequest);
+
+    List<Youtube> listCategoryYoutubeContents(List<Integer> categories);
 }

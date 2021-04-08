@@ -1,0 +1,10 @@
+server:
+  port: 5555
+
+spring:
+  application:
+    name: zuulserver
+
+  cloud:
+    config:
+      uri: http://j4c103.p.ssafy.io:8888

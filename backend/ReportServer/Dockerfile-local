@@ -1,0 +1,8 @@
+FROM arm64v8/openjdk
+EXPOSE 8761
+EXPOSE 27017
+
+
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=local", "/app.jar"]

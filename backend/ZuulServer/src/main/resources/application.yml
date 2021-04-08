@@ -1,0 +1,37 @@
+zuul:
+  sensitiveHeaders:
+  ignored-services: "*"
+  prefix: /api
+  routes:
+    reportserver:
+      path: /report/**
+    authserver:
+      path: /auth/**
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true # 유레카 서비스에 자신을 등록
+    fetchRegistry: true # 레즈스트리의 로컬 복사본 가져오게 허용
+    serviceUrl: # 유레카 클러스터 구축
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+jwt:
+  access:
+    expiration: 3600000
+  secret: 926D96C90030DD58429D2751AC1BDBBC
