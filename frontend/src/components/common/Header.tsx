@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
-
 import { getCurrentUser } from 'api/user';
-
 import Login from 'pages/Login';
 import theme from 'assets/theme';
 import { Modal } from './Modal';
 import { Wrapper, Button } from './Header.styles';
 import { PropsTypes, MenuTypes } from 'types/common/headerTypes';
-import axios from 'axios';
 
 const MenuItem = ({ to, item, children }: MenuTypes) => (
   <NavLink
@@ -116,7 +113,7 @@ function Header(props: PropsTypes) {
       >
         <svg
           id="bold"
-          enable-background="new 0 0 24 24"
+          // enable-background="new 0 0 24 24"
           viewBox="0 0 24 24"
           height="20"
           width="20"

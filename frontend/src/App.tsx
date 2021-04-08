@@ -15,7 +15,9 @@ import OAuth2RedirectHandler from 'api/oauth2';
 // import { getCurrentUser } from 'api/user';
 import { ACCESS_TOKEN } from 'config/config';
 import AOS from 'aos';
+// url 관리
 import axios from 'axios';
+import { LOGOUT } from 'config/config';
 import { API_BASE_URL } from 'config/config';
 
 // styles
@@ -43,6 +45,9 @@ import Profile from 'pages/Profile';
 import { RecoilRoot, useRecoilState, selector } from 'recoil';
 import { tokenState } from 'index';
 import { setgid } from 'node:process';
+
+// swal
+import swal from 'sweetalert';
 
 AOS.init();
 
@@ -120,12 +125,23 @@ const App: React.FC = (): ReactElement => {
     return () => {};
   }, [token]);
 
+  function logoutUser() {
+    axios
+      .get(LOGOUT, {
+        withCredentials: true,
+      })
+      .then((res) => console.log(res));
+  }
+
   function handleLogout() {
     // localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem('name');
     localStorage.removeItem('blogList');
     localStorage.removeItem('youtubeList');
     localStorage.removeItem('isLogin');
+    logoutUser();
+    swal('로그아웃 완료', '다음에 또 만나요🖐', 'success');
+
     setAuthenticated(false), setCurrentUser(null);
   }
 
