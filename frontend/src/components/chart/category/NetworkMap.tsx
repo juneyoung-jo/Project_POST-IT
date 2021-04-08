@@ -37,8 +37,8 @@ function NetworkMap(props: ChartPropsType) {
     networkSeries.links.template.distance = 1.5;
     networkSeries.links.template.strokeWidth = 1;
     // 노드 크기 비율
-    networkSeries.minRadius = 20;
-    networkSeries.maxRadius = 45;
+    networkSeries.minRadius = 30;
+    networkSeries.maxRadius = 65;
 
     // 연결 링크 두께, 선명도
     let hoverState = networkSeries.links.template.states.create('hover');
@@ -77,6 +77,6 @@ function NetworkMap(props: ChartPropsType) {
     };
   }, [props]);
 
-  return <div id="networkmap" style={{ width: '100%', height: '500px' }}></div>;
+  return <div id="networkmap" style={{ width: '100%', height: '700px' }}></div>;
 }
 export default NetworkMap;
