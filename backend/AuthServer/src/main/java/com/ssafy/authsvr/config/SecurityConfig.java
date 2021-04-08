@@ -92,6 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                 .formLogin()
                     .disable()
+                .logout()
+                    .disable()
                 .httpBasic()
                     .disable()
                 .exceptionHandling()
@@ -109,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                         .permitAll()
-                    .antMatchers("api/auth/oauth2/**", "/oauth2/**", "/refresh/**")
+                    .antMatchers("api/auth/oauth2/**", "/oauth2/**", "/refresh/**", "/logout")
                         .permitAll()
                     .anyRequest()
                         .authenticated()

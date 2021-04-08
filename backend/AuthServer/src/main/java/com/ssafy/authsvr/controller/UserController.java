@@ -2,6 +2,7 @@ package com.ssafy.authsvr.controller;
 
 import com.ssafy.authsvr.config.AppProperties;
 import com.ssafy.authsvr.payload.InfoUpdateRequest;
+import com.ssafy.authsvr.payload.LogoutResponse;
 import com.ssafy.authsvr.payload.TokenResponse;
 import com.ssafy.authsvr.payload.UserResponse;
 import com.ssafy.authsvr.security.CurrentUser;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -92,6 +94,27 @@ public class UserController {
                                     .token("")
                                     .build()
                         )
+                ;
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(@CookieValue(value=REFRESH_TOKEN_NAME) Cookie refreshTokenCookie, HttpServletResponse res){
+        String refreshToken = refreshTokenCookie.getValue();
+        logger.info("Logout : " + refreshToken);
+
+        boolean isLogout = tokenProvider.validateToken(refreshToken);
+        if(isLogout){
+            Cookie refresh = new Cookie(REFRESH_TOKEN_NAME, null);
+            refresh.setMaxAge(0);
+            refresh.setPath("/");
+            res.addCookie(refresh);
+        }
+        return (isLogout ?
+                        ResponseEntity.ok()
+                                .body("success")
+                                :
+                        ResponseEntity.status(401)
+                                .body("fail"))
                 ;
     }
 
