@@ -1,0 +1,138 @@
+#
+# Author: HanJaehee
+# Date: 2021/04/06
+#
+version: "3"
+
+services:
+  postit_reportserver:
+    # container_name: postit-reportserver
+    build:
+      context: ReportServer
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - postit_configserver
+    networks:
+      - postit_net
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  postit_configserver:
+    container_name: postit-configserver
+    build:
+      context: ConfigServer
+      dockerfile: Dockerfile
+    expose:
+      - 8888
+    networks:
+      - postit_net
+    deploy:
+      update_config:
+        parallelism: 1
+        order: stop-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  postit_eurekaserver:
+    container_name: postit-eurekaserver
+    build:
+      context: EurekaServer
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    # expose:
+    # - 8761
+    depends_on:
+      - postit_configserver
+    networks:
+      - postit_net
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        order: stop-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  postit_zuulserver:
+    container_name: postit-zuulserver
+    build:
+      context: ZuulServer
+      dockerfile: Dockerfile
+    ports:
+      - 5555:5555
+    depends_on:
+      - postit_configserver
+    networks:
+      - postit_net
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        order: stop-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+
+  postit_authserver:
+    container_name: postit-authserver
+    build:
+      context: AuthServer
+      dockerfile: Dockerfile
+    expose:
+      - 8443
+    depends_on:
+      - postit_configserver
+    networks:
+      - postit_net
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+networks:
+  postit_net:
+    driver: bridge
